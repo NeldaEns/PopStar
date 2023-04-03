@@ -7,16 +7,17 @@ public class UIController : MonoBehaviour
     public static UIController ins;
     [HideInInspector]
     public UIScreenBase currentScreen;
-
     public GameObject mainMenu;
     public GameObject casualPanel;
-    public GameObject mainCamera;
+    public GameObject mainCameraPrefabs;
 
     private void Awake()
     {
-        if(ins != null)
+        GameObject mainCamera = Instantiate(mainCameraPrefabs);
+        if (ins != null)
         {
             Destroy(gameObject);
+            Destroy(mainCamera);
         }
         else
         {
@@ -28,7 +29,10 @@ public class UIController : MonoBehaviour
 
     private void Start()
     {
-        currentScreen = Instantiate(mainMenu, transform).GetComponent<UIMainMenu>();
+        Canvas canvas = gameObject.GetComponent<Canvas>();
+        canvas.renderMode = RenderMode.ScreenSpaceCamera;
+        canvas.worldCamera = Camera.main;
+        currentScreen = Instantiate(mainMenu, transform).GetComponent<UIMainMenu>();    
     }
 
     public void ShowCasual()
@@ -41,6 +45,5 @@ public class UIController : MonoBehaviour
     {
         Destroy(currentScreen.gameObject);
         currentScreen = Instantiate(mainMenu, transform).GetComponent<UIMainMenu>();
-        Destroy(mainCamera);
     }
 }

@@ -10,11 +10,16 @@ public class UICasual : UIScreenBase
     public Text txtLevel;
     public Text txtHighScore;
     public Text txtTarget;
+    public Text txtCoin;
 
     public override void OnShow()
     {
         base.OnShow();
         UpdateScoreText();
+        UpdateHighScoreText();
+        UpdateLevelText();
+        UpdateTargetText();
+        UpdateCoinText();
     }
 
     public void UpdateScoreText()
@@ -35,6 +40,16 @@ public class UICasual : UIScreenBase
     public void UpdateTargetText()
     {   
         txtTarget.text = DataManager.ins.target.ToString();
+    }
+    public void UpdateCoinText()
+    {
+        txtCoin.text = DataManager.ins.coin.ToString();
+    }
+
+    public void Clean()
+    {
+        PlayerPrefs.DeleteAll();
+
     }
 
     public void Back()

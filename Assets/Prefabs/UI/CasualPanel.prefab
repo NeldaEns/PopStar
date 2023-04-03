@@ -1096,6 +1096,7 @@ MonoBehaviour:
   txtLevel: {fileID: 226193275418492625}
   txtHighScore: {fileID: 2962594923705830741}
   txtTarget: {fileID: 314537066608478946}
+  txtCoin: {fileID: 4080105809749524766}
 --- !u!1 &5991069971360536591
 GameObject:
   m_ObjectHideFlags: 0

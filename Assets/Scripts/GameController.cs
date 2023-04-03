@@ -151,6 +151,8 @@ public class GameController : MonoBehaviour
         
         ((UICasual)UIController.ins.currentScreen).UpdateLevelText();
         ((UICasual)UIController.ins.currentScreen).UpdateTargetText();
+        ((UICasual)UIController.ins.currentScreen).UpdateCoinText();
+
     }
 
     public bool KTGameLose()
