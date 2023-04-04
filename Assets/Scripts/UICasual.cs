@@ -45,13 +45,6 @@ public class UICasual : UIScreenBase
     {
         txtCoin.text = DataManager.ins.coin.ToString();
     }
-
-    public void Clean()
-    {
-        PlayerPrefs.DeleteAll();
-
-    }
-
     public void Back()
     {
         Hide();

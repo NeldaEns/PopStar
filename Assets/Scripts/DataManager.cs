@@ -25,7 +25,7 @@ public class DataManager : MonoBehaviour
 
     private void Awake()
     {
-        if(ins != null)
+        if (ins != null)
         {
             Destroy(gameObject);
         }
@@ -93,4 +93,13 @@ public class DataManager : MonoBehaviour
     {
         PlayerPrefs.SetInt(coin_key, coin);
     }
+   
+    public void ResetGame()
+    {
+        PlayerPrefs.DeleteKey(score_key);
+        PlayerPrefs.DeleteKey(level_key);
+        PlayerPrefs.DeleteKey(target_key);
+        PlayerPrefs.Save();
+    }
 }
+

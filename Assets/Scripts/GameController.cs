@@ -134,6 +134,20 @@ public class GameController : MonoBehaviour
                     Destroy(boxMatrix[j][i]);
                 }
             }
+            if(DataManager.ins.score > DataManager.ins.target)
+            {
+                DataManager.ins.level++;
+                DataManager.ins.SaveLevel();
+                DataManager.ins.target = DataManager.ins.target + 1000 ;
+                DataManager.ins.SaveTarget();
+                for(int i = 0; i < 10; i++)
+                {
+                    for(int j = 0; j < 10; j++)
+                    {
+                        SpawnBox(i, j);
+                    }
+                }
+            }
         }
     }
 
@@ -148,10 +162,8 @@ public class GameController : MonoBehaviour
             DataManager.ins.SaveHighScore();
         }
         ((UICasual)UIController.ins.currentScreen).UpdateHighScoreText();
-        
-        ((UICasual)UIController.ins.currentScreen).UpdateLevelText();
         ((UICasual)UIController.ins.currentScreen).UpdateTargetText();
-        ((UICasual)UIController.ins.currentScreen).UpdateCoinText();
+        ((UICasual)UIController.ins.currentScreen).UpdateLevelText();
 
     }
 
