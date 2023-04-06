@@ -10,6 +10,7 @@ public class UIController : MonoBehaviour
     public GameObject mainMenu;
     public GameObject casualPanel;
     public GameObject mainCameraPrefabs;
+    public GameOverScreen GameOverScreen;   
 
     private void Awake()
     {
@@ -45,5 +46,10 @@ public class UIController : MonoBehaviour
     {
         Destroy(currentScreen.gameObject);
         currentScreen = Instantiate(mainMenu, transform).GetComponent<UIMainMenu>();
+    }
+
+    public void ShowGameOver()
+    {
+        currentScreen = Instantiate(GameOverScreen, transform).GetComponent<GameOverScreen>();
     }
 }

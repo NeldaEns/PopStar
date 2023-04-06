@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 public class DataManager : MonoBehaviour
 {
@@ -45,6 +47,13 @@ public class DataManager : MonoBehaviour
         LoadLevel();
         LoadTarget();
         LoadCoin();
+    }
+
+    public void ResetData()
+    {
+        score = 0;
+        level = 1;
+        target = 1000;
     }
 
     public void LoadScore()
@@ -92,14 +101,6 @@ public class DataManager : MonoBehaviour
     public void SaveCoin()
     {
         PlayerPrefs.SetInt(coin_key, coin);
-    }
-   
-    public void ResetGame()
-    {
-        PlayerPrefs.DeleteKey(score_key);
-        PlayerPrefs.DeleteKey(level_key);
-        PlayerPrefs.DeleteKey(target_key);
-        PlayerPrefs.Save();
     }
 }
 

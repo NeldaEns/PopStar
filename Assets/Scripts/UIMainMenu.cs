@@ -7,15 +7,18 @@ public class UIMainMenu : UIScreenBase
 {
     public void RestartGame()
     {
-        DataManager.ins.ResetGame();
+        DataManager.ins.ResetData();
         SceneManager.LoadScene(1);
         UIController.ins.ShowCasual();
     }
     public void Continue()
     {
+        if (GameController.instance.KTGameLose()) ;
+        {
+            DataManager.ins.ResetData();
+        }
         SceneManager.LoadScene(1);
         UIController.ins.ShowCasual();
-        SceneManager.LoadScene(PlayerPrefs.GetInt("level_key"));
     }
 
     public override void OnShow()

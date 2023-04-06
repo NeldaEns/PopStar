@@ -226,6 +226,7 @@ MonoBehaviour:
   breakBox: []
   explosionPrefabs: {fileID: 2203112218923668955, guid: 83b2697b2cf7ace41ac9f0ccb51f546a,
     type: 3}
+  GameOverScreen: {fileID: 0}
 --- !u!4 &1578716626
 Transform:
   m_ObjectHideFlags: 0

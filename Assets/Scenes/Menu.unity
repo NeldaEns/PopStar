@@ -434,3 +434,5 @@ MonoBehaviour:
     type: 3}
   mainCameraPrefabs: {fileID: 5040824005224592753, guid: b9771b9356d550a4d8cd7bbbe0ec78fd,
     type: 3}
+  GameOverScreen: {fileID: -375113940615315908, guid: 5f49404390847464e83d1ba695faadce,
+    type: 3}

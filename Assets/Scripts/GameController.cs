@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class GameController : MonoBehaviour
     public List<GameObject> breakBox;
 
     public GameObject explosionPrefabs;
+
     private void Awake()
     {
         instance = this;
@@ -116,7 +118,12 @@ public class GameController : MonoBehaviour
            
             for (int i = 0; i < breakBox.Count; i++)
             {
-                AddScore(10);  
+                int j = 5;
+                if(breakBox.Count > 1)
+                {
+                    j = j + i * 10;
+                    AddScore(j);                    
+                }
                 GameObject explosion = Instantiate(explosionPrefabs);
                 explosion.GetComponent<ParticleSystem>().Play();
                 explosion.transform.position = breakBox[i].transform.position;
@@ -134,11 +141,11 @@ public class GameController : MonoBehaviour
                     Destroy(boxMatrix[j][i]);
                 }
             }
-            if(DataManager.ins.score > DataManager.ins.target)
+            if(DataManager.ins.score >= DataManager.ins.target)
             {
                 DataManager.ins.level++;
                 DataManager.ins.SaveLevel();
-                DataManager.ins.target = DataManager.ins.target + 1000 ;
+                DataManager.ins.target = DataManager.ins.target + 1750;
                 DataManager.ins.SaveTarget();
                 for(int i = 0; i < 10; i++)
                 {
@@ -147,6 +154,11 @@ public class GameController : MonoBehaviour
                         SpawnBox(i, j);
                     }
                 }
+            }
+            else
+            {
+                UIController.ins.ShowGameOver();
+                ((GameOverScreen)UIController.ins.currentScreen).Score();
             }
         }
     }
@@ -164,7 +176,6 @@ public class GameController : MonoBehaviour
         ((UICasual)UIController.ins.currentScreen).UpdateHighScoreText();
         ((UICasual)UIController.ins.currentScreen).UpdateTargetText();
         ((UICasual)UIController.ins.currentScreen).UpdateLevelText();
-
     }
 
     public bool KTGameLose()

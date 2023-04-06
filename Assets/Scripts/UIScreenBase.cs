@@ -11,6 +11,6 @@ public class UIScreenBase : MonoBehaviour
 
     public virtual void OnShow()
     {
-
+        
     }
 }
