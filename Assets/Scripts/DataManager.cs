@@ -14,7 +14,7 @@ public class DataManager : MonoBehaviour
     [HideInInspector]
     public int level;
     [HideInInspector]
-    public int target;
+    public float target;
     [HideInInspector]
     public int coin;
 
@@ -36,7 +36,6 @@ public class DataManager : MonoBehaviour
             ins = this;
             DontDestroyOnLoad(gameObject);
         }
-
         LoadData();
     }
 
@@ -96,7 +95,7 @@ public class DataManager : MonoBehaviour
 
     public void SaveTarget()
     {
-        PlayerPrefs.SetInt(target_key, target);
+        PlayerPrefs.SetFloat(target_key, target);
     }
     public void SaveCoin()
     {

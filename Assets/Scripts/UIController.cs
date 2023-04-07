@@ -50,6 +50,7 @@ public class UIController : MonoBehaviour
 
     public void ShowGameOver()
     {
+        Destroy(currentScreen.gameObject);
         currentScreen = Instantiate(GameOverScreen, transform).GetComponent<GameOverScreen>();
     }
-}
+}   

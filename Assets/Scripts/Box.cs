@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Box : MonoBehaviour
 {
@@ -41,7 +42,6 @@ public class Box : MonoBehaviour
             transform.position -= new Vector3(boxSize / 10, 0, 0);
             yield return new WaitForSeconds(0.01f);
         }
-
     }
 
     public IEnumerator MoveCoroutine()
@@ -51,7 +51,6 @@ public class Box : MonoBehaviour
             transform.position -= new Vector3(0, boxSize / 10, 0);
             yield return new WaitForSeconds (0.01f);
         }
-
     }
 
     private void OnMouseDown()

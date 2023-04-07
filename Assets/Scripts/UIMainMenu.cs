@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class UIMainMenu : UIScreenBase
-{
+{ 
     public void RestartGame()
     {
         DataManager.ins.ResetData();
@@ -13,7 +13,7 @@ public class UIMainMenu : UIScreenBase
     }
     public void Continue()
     {
-        if (GameController.instance.KTGameLose()) ;
+        if(GameController.instance.KTGameLose())
         {
             DataManager.ins.ResetData();
         }

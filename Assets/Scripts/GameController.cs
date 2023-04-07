@@ -144,7 +144,9 @@ public class GameController : MonoBehaviour
             if(DataManager.ins.score >= DataManager.ins.target)
             {
                 DataManager.ins.level++;
+                DataManager.ins.coin++;
                 DataManager.ins.SaveLevel();
+                DataManager.ins.SaveCoin();
                 DataManager.ins.target = DataManager.ins.target + 1750;
                 DataManager.ins.SaveTarget();
                 for(int i = 0; i < 10; i++)
@@ -159,6 +161,7 @@ public class GameController : MonoBehaviour
             {
                 UIController.ins.ShowGameOver();
                 ((GameOverScreen)UIController.ins.currentScreen).Score();
+                ((GameOverScreen)UIController.ins.currentScreen).HighScore();
             }
         }
     }
@@ -176,6 +179,7 @@ public class GameController : MonoBehaviour
         ((UICasual)UIController.ins.currentScreen).UpdateHighScoreText();
         ((UICasual)UIController.ins.currentScreen).UpdateTargetText();
         ((UICasual)UIController.ins.currentScreen).UpdateLevelText();
+        ((UICasual)UIController.ins.currentScreen).UpdateCoinText();
     }
 
     public bool KTGameLose()
@@ -223,5 +227,10 @@ public class GameController : MonoBehaviour
             }
         }
         return false;
+    }
+
+    public void Item1()
+    {
+        
     }
 }

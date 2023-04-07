@@ -12,9 +12,20 @@ public class UICasual : UIScreenBase
     public Text txtTarget;
     public Text txtCoin;
 
+    private void Start()
+    {
+        UpdateScoreText();
+        UpdateHighScoreText();
+        UpdateLevelText();
+        UpdateTargetText();
+        UpdateCoinText();
+    }
     public override void OnShow()
     {
         base.OnShow();
+        It1();
+        It2();
+        It3();
         UpdateScoreText();
         UpdateHighScoreText();
         UpdateLevelText();
@@ -53,4 +64,18 @@ public class UICasual : UIScreenBase
         SceneManager.LoadScene(0);
     }
 
+    public void It1()
+    {
+        
+    }
+
+    public void It2()
+    {
+
+    }
+
+    public void It3()
+    {
+
+    }
 }
