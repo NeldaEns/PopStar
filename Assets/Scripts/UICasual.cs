@@ -11,7 +11,7 @@ public class UICasual : UIScreenBase
     public Text txtHighScore;
     public Text txtTarget;
     public Text txtCoin;
-    public List<List<BoxType>> listJson;
+
 
     private void Start()
     {
@@ -20,7 +20,6 @@ public class UICasual : UIScreenBase
         UpdateLevelText();
         UpdateTargetText();
         UpdateCoinText();
-        UpdateJsonList();
     }
 
     private void Update()
@@ -64,11 +63,6 @@ public class UICasual : UIScreenBase
     public void UpdateCoinText()
     {
         txtCoin.text = DataManager.ins.coin.ToString();
-    }
-
-    public void UpdateJsonList()
-    {
-        listJson = DataManager.ins.colorMatrix;
     }
 
     public void Back()

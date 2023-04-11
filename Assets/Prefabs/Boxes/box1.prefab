@@ -97,7 +97,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   x: 0
   y: 0
-  type: 2
+  type: 1
 --- !u!61 &7991838222598169838
 BoxCollider2D:
   m_ObjectHideFlags: 0

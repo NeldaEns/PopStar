@@ -8,21 +8,24 @@ public class UIMainMenu : UIScreenBase
 
     public void StartCasual()
     {
-        DataManager.ins.StartData();
+        //DataManager.ins.StartData();
         SceneManager.LoadScene(1);
         UIController.ins.ShowCasual();
     }
     public void RestartCasual()
     {
+        DataManager.ins.start_new_game = true;
         DataManager.ins.ResetData();
         SceneManager.LoadScene(1);
         UIController.ins.ShowCasual();
     }
     public void ContinueCasual()
     {
-        
+        DataManager.ins.start_new_game = false;
         SceneManager.LoadScene(1);
-        UIController.ins.ShowCasual(); 
+        GameController.instance.ContinueGame();
+        UIController.ins.ShowCasual();
+     
     }
 
     public override void OnShow()

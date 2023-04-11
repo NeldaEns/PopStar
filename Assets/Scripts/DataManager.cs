@@ -12,6 +12,7 @@ public class DataManager : MonoBehaviour
     public int level;
     public float target;
     public int coin;
+    public bool start_new_game;
 
     public List<List<BoxType>> colorMatrix;
 
@@ -74,11 +75,13 @@ public class DataManager : MonoBehaviour
         for (int i = 0; i < 10; i++)
         {
             List<BoxType> row = new List<BoxType>();
-            colorMatrix.Add(row);
+
             for (int j = 0; j < 10; j++)
             {
                 row.Add(BoxType.None);  
             }
+
+            colorMatrix.Add(row);
         }
         SaveJson();
         SaveCoin();

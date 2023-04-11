@@ -34,11 +34,24 @@ public class GameController : MonoBehaviour
 
             boxMatrix.Add(listBox);
         }
-        for (int i = 0; i < 10; i++)
+        if (DataManager.ins.start_new_game == true)
         {
-            for (int j = 0; j < 10; j++)
+            for (int i = 0; i < 10; i++)
             {
-                SpawnBox(i, j);
+                for (int j = 0; j < 10; j++)
+                {
+                    SpawnBox(i, j);
+                }
+            }
+        }
+        else
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    SpawnBox1(i, j);
+                }
             }
         }
     }
@@ -51,6 +64,23 @@ public class GameController : MonoBehaviour
         box1.transform.position = pos;
         box1.GetComponent<Box>().OnSpawn(x, y, (BoxType)color);
         boxMatrix[x][y] = box1;
+    }
+
+    public void SpawnBox1(int x, int y)
+    {
+        BoxType color1 = DataManager.ins.colorMatrix[x][y];
+        if (color1 == BoxType.None)
+        {
+            boxMatrix[x][y] = null;
+        }
+        else
+        {
+            GameObject box2 = Instantiate(this.box[(int)color1 - 1]);
+            Vector3 pos = box2.GetComponent<Box>().CalculatationPosition(x, y);
+            box2.transform.position = pos;
+            box2.GetComponent<Box>().OnSpawn(x, y, (BoxType)color1);
+            boxMatrix[x][y] = box2;
+        }
     }
 
     public void FindBreakBox()
@@ -134,12 +164,19 @@ public class GameController : MonoBehaviour
             for (int i = 0; i < boxMatrix.Count; i++)
             {
                 for (int j = 0; j < boxMatrix[i].Count; j++)
-                {                   
-                    DataManager.ins.colorMatrix[i][j] = boxMatrix[i][j].GetComponent<Box>().type;
+                {
+                    if(boxMatrix[i][j] == null)
+                    {
+                        DataManager.ins.colorMatrix[i][j] = BoxType.None;
+                    }
+                    else
+                    {
+                        DataManager.ins.colorMatrix[i][j] = boxMatrix[i][j].GetComponent<Box>().type;
+                    }
+
                 }
             }
             DataManager.ins.SaveJson();
-            ((UICasual)UIController.ins.currentScreen).UpdateJsonList();
         }
         breakBox.Clear();
         if (KTGameLose())
@@ -240,18 +277,21 @@ public class GameController : MonoBehaviour
         return false;
     }
 
-    public void Item1()
+    public void ContinueGame()
     {
-        
-    }
-
-    public void Item2()
-    {
-        
-    }
-
-    public void Item3()
-    {
-
+        for (int i = 0; i < DataManager.ins.colorMatrix.Count; i++)
+        {
+            for (int j = 0; j < DataManager.ins.colorMatrix[i].Count; j++)
+            {
+                if (DataManager.ins.colorMatrix[i][j] == BoxType.None)
+                {
+                    boxMatrix[i][j] = null;
+                }
+                else
+                {
+                    SpawnBox1(i, j);              
+                }
+            }
+        }
     }
 }
