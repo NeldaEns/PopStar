@@ -130,7 +130,17 @@ public class GameController : MonoBehaviour
                 Destroy(breakBox[i]);
                 Destroy(explosion, 0.5f);
             }
-        }      
+
+            for (int i = 0; i < boxMatrix.Count; i++)
+            {
+                for (int j = 0; j < boxMatrix[i].Count; j++)
+                {                   
+                    DataManager.ins.colorMatrix[i][j] = boxMatrix[i][j].GetComponent<Box>().type;
+                }
+            }
+            DataManager.ins.SaveJson();
+            ((UICasual)UIController.ins.currentScreen).UpdateJsonList();
+        }
         breakBox.Clear();
         if (KTGameLose())
         {
@@ -139,6 +149,7 @@ public class GameController : MonoBehaviour
                 for (int j = 0; j < 10; j++)
                 {
                     Destroy(boxMatrix[j][i]);
+                    boxMatrix[i][j] = null;
                 }
             }
             if(DataManager.ins.score >= DataManager.ins.target)
@@ -161,7 +172,7 @@ public class GameController : MonoBehaviour
             {
                 UIController.ins.ShowGameOver();
                 ((GameOverScreen)UIController.ins.currentScreen).Score();
-                ((GameOverScreen)UIController.ins.currentScreen).HighScore();
+                ((GameOverScreen)UIController.ins.currentScreen).HighScore();              
             }
         }
     }
@@ -232,5 +243,15 @@ public class GameController : MonoBehaviour
     public void Item1()
     {
         
+    }
+
+    public void Item2()
+    {
+        
+    }
+
+    public void Item3()
+    {
+
     }
 }

@@ -4,21 +4,25 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class UIMainMenu : UIScreenBase
-{ 
-    public void RestartGame()
+{
+
+    public void StartCasual()
+    {
+        DataManager.ins.StartData();
+        SceneManager.LoadScene(1);
+        UIController.ins.ShowCasual();
+    }
+    public void RestartCasual()
     {
         DataManager.ins.ResetData();
         SceneManager.LoadScene(1);
         UIController.ins.ShowCasual();
     }
-    public void Continue()
+    public void ContinueCasual()
     {
-        if(GameController.instance.KTGameLose())
-        {
-            DataManager.ins.ResetData();
-        }
+        
         SceneManager.LoadScene(1);
-        UIController.ins.ShowCasual();
+        UIController.ins.ShowCasual(); 
     }
 
     public override void OnShow()

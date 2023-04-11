@@ -57,6 +57,7 @@ public class Box : MonoBehaviour
     {
         GameController.instance.breakBox.Add(gameObject);   
         GameController.instance.FindBreakBox();
+        GameController.instance.Item1();
     }
 }
 

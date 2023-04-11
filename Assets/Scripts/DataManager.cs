@@ -7,22 +7,21 @@ using System.Runtime.Serialization.Formatters.Binary;
 public class DataManager : MonoBehaviour
 {
     public static DataManager ins;
-    [HideInInspector]
     public int score;
-    [HideInInspector]
     public int highScore;
-    [HideInInspector]
     public int level;
-    [HideInInspector]
     public float target;
-    [HideInInspector]
     public int coin;
+
+    public List<List<BoxType>> colorMatrix;
 
     private const string score_key = "score_key";
     private const string high_score_key = "high_score_key";
     private const string level_key = "level_key";
     private const string target_key = "target_key";
     private const string coin_key = "coin_key";
+    private const string color_key = "color_key";
+    private const string first_time_play = "first_time_play";
 
 
     private void Awake()
@@ -36,7 +35,21 @@ public class DataManager : MonoBehaviour
             ins = this;
             DontDestroyOnLoad(gameObject);
         }
-        LoadData();
+
+        FirstTimePlay();
+    }
+
+    public void FirstTimePlay()
+    {
+        if (PlayerPrefs.HasKey(first_time_play))
+        {
+            LoadData();
+        }
+        else
+        {
+            PlayerPrefs.SetInt(first_time_play, 0);
+            StartData();
+        }
     }
 
     public void LoadData()
@@ -46,6 +59,60 @@ public class DataManager : MonoBehaviour
         LoadLevel();
         LoadTarget();
         LoadCoin();
+        LoadJson();
+    }
+
+    public void StartData()
+    {
+        score = 0;
+        level = 1;
+        target = 1000;
+        highScore = 0;
+        coin = 0;
+        colorMatrix = new List<List<BoxType>>();
+
+        for (int i = 0; i < 10; i++)
+        {
+            List<BoxType> row = new List<BoxType>();
+            colorMatrix.Add(row);
+            for (int j = 0; j < 10; j++)
+            {
+                row.Add(BoxType.None);  
+            }
+        }
+        SaveJson();
+        SaveCoin();
+        SaveScore();
+        SaveLevel();
+        SaveTarget();
+        SaveHighScore();
+    }
+
+    public void SaveJson()
+    {
+        List<string> jsonsColor = new List<string>();
+
+        for (int i = 0; i < 10; i++)
+        {
+            string jsonColor = JsonHelper.ToJson<BoxType>(colorMatrix[i]);
+            jsonsColor.Add(jsonColor);
+        }
+        string finalJson = JsonHelper.ToJson<string>(jsonsColor);
+        PlayerPrefs.SetString(color_key, finalJson);
+    }
+
+    public void LoadJson()
+    {
+        string finalJson = PlayerPrefs.GetString(color_key);
+
+        List<string> jsonsColor = JsonHelper.FromJson<string>(finalJson);
+
+        colorMatrix = new List<List<BoxType>>();
+        for(int i = 0; i < 10; i++)
+        {
+            List<BoxType> row = JsonHelper.FromJson<BoxType>(jsonsColor[i]);
+            colorMatrix.Add(row);
+        }
     }
 
     public void ResetData()

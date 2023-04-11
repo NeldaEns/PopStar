@@ -11,6 +11,7 @@ public class UICasual : UIScreenBase
     public Text txtHighScore;
     public Text txtTarget;
     public Text txtCoin;
+    public List<List<BoxType>> listJson;
 
     private void Start()
     {
@@ -18,6 +19,14 @@ public class UICasual : UIScreenBase
         UpdateHighScoreText();
         UpdateLevelText();
         UpdateTargetText();
+        UpdateCoinText();
+        UpdateJsonList();
+    }
+
+    private void Update()
+    {
+        UpdateTargetText();
+        UpdateLevelText();
         UpdateCoinText();
     }
     public override void OnShow()
@@ -57,6 +66,11 @@ public class UICasual : UIScreenBase
         txtCoin.text = DataManager.ins.coin.ToString();
     }
 
+    public void UpdateJsonList()
+    {
+        listJson = DataManager.ins.colorMatrix;
+    }
+
     public void Back()
     {
         Hide();
@@ -66,16 +80,25 @@ public class UICasual : UIScreenBase
 
     public void It1()
     {
-        
+        if (DataManager.ins.coin > 1)
+        DataManager.ins.coin = DataManager.ins.coin - 2;
+        DataManager.ins.SaveCoin();
+        UpdateCoinText();
     }
 
     public void It2()
     {
-
+        if (DataManager.ins.coin > 2)
+        DataManager.ins.coin = DataManager.ins.coin - 3;
+        DataManager.ins.SaveCoin();
+        UpdateCoinText();
     }
 
     public void It3()
     {
-
+        if (DataManager.ins.coin > 3)
+        DataManager.ins.coin = DataManager.ins.coin - 4;
+        DataManager.ins.SaveCoin();
+        UpdateCoinText();
     }
 }
