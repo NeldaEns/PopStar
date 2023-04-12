@@ -12,7 +12,6 @@ public class UICasual : UIScreenBase
     public Text txtTarget;
     public Text txtCoin;
 
-
     private void Start()
     {
         UpdateScoreText();
@@ -75,24 +74,32 @@ public class UICasual : UIScreenBase
     public void It1()
     {
         if (DataManager.ins.coin > 1)
-        DataManager.ins.coin = DataManager.ins.coin - 2;
-        DataManager.ins.SaveCoin();
-        UpdateCoinText();
+        {
+            DataManager.ins.coin = DataManager.ins.coin - 2;
+            DataManager.ins.SaveCoin();
+            UpdateCoinText();
+        }
     }
 
     public void It2()
     {
         if (DataManager.ins.coin > 2)
-        DataManager.ins.coin = DataManager.ins.coin - 3;
-        DataManager.ins.SaveCoin();
-        UpdateCoinText();
+        {
+            DataManager.ins.coin = DataManager.ins.coin - 3;
+            DataManager.ins.SaveCoin();
+            UpdateCoinText();
+            GameController.instance.Item2();
+        }
+        
     }
 
     public void It3()
     {
         if (DataManager.ins.coin > 3)
-        DataManager.ins.coin = DataManager.ins.coin - 4;
-        DataManager.ins.SaveCoin();
-        UpdateCoinText();
+        {
+            DataManager.ins.coin = DataManager.ins.coin - 4;
+            DataManager.ins.SaveCoin();
+            UpdateCoinText();
+        }
     }
 }

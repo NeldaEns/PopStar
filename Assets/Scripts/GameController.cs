@@ -22,7 +22,6 @@ public class GameController : MonoBehaviour
     private void Start()
     {
         boxMatrix = new List<List<GameObject>>();
-
         for (int i = 0; i < 10; i++)
         {
             List<GameObject> listBox = new List<GameObject>();
@@ -31,7 +30,6 @@ public class GameController : MonoBehaviour
             {
                 listBox.Add(null);
             }
-
             boxMatrix.Add(listBox);
         }
         if (DataManager.ins.start_new_game == true)
@@ -173,7 +171,6 @@ public class GameController : MonoBehaviour
                     {
                         DataManager.ins.colorMatrix[i][j] = boxMatrix[i][j].GetComponent<Box>().type;
                     }
-
                 }
             }
             DataManager.ins.SaveJson();
@@ -186,10 +183,10 @@ public class GameController : MonoBehaviour
                 for (int j = 0; j < 10; j++)
                 {
                     Destroy(boxMatrix[j][i]);
-                    boxMatrix[i][j] = null;
+                    boxMatrix[j][i] = null;              
                 }
             }
-            if(DataManager.ins.score >= DataManager.ins.target)
+            if (DataManager.ins.score >= DataManager.ins.target)
             {
                 DataManager.ins.level++;
                 DataManager.ins.coin++;
@@ -202,15 +199,17 @@ public class GameController : MonoBehaviour
                     for(int j = 0; j < 10; j++)
                     {
                         SpawnBox(i, j);
+                        DataManager.ins.colorMatrix[i][j] = boxMatrix[i][j].GetComponent<Box>().type;
                     }
                 }
+                DataManager.ins.SaveJson();
             }
             else
             {
                 UIController.ins.ShowGameOver();
                 ((GameOverScreen)UIController.ins.currentScreen).Score();
                 ((GameOverScreen)UIController.ins.currentScreen).HighScore();              
-            }
+            }   
         }
     }
 
@@ -254,7 +253,6 @@ public class GameController : MonoBehaviour
                         return false;
                     }
                 }
-
             }
         }
         return true;
@@ -277,21 +275,19 @@ public class GameController : MonoBehaviour
         return false;
     }
 
-    public void ContinueGame()
+    public void Item1()
     {
-        for (int i = 0; i < DataManager.ins.colorMatrix.Count; i++)
-        {
-            for (int j = 0; j < DataManager.ins.colorMatrix[i].Count; j++)
-            {
-                if (DataManager.ins.colorMatrix[i][j] == BoxType.None)
-                {
-                    boxMatrix[i][j] = null;
-                }
-                else
-                {
-                    SpawnBox1(i, j);              
-                }
-            }
-        }
+        
     }
+
+    public void Item2()
+    {
+        for (int i = 0; i < box.Count; i++)
+        {
+            int x = box[i].GetComponent<Box>().x;
+            int y = box[i].GetComponent<Box>().y;  
+            
+            Destroy(boxMatrix[x][y]);     
+        }
+     }
 }

@@ -27,6 +27,7 @@ public class GameOverScreen : UIScreenBase
 
     public void RestartGame()
     {
+        DataManager.ins.start_new_game = true;
         DataManager.ins.ResetData();
         SceneManager.LoadScene(1);
         UIController.ins.ShowCasual();
@@ -37,5 +38,6 @@ public class GameOverScreen : UIScreenBase
         Hide();
         UIController.ins.ShowMenu();
         SceneManager.LoadScene(0);
+        DataManager.ins.ResetData();
     }
 }

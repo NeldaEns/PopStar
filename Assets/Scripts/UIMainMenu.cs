@@ -8,9 +8,20 @@ public class UIMainMenu : UIScreenBase
 
     public void StartCasual()
     {
-        //DataManager.ins.StartData();
-        SceneManager.LoadScene(1);
-        UIController.ins.ShowCasual();
+        if(DataManager.ins.score == 0)
+        {
+            if(DataManager.ins.highScore == 0)
+            {
+                DataManager.ins.start_new_game = true;
+                DataManager.ins.StartData();
+                SceneManager.LoadScene(1);
+                UIController.ins.ShowCasual();
+            }
+             else
+            {
+                RestartCasual();
+            }
+        }     
     }
     public void RestartCasual()
     {
@@ -23,9 +34,7 @@ public class UIMainMenu : UIScreenBase
     {
         DataManager.ins.start_new_game = false;
         SceneManager.LoadScene(1);
-        GameController.instance.ContinueGame();
-        UIController.ins.ShowCasual();
-     
+        UIController.ins.ShowCasual(); 
     }
 
     public override void OnShow()
