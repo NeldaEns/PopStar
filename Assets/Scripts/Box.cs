@@ -55,8 +55,17 @@ public class Box : MonoBehaviour
 
     private void OnMouseDown()
     {
-        GameController.instance.breakBox.Add(gameObject);   
-        GameController.instance.FindBreakBox();
+       
+        if (!GameController.instance.useIt1)
+        {
+            GameController.instance.breakBox.Add(gameObject);
+            GameController.instance.FindBreakBox();
+        }
+        else
+        {
+            GameController.instance.breakBox.Add(gameObject);
+            GameController.instance.Item1();
+        }       
     }
 }
 

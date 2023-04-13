@@ -12,6 +12,7 @@ public class UICasual : UIScreenBase
     public Text txtTarget;
     public Text txtCoin;
 
+
     private void Start()
     {
         UpdateScoreText();
@@ -78,6 +79,7 @@ public class UICasual : UIScreenBase
             DataManager.ins.coin = DataManager.ins.coin - 2;
             DataManager.ins.SaveCoin();
             UpdateCoinText();
+            GameController.instance.useIt1 = true;
         }
     }
 
@@ -88,9 +90,8 @@ public class UICasual : UIScreenBase
             DataManager.ins.coin = DataManager.ins.coin - 3;
             DataManager.ins.SaveCoin();
             UpdateCoinText();
-            GameController.instance.Item2();
-        }
-        
+            GameController.instance.useIt2 = true;         
+        }       
     }
 
     public void It3()
@@ -100,6 +101,7 @@ public class UICasual : UIScreenBase
             DataManager.ins.coin = DataManager.ins.coin - 4;
             DataManager.ins.SaveCoin();
             UpdateCoinText();
+            GameController.instance.Item3();
         }
     }
 }

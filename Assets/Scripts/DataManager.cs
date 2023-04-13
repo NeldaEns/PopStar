@@ -69,7 +69,7 @@ public class DataManager : MonoBehaviour
         level = 1;
         target = 1000;
         highScore = 0;
-        coin = 0;
+        coin = 1000;
         colorMatrix = new List<List<BoxType>>();
 
         for (int i = 0; i < 10; i++)

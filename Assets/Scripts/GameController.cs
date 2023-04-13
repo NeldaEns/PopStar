@@ -15,6 +15,13 @@ public class GameController : MonoBehaviour
 
     public GameObject explosionPrefabs;
 
+    public bool useIt1;
+
+    public bool useIt2;
+
+    public bool useIt3;
+
+
     private void Awake()
     {
         instance = this;
@@ -82,7 +89,7 @@ public class GameController : MonoBehaviour
     }
 
     public void FindBreakBox()
-    {       
+    {
         for (int i = 0; i < breakBox.Count; i++)
         {
             int x = breakBox[i].GetComponent<Box>().x;
@@ -277,17 +284,91 @@ public class GameController : MonoBehaviour
 
     public void Item1()
     {
-        
+        for(int i = 0; i < box.Count; i++)
+        {
+            int x = box[i].GetComponent<Box>().x;
+            int y = box[i].GetComponent<Box>().y;
+            if (x > 0 && boxMatrix[x - 1][y] != null && boxMatrix[x - 1][y].GetComponent<Box>().type != breakBox[i].GetComponent<Box>().type && !KTBox(boxMatrix[x - 1][y]))
+            {
+                boxMatrix[x - 1][y] = boxMatrix[x][y];
+                boxMatrix[x - 1][y].GetComponent<Box>().transform.position = boxMatrix[x][y].GetComponent<Box>().transform.position;
+            }
+            if (x < 9 && boxMatrix[x + 1][y] != null && boxMatrix[x + 1][y].GetComponent<Box>().type != breakBox[i].GetComponent<Box>().type && !KTBox(boxMatrix[x + 1][y]))
+            {
+                boxMatrix[x][y] = boxMatrix[x + 1][y];
+                boxMatrix[x][y].GetComponent<Box>().transform.position = boxMatrix[x + 1][y].GetComponent<Box>().transform.position;
+            }
+            if (y > 0 && boxMatrix[x][y - 1] != null && boxMatrix[x][y - 1].GetComponent<Box>().type != breakBox[i].GetComponent<Box>().type && !KTBox(boxMatrix[x][y - 1]))
+            {
+                boxMatrix[x][y - 1] = boxMatrix[x][y];
+                boxMatrix[x][y - 1].GetComponent<Box>().transform.position = boxMatrix[x][y].GetComponent<Box>().transform.position;
+            }
+            if (y < 9 && boxMatrix[x][y + 1] != null && boxMatrix[x][y + 1].GetComponent<Box>().type != breakBox[i].GetComponent<Box>().type && !KTBox(boxMatrix[x][y + 1]))
+            {
+                boxMatrix[x][y] = boxMatrix[x][y + 1];
+                boxMatrix[x][y].GetComponent<Box>().transform.position = boxMatrix[x][y + 1].GetComponent<Box>().transform.position;
+            }
+        }
     }
 
     public void Item2()
     {
-        for (int i = 0; i < box.Count; i++)
+        if(breakBox.Count < 2)
         {
-            int x = box[i].GetComponent<Box>().x;
-            int y = box[i].GetComponent<Box>().y;  
-            
-            Destroy(boxMatrix[x][y]);     
+            for (int i = 0; i < breakBox.Count; i++)
+            {
+                int x = breakBox[i].GetComponent<Box>().x;
+                int y = breakBox[i].GetComponent<Box>().y;
+                for (int j = y; j < 9; j++)
+                {
+                    boxMatrix[x][j] = boxMatrix[x][j + 1];
+                    if (boxMatrix[x][j] != null)
+                    {
+                        boxMatrix[x][j].GetComponent<Box>().y--;
+                        boxMatrix[x][j].GetComponent<Box>().MoveDown();
+                    }
+                }
+                boxMatrix[x][9] = null;
+            }
+            for (int i = 8; i >= 0; i--)
+            {
+                if (boxMatrix[i][0] == null)
+                {
+                    for (int j = i; j < 9; j++)
+                    {
+                        for (int k = 0; k < 10; k++)
+                        {
+                            boxMatrix[j][k] = boxMatrix[j + 1][k];
+                            if (boxMatrix[j][k] != null)
+                            {
+                                boxMatrix[j][k].GetComponent<Box>().x--;
+                                boxMatrix[j][k].GetComponent<Box>().MoveLeft();
+                            }
+                        }
+                    }
+                    for (int h = 0; h < 10; h++)
+                    {
+                        boxMatrix[9][h] = null;
+                    }
+                }
+            }
+            for (int i = 0; i < breakBox.Count; i++)
+            {
+                AddScore(5);
+                GameObject explosion = Instantiate(explosionPrefabs);
+                explosion.GetComponent<ParticleSystem>().Play();
+                explosion.transform.position = breakBox[i].transform.position;
+                Destroy(breakBox[i]);
+                Destroy(explosion, 0.5f);
+            }
         }
-     }
+        breakBox.Clear();
+        useIt2 = false;
+    }
+    
+    public void Item3()
+    {
+
+    }
+        
 }
