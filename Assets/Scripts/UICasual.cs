@@ -101,7 +101,7 @@ public class UICasual : UIScreenBase
             DataManager.ins.coin = DataManager.ins.coin - 4;
             DataManager.ins.SaveCoin();
             UpdateCoinText();
-            GameController.instance.Item3();
+            GameController.instance.useIt3 = true;
         }
     }
 }

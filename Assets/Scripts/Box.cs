@@ -56,16 +56,26 @@ public class Box : MonoBehaviour
     private void OnMouseDown()
     {
        
-        if (!GameController.instance.useIt1)
+        if (!GameController.instance.useIt1 && !GameController.instance.useIt2 && !GameController.instance.useIt3 )
         {
             GameController.instance.breakBox.Add(gameObject);
             GameController.instance.FindBreakBox();
         }
-        else
+        else if(GameController.instance.useIt1)
+        {
+            GameController.instance.ClickMoveBox1(x, y);
+            GameController.instance.ClickMoveBox2(x, y);
+            GameController.instance.Item1();    
+        } 
+        else if(GameController.instance.useIt2)
         {
             GameController.instance.breakBox.Add(gameObject);
-            GameController.instance.Item1();
-        }       
+            GameController.instance.Item2(x, y);
+        }
+        else
+        {
+            GameController.instance.Item3(x, y);
+        }
     }
 }
 
