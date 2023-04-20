@@ -21,6 +21,10 @@ public class GameController : MonoBehaviour
 
     public bool useIt3;
 
+    public bool clickBox1;
+    public bool clickBox2;
+    public List<GameObject> moveBox;
+
     private void Awake()
     {
         instance = this;
@@ -306,26 +310,96 @@ public class GameController : MonoBehaviour
         return false;
     }
 
-    public void ClickMoveBox1(int x1, int y1)
+    public void ClickMoveBox1(int x, int y)
     {
-        Debug.Log(x1 + " " + y1);
-        boxMatrix[x1][y1].transform.position = boxMatrix[x1][y1].GetComponent<Box>().CalculatationPosition(x1, y1);
-        BoxType color1 = boxMatrix[x1][y1].GetComponent<Box>().type;
+        Vector3 pos1 = boxMatrix[x][y].GetComponent<Box>().CalculatationPosition(x, y);
+        BoxType color1 = boxMatrix[x][y].GetComponent<Box>().type;
+        moveBox.Add(boxMatrix[x][y]);
+        clickBox1 = true;
+        Debug.Log(319);
     }
 
-    public void ClickMoveBox2(int x2, int y2)
+    public void ClickMoveBox2(int x, int y)
     {
-        Debug.Log(x2 + " " + y2);
-        boxMatrix[x2][y2].transform.position = boxMatrix[x2][y2].GetComponent<Box>().CalculatationPosition(x2, y2);
-        BoxType color2 = boxMatrix[x2][y2].GetComponent<Box>().type;
+        Vector3 pos2 = boxMatrix[x][y].GetComponent<Box>().CalculatationPosition(x, y);
+        BoxType color2 = boxMatrix[x][y].GetComponent<Box>().type;
+        moveBox.Add(boxMatrix[x][y]);
+        clickBox2 = true;
+        Debug.Log(327);
     }
 
     public void Item1()
     {
+        if (clickBox1 == true && clickBox2 == true)
+        {
+            if (moveBox.Count == 2)
+            {
+                int x1 = moveBox[0].GetComponent<Box>().x;
+                int y1 = moveBox[0].GetComponent<Box>().y;
+                int x2 = moveBox[1].GetComponent<Box>().x;
+                int y2 = moveBox[1].GetComponent<Box>().y;
 
-
-
-        useIt1 = false;
+                if (boxMatrix[x2][y2] != null && x1 > 0 && x2 == x1 - 1 && y1 == y2 && boxMatrix[x1][y1].GetComponent<Box>().type != boxMatrix[x2][y2].GetComponent<Box>().type)
+                {
+                    boxMatrix[x1][y1].GetComponent<Box>().x--;
+                    boxMatrix[x1][y1].GetComponent<Box>().MoveLeft1();
+                    boxMatrix[x2][y2].GetComponent<Box>().x++;
+                    boxMatrix[x2][y2].GetComponent<Box>().MoveRight();
+                    boxMatrix[x1][y1] = boxMatrix[x2][y2];
+                    boxMatrix[x1][y1].transform.position = boxMatrix[x2][y2].GetComponent<Box>().CalculatationPosition(x2, y2);
+                    DataManager.ins.colorMatrix[x1][y1] = boxMatrix[x1][y1].GetComponent<Box>().type;
+                    boxMatrix[x2][y2] = boxMatrix[x1][y1];
+                    boxMatrix[x2][y2].transform.position = boxMatrix[x1][y1].GetComponent<Box>().CalculatationPosition(x1, y1);
+                    DataManager.ins.colorMatrix[x2][y2] = boxMatrix[x2][y2].GetComponent<Box>().type;
+                }
+                if (boxMatrix[x2][y2] != null && x1 < 9 && x2 == x1 + 1 && y1 == y2 && boxMatrix[x1][y1].GetComponent<Box>().type != boxMatrix[x2][y2].GetComponent<Box>().type)
+                {
+                    boxMatrix[x1][y1].GetComponent<Box>().x++;
+                    boxMatrix[x1][y1].GetComponent<Box>().MoveRight();
+                    boxMatrix[x2][y2].GetComponent<Box>().x--;
+                    boxMatrix[x2][y2].GetComponent<Box>().MoveLeft1();
+                    boxMatrix[x2][y2] = boxMatrix[x1][y1];
+                    boxMatrix[x2][y2].transform.position = boxMatrix[x1][y1].GetComponent<Box>().CalculatationPosition(x1, y1);
+                    DataManager.ins.colorMatrix[x2][y2] = boxMatrix[x1][y1].GetComponent<Box>().type;
+                    boxMatrix[x1][y1] = boxMatrix[x2][y2];
+                    boxMatrix[x1][y1].transform.position = boxMatrix[x2][y2].GetComponent<Box>().CalculatationPosition(x2, y2);
+                    DataManager.ins.colorMatrix[x1][y1] = boxMatrix[x1][y1].GetComponent<Box>().type;
+                }
+                if (boxMatrix[x2][y2] != null && y1 > 0 && y2 == y1 - 1 && x1 == x2 && boxMatrix[x1][y1].GetComponent<Box>().type != boxMatrix[x2][y2].GetComponent<Box>().type)
+                {
+                    boxMatrix[x1][y1].GetComponent<Box>().y--;
+                    boxMatrix[x1][y1].GetComponent<Box>().MoveDown1();
+                    boxMatrix[x2][y2].GetComponent<Box>().y++;
+                    boxMatrix[x2][y2].GetComponent<Box>().MoveUp();
+                    boxMatrix[x1][y1] = boxMatrix[x2][y2];
+                    boxMatrix[x1][y1].transform.position = boxMatrix[x2][y2].GetComponent<Box>().CalculatationPosition(x2, y2);
+                    DataManager.ins.colorMatrix[x1][y1] = boxMatrix[x1][y1].GetComponent<Box>().type;
+                    boxMatrix[x2][y2] = boxMatrix[x1][y1];
+                    boxMatrix[x2][y2].transform.position = boxMatrix[x1][y1].GetComponent<Box>().CalculatationPosition(x1, y1);
+                    DataManager.ins.colorMatrix[x2][y2] = boxMatrix[x2][y2].GetComponent<Box>().type;
+                }
+                if (boxMatrix[x2][y2] != null && y1 < 9 && y2 == y1 + 1 && x1 == x2 && boxMatrix[x1][y1].GetComponent<Box>().type != boxMatrix[x2][y2].GetComponent<Box>().type)
+                {
+                    boxMatrix[x1][y1].GetComponent<Box>().y++;
+                    boxMatrix[x1][y1].GetComponent<Box>().MoveUp();
+                    boxMatrix[x2][y2].GetComponent<Box>().y--;
+                    boxMatrix[x2][y2].GetComponent<Box>().MoveDown1();
+                    boxMatrix[x2][y2] = boxMatrix[x1][y1];
+                    boxMatrix[x2][y2].transform.position = boxMatrix[x1][y1].GetComponent<Box>().CalculatationPosition(x1, y1);
+                    DataManager.ins.colorMatrix[x2][y2] = boxMatrix[x1][y1].GetComponent<Box>().type;
+                    boxMatrix[x1][y1] = boxMatrix[x2][y2];
+                    boxMatrix[x1][y1].transform.position = boxMatrix[x2][y2].GetComponent<Box>().CalculatationPosition(x2, y2);
+                    DataManager.ins.colorMatrix[x1][y1] = boxMatrix[x1][y1].GetComponent<Box>().type;
+                }
+                CheckWinLose();
+                SaveBox();
+            }         
+            moveBox.Clear();
+            clickBox1 = false;
+            clickBox2 = false;
+            useIt1 = false;
+        }
+        
     }
 
     public void Item2(int x, int y)

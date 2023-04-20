@@ -52,6 +52,54 @@ public class Box : MonoBehaviour
             yield return new WaitForSeconds (0.01f);
         }
     }
+    public void MoveLeft1()
+    {
+        StartCoroutine(MoveCoroutine2());
+    }
+
+    public IEnumerator MoveCoroutine2()
+    {
+        
+            transform.position -= new Vector3(boxSize, 0, 0);
+            yield return new WaitForSeconds(1f);
+        
+    }
+    public void MoveRight()
+    {
+        StartCoroutine(MoveCoroutine3());
+    }
+
+    public IEnumerator MoveCoroutine3()
+    {
+
+        transform.position += new Vector3(boxSize, 0, 0);
+        yield return new WaitForSeconds(1f);
+
+    }
+    public void MoveDown1()
+    {
+        StartCoroutine(MoveCoroutine4());
+    }
+
+    public IEnumerator MoveCoroutine4()
+    {
+
+        transform.position -= new Vector3(0, boxSize, 0);
+        yield return new WaitForSeconds(1f);
+
+    }
+    public void MoveUp()
+    {
+        StartCoroutine(MoveCoroutine5());
+    }
+
+    public IEnumerator MoveCoroutine5()
+    {
+
+        transform.position += new Vector3(0, boxSize, 0);
+        yield return new WaitForSeconds(1f);
+
+    }
 
     private void OnMouseDown()
     {
@@ -62,9 +110,16 @@ public class Box : MonoBehaviour
             GameController.instance.FindBreakBox();
         }
         else if(GameController.instance.useIt1)
-        {
-            GameController.instance.ClickMoveBox1(x, y);
-            GameController.instance.ClickMoveBox2(x, y);
+        {          
+            if(GameController.instance.clickBox1)
+            {
+                GameController.instance.ClickMoveBox2(x, y);
+            }
+            else
+            {
+                GameController.instance.ClickMoveBox1(x, y);
+            }
+            
             GameController.instance.Item1();    
         } 
         else if(GameController.instance.useIt2)
