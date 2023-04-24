@@ -8,13 +8,13 @@ public class UIMainMenu : UIScreenBase
 
     public void StartCasual()
     {
-        if(DataManager.ins.score == 0)
+        if(DataManager.ins.scoreCasual == 0)
         {
-            if(DataManager.ins.highScore == 0)
+            if(DataManager.ins.highScoreCasual == 0)
             {
                 DataManager.ins.start_new_game = true;
-                DataManager.ins.StartData();
-                SceneManager.LoadScene(1);
+                DataManager.ins.StartDataCasual();               
+                SceneManager.LoadScene(1);               
                 UIController.ins.ShowCasual();
             }
              else
@@ -23,18 +23,51 @@ public class UIMainMenu : UIScreenBase
             }
         }     
     }
+
+    public void StartClassic()
+    {
+        if(DataManager.ins.scoreClassic == 0)
+        {
+            if(DataManager.ins.highScoreClassic == 0)
+            {
+                DataManager.ins.start_new_game = true;
+                DataManager.ins.StartDataClassic();
+                SceneManager.LoadScene(2);
+                UIController.ins.ShowClassic();
+            }
+            else
+            {
+                RestartClassic();
+            }
+        }
+    }
     public void RestartCasual()
     {
         DataManager.ins.start_new_game = true;
-        DataManager.ins.ResetData();
+        DataManager.ins.ResetDataCasual();
         SceneManager.LoadScene(1);
         UIController.ins.ShowCasual();
+    }
+
+    public void RestartClassic()
+    {
+        DataManager.ins.start_new_game = true;
+        DataManager.ins.ResetDataClassic();
+        SceneManager.LoadScene(2);
+        UIController.ins.ShowClassic();
     }
     public void ContinueCasual()
     {
         DataManager.ins.start_new_game = false;
         SceneManager.LoadScene(1);
         UIController.ins.ShowCasual(); 
+    }
+
+    public void ContinueClassic()
+    {
+        DataManager.ins.start_new_game = false;
+        SceneManager.LoadScene(2);
+        UIController.ins.ShowClassic();
     }
 
     public override void OnShow()

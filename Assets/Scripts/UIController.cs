@@ -9,6 +9,7 @@ public class UIController : MonoBehaviour
     public UIScreenBase currentScreen;
     public GameObject mainMenu;
     public GameObject casualPanel;
+    public GameObject classicPanel;
     public GameObject mainCameraPrefabs;
     public GameOverScreen GameOverScreen;   
 
@@ -40,6 +41,12 @@ public class UIController : MonoBehaviour
     {
         Destroy(currentScreen.gameObject); 
         currentScreen = Instantiate(casualPanel, transform).GetComponent<UICasual>();
+    }
+
+    public void ShowClassic()
+    {
+        Destroy(currentScreen.gameObject);
+        currentScreen = Instantiate(classicPanel, transform).GetComponent<UIClassic>();
     }
 
     public void ShowMenu()

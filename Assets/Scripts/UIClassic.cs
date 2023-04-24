@@ -4,30 +4,19 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class UICasual : UIScreenBase
+public class UIClassic : UIScreenBase
 {
     public Text txtScore;
-    public Text txtLevel;
     public Text txtHighScore;
-    public Text txtTarget;
     public Text txtCoin;
-
 
     private void Start()
     {
         UpdateScoreText();
         UpdateHighScoreText();
-        UpdateLevelText();
-        UpdateTargetText();
         UpdateCoinText();
     }
 
-    private void Update()
-    {
-        UpdateTargetText();
-        UpdateLevelText();
-        UpdateCoinText();
-    }
     public override void OnShow()
     {
         base.OnShow();
@@ -36,30 +25,19 @@ public class UICasual : UIScreenBase
         It3();
         UpdateScoreText();
         UpdateHighScoreText();
-        UpdateLevelText();
-        UpdateTargetText();
         UpdateCoinText();
     }
 
     public void UpdateScoreText()
     {
-        txtScore.text = DataManager.ins.scoreCasual.ToString();
+        txtScore.text = DataManager.ins.scoreClassic.ToString();
     }
 
     public void UpdateHighScoreText()
     {
-        txtHighScore.text = DataManager.ins.highScoreCasual.ToString();
+        txtHighScore.text = DataManager.ins.highScoreClassic.ToString();
     }
 
-    public void UpdateLevelText()
-    {
-        txtLevel.text = DataManager.ins.level.ToString();
-    }
-
-    public void UpdateTargetText()
-    {   
-        txtTarget.text = DataManager.ins.target.ToString();
-    }
     public void UpdateCoinText()
     {
         txtCoin.text = DataManager.ins.coin.ToString();
@@ -90,8 +68,8 @@ public class UICasual : UIScreenBase
             DataManager.ins.coin = DataManager.ins.coin - 3;
             DataManager.ins.SaveCoin();
             UpdateCoinText();
-            GameController.instance.useIt2 = true;         
-        }       
+            GameController.instance.useIt2 = true;
+        }
     }
 
     public void It3()

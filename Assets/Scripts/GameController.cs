@@ -48,7 +48,7 @@ public class GameController : MonoBehaviour
             {
                 for (int j = 0; j < 10; j++)
                 {
-                    SpawnBox(i, j);
+                    SpawnBoxCasual(i, j);
                 }
             }
         }
@@ -58,14 +58,14 @@ public class GameController : MonoBehaviour
             {
                 for (int j = 0; j < 10; j++)
                 {
-                    SpawnBox1(i, j);
+                    SpawnBoxCasual1(i, j);
                 }
             }
         }
     }
 
 
-    public void SpawnBox(int x, int y)
+    public void SpawnBoxCasual(int x, int y)
     {
         int color = Random.Range(1, 6);
         GameObject box1 = Instantiate(this.box[color - 1]);
@@ -75,9 +75,9 @@ public class GameController : MonoBehaviour
         boxMatrix[x][y] = box1;
     }
 
-    public void SpawnBox1(int x, int y)
+    public void SpawnBoxCasual1(int x, int y)
     {
-        BoxType color1 = DataManager.ins.colorMatrix[x][y];
+        BoxType color1 = DataManager.ins.colorMatrixCasual[x][y];
         if (color1 == BoxType.None)
         {
             boxMatrix[x][y] = null;
@@ -87,12 +87,12 @@ public class GameController : MonoBehaviour
             GameObject box2 = Instantiate(this.box[(int)color1 - 1]);
             Vector3 pos = box2.GetComponent<Box>().CalculatationPosition(x, y);
             box2.transform.position = pos;
-            box2.GetComponent<Box>().OnSpawn(x, y, (BoxType)color1);
+            box2.GetComponent<Box>().OnSpawn(x, y, color1);
             boxMatrix[x][y] = box2;
         }
     }
 
-    public void FindBreakBox()
+    public void FindBreakBoxCasual()
     {
         for (int i = 0; i < breakBox.Count; i++)
         {
@@ -117,18 +117,54 @@ public class GameController : MonoBehaviour
         }
         if (breakBox.Count > 1)
         {
-            BreakBox();
+            BreakBoxCasual();
 
             MoveBox();
 
-            SaveBox();
+            SaveBoxCasual();
            
         }
         breakBox.Clear();
-        CheckWinLose();
+        CheckWinLoseCasual();
     }
 
-    public void BreakBox()
+    public void FindBreakBoxClassic()
+    {
+        for (int i = 0; i < breakBox.Count; i++)
+        {
+            int x = breakBox[i].GetComponent<BoxClassic>().x;
+            int y = breakBox[i].GetComponent<BoxClassic>().y;
+            if (x > 0 && boxMatrix[x - 1][y] != null && boxMatrix[x - 1][y].GetComponent<BoxClassic>().type == breakBox[i].GetComponent<BoxClassic>().type && !KTBox(boxMatrix[x - 1][y]))
+            {
+                breakBox.Add(boxMatrix[x - 1][y]);
+            }
+            if (x < 9 && boxMatrix[x + 1][y] != null && boxMatrix[x + 1][y].GetComponent<BoxClassic>().type == breakBox[i].GetComponent<BoxClassic>().type && !KTBox(boxMatrix[x + 1][y]))
+            {
+                breakBox.Add(boxMatrix[x + 1][y]);
+            }
+            if (y > 0 && boxMatrix[x][y - 1] != null && boxMatrix[x][y - 1].GetComponent<BoxClassic>().type == breakBox[i].GetComponent<BoxClassic>().type && !KTBox(boxMatrix[x][y - 1]))
+            {
+                breakBox.Add(boxMatrix[x][y - 1]);
+            }
+            if (y < 9 && boxMatrix[x][y + 1] != null && boxMatrix[x][y + 1].GetComponent<BoxClassic>().type == breakBox[i].GetComponent<BoxClassic>().type && !KTBox(boxMatrix[x][y + 1]))
+            {
+                breakBox.Add(boxMatrix[x][y + 1]);
+            }
+        }
+        if (breakBox.Count > 1)
+        {
+            BreakBoxClassic();
+
+            MoveBox();
+
+            SaveBoxClassic();
+
+        }
+        breakBox.Clear();
+        CheckWinLoseClassic();
+    }
+
+    public void BreakBoxCasual()
     {
         for (int i = 0; i < breakBox.Count; i++)
         {
@@ -136,7 +172,25 @@ public class GameController : MonoBehaviour
             if (breakBox.Count > 1)
             {
                 j = j + i * 10;
-                AddScore(j);
+                AddScoreCasual(j);
+            }
+            GameObject explosion = Instantiate(explosionPrefabs);
+            explosion.GetComponent<ParticleSystem>().Play();
+            explosion.transform.position = breakBox[i].transform.position;
+            Destroy(breakBox[i]);
+            Destroy(explosion, 0.5f);
+        }
+    }
+
+    public void BreakBoxClassic()
+    {
+        for (int i = 0; i < breakBox.Count; i++)
+        {
+            int j = 5;
+            if (breakBox.Count > 1)
+            {
+                j = j + i * 10;
+                AddScoreClassic(j);
             }
             GameObject explosion = Instantiate(explosionPrefabs);
             explosion.GetComponent<ParticleSystem>().Play();
@@ -190,7 +244,7 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public void SaveBox()
+    public void SaveBoxCasual()
     {
         for (int i = 0; i < boxMatrix.Count; i++)
         {
@@ -198,18 +252,37 @@ public class GameController : MonoBehaviour
             {
                 if (boxMatrix[i][j] == null)
                 {
-                    DataManager.ins.colorMatrix[i][j] = BoxType.None;
+                    DataManager.ins.colorMatrixCasual[i][j] = BoxType.None;
                 }
                 else
                 {
-                    DataManager.ins.colorMatrix[i][j] = boxMatrix[i][j].GetComponent<Box>().type;
+                    DataManager.ins.colorMatrixCasual[i][j] = boxMatrix[i][j].GetComponent<Box>().type;
                 }
             }
         }
-        DataManager.ins.SaveJson();
+        DataManager.ins.SaveJsonCasual();
     }
 
-    public void CheckWinLose()
+    public void SaveBoxClassic()
+    {
+        for (int i = 0; i < boxMatrix.Count; i++)
+        {
+            for (int j = 0; j < boxMatrix[i].Count; j++)
+            {
+                if (boxMatrix[i][j] == null)
+                {
+                    DataManager.ins.colorMatrixClassic[i][j] = BoxType1.None;
+                }
+                else
+                {
+                    DataManager.ins.colorMatrixClassic[i][j] = boxMatrix[i][j].GetComponent<BoxClassic>().type;
+                }
+            }
+        }
+        DataManager.ins.SaveJsonClassic();
+    }
+
+    public void CheckWinLoseCasual()
     {
         if (KTGameLose())
         {
@@ -217,11 +290,11 @@ public class GameController : MonoBehaviour
             {
                 for (int j = 0; j < 10; j++)
                 {
-                    Destroy(boxMatrix[j][i]);
+                    Destroy(boxMatrix[j][i], 0.05f);
                     boxMatrix[j][i] = null;
                 }
             }
-            if (DataManager.ins.score >= DataManager.ins.target)
+            if (DataManager.ins.scoreCasual >= DataManager.ins.target)
             {
                 DataManager.ins.level++;
                 DataManager.ins.coin++;
@@ -233,35 +306,67 @@ public class GameController : MonoBehaviour
                 {
                     for (int j = 0; j < 10; j++)
                     {
-                        SpawnBox(i, j);
-                        DataManager.ins.colorMatrix[i][j] = boxMatrix[i][j].GetComponent<Box>().type;
+                        SpawnBoxCasual(i, j);
+                        DataManager.ins.colorMatrixCasual[i][j] = boxMatrix[i][j].GetComponent<Box>().type;
                     }
                 }
-                DataManager.ins.SaveJson();
+                DataManager.ins.SaveJsonCasual();
             }
             else
             {
                 UIController.ins.ShowGameOver();
-                ((GameOverScreen)UIController.ins.currentScreen).Score();
-                ((GameOverScreen)UIController.ins.currentScreen).HighScore();
+                ((GameOverScreen)UIController.ins.currentScreen).ScoreCasual();
+                ((GameOverScreen)UIController.ins.currentScreen).HighScoreClassic();
             }
         }
     }
-
-    public void AddScore(int addedScore)
+    public void CheckWinLoseClassic()
     {
-        DataManager.ins.score += addedScore;
-        DataManager.ins.SaveScore();
-        ((UICasual)UIController.ins.currentScreen).UpdateScoreText();
-        if(DataManager.ins.score > DataManager.ins.highScore)
+        if (KTGameLose())
         {
-            DataManager.ins.highScore = DataManager.ins.score;
-            DataManager.ins.SaveHighScore();
+            for (int i = 0; i < 10; i++)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    Destroy(boxMatrix[j][i], 0.05f);
+                    boxMatrix[j][i] = null;
+                }
+            }
+            UIController.ins.ShowGameOver();
+            ((GameOverScreen)UIController.ins.currentScreen).ScoreClassic();
+            ((GameOverScreen)UIController.ins.currentScreen).HighScoreClassic();
+
+        }
+    }
+
+    public void AddScoreCasual(int addedScore)
+    {
+        DataManager.ins.scoreCasual += addedScore;
+        DataManager.ins.SaveScoreCasual();
+        ((UICasual)UIController.ins.currentScreen).UpdateScoreText();
+        if(DataManager.ins.scoreCasual > DataManager.ins.highScoreCasual)
+        {
+            DataManager.ins.highScoreCasual = DataManager.ins.scoreCasual;
+            DataManager.ins.SaveHighScoreCasual();
         }
         ((UICasual)UIController.ins.currentScreen).UpdateHighScoreText();
         ((UICasual)UIController.ins.currentScreen).UpdateTargetText();
         ((UICasual)UIController.ins.currentScreen).UpdateLevelText();
         ((UICasual)UIController.ins.currentScreen).UpdateCoinText();
+    }
+
+    public void AddScoreClassic(int addScore)
+    {
+        DataManager.ins.scoreClassic += addScore;
+        DataManager.ins.SaveScoreClassic();
+        ((UIClassic)UIController.ins.currentScreen).UpdateScoreText();
+        if (DataManager.ins.scoreClassic > DataManager.ins.highScoreClassic)
+        {
+            DataManager.ins.highScoreClassic = DataManager.ins.scoreClassic;
+            DataManager.ins.SaveHighScoreClassic();
+        }
+        ((UIClassic)UIController.ins.currentScreen).UpdateHighScoreText();
+        ((UIClassic)UIController.ins.currentScreen).UpdateCoinText();
     }
 
     public bool KTGameLose()
@@ -312,23 +417,17 @@ public class GameController : MonoBehaviour
 
     public void ClickMoveBox1(int x, int y)
     {
-        Vector3 pos1 = boxMatrix[x][y].GetComponent<Box>().CalculatationPosition(x, y);
-        BoxType color1 = boxMatrix[x][y].GetComponent<Box>().type;
         moveBox.Add(boxMatrix[x][y]);
-        clickBox1 = true;
-        Debug.Log(319);
+        clickBox1 = true;       
     }
 
     public void ClickMoveBox2(int x, int y)
     {
-        Vector3 pos2 = boxMatrix[x][y].GetComponent<Box>().CalculatationPosition(x, y);
-        BoxType color2 = boxMatrix[x][y].GetComponent<Box>().type;
         moveBox.Add(boxMatrix[x][y]);
-        clickBox2 = true;
-        Debug.Log(327);
+        clickBox2 = true;       
     }
 
-    public void Item1()
+    public void Item1Casual()
     {
         if (clickBox1 == true && clickBox2 == true)
         {
@@ -339,18 +438,26 @@ public class GameController : MonoBehaviour
                 int x2 = moveBox[1].GetComponent<Box>().x;
                 int y2 = moveBox[1].GetComponent<Box>().y;
 
-                if (boxMatrix[x2][y2] != null && x1 > 0 && x2 == x1 - 1 && y1 == y2 && boxMatrix[x1][y1].GetComponent<Box>().type != boxMatrix[x2][y2].GetComponent<Box>().type)
+                BoxType color1 = boxMatrix[x1][y1].GetComponent<Box>().type;
+                BoxType color2 = boxMatrix[x2][y2].GetComponent<Box>().type;
+
+                if (x1 > 0 && x2 == x1 - 1 && y1 == y2 && boxMatrix[x2][y2] != null && boxMatrix[x1][y1].GetComponent<Box>().type != boxMatrix[x2][y2].GetComponent<Box>().type)
                 {
+
                     boxMatrix[x1][y1].GetComponent<Box>().x--;
                     boxMatrix[x1][y1].GetComponent<Box>().MoveLeft1();
                     boxMatrix[x2][y2].GetComponent<Box>().x++;
                     boxMatrix[x2][y2].GetComponent<Box>().MoveRight();
                     boxMatrix[x1][y1] = boxMatrix[x2][y2];
-                    boxMatrix[x1][y1].transform.position = boxMatrix[x2][y2].GetComponent<Box>().CalculatationPosition(x2, y2);
-                    DataManager.ins.colorMatrix[x1][y1] = boxMatrix[x1][y1].GetComponent<Box>().type;
-                    boxMatrix[x2][y2] = boxMatrix[x1][y1];
-                    boxMatrix[x2][y2].transform.position = boxMatrix[x1][y1].GetComponent<Box>().CalculatationPosition(x1, y1);
-                    DataManager.ins.colorMatrix[x2][y2] = boxMatrix[x2][y2].GetComponent<Box>().type;
+                    x1 = x2;
+                    x2 = x1 + 1;
+                    color1 = color2;
+                    boxMatrix[x1][y1].transform.position = boxMatrix[x1][y1].GetComponent<Box>().CalculatationPosition(x1, y1);
+                    DataManager.ins.colorMatrixCasual[x1][y1] = boxMatrix[x1][y1].GetComponent<Box>().type;
+                    
+                    boxMatrix[x2][y2].transform.position = boxMatrix[x2][y2].GetComponent<Box>().CalculatationPosition(x2, y2);
+                    DataManager.ins.colorMatrixCasual[x1][y1] = boxMatrix[x1][y1].GetComponent<Box>().type;
+
                 }
                 if (boxMatrix[x2][y2] != null && x1 < 9 && x2 == x1 + 1 && y1 == y2 && boxMatrix[x1][y1].GetComponent<Box>().type != boxMatrix[x2][y2].GetComponent<Box>().type)
                 {
@@ -359,11 +466,14 @@ public class GameController : MonoBehaviour
                     boxMatrix[x2][y2].GetComponent<Box>().x--;
                     boxMatrix[x2][y2].GetComponent<Box>().MoveLeft1();
                     boxMatrix[x2][y2] = boxMatrix[x1][y1];
-                    boxMatrix[x2][y2].transform.position = boxMatrix[x1][y1].GetComponent<Box>().CalculatationPosition(x1, y1);
-                    DataManager.ins.colorMatrix[x2][y2] = boxMatrix[x1][y1].GetComponent<Box>().type;
-                    boxMatrix[x1][y1] = boxMatrix[x2][y2];
-                    boxMatrix[x1][y1].transform.position = boxMatrix[x2][y2].GetComponent<Box>().CalculatationPosition(x2, y2);
-                    DataManager.ins.colorMatrix[x1][y1] = boxMatrix[x1][y1].GetComponent<Box>().type;
+                    x1 = x2;
+                    x2 = x1 - 1;
+                    color1 = color2;
+                    boxMatrix[x2][y2].transform.position = boxMatrix[x2][y2].GetComponent<Box>().CalculatationPosition(x2, y2);
+                    DataManager.ins.colorMatrixCasual[x2][y2] = boxMatrix[x2][y2].GetComponent<Box>().type;
+                    
+                    boxMatrix[x1][y1].transform.position = boxMatrix[x1][y1].GetComponent<Box>().CalculatationPosition(x1, y1);
+                    DataManager.ins.colorMatrixCasual[x1][y1] = boxMatrix[x1][y1].GetComponent<Box>().type;
                 }
                 if (boxMatrix[x2][y2] != null && y1 > 0 && y2 == y1 - 1 && x1 == x2 && boxMatrix[x1][y1].GetComponent<Box>().type != boxMatrix[x2][y2].GetComponent<Box>().type)
                 {
@@ -372,11 +482,14 @@ public class GameController : MonoBehaviour
                     boxMatrix[x2][y2].GetComponent<Box>().y++;
                     boxMatrix[x2][y2].GetComponent<Box>().MoveUp();
                     boxMatrix[x1][y1] = boxMatrix[x2][y2];
-                    boxMatrix[x1][y1].transform.position = boxMatrix[x2][y2].GetComponent<Box>().CalculatationPosition(x2, y2);
-                    DataManager.ins.colorMatrix[x1][y1] = boxMatrix[x1][y1].GetComponent<Box>().type;
-                    boxMatrix[x2][y2] = boxMatrix[x1][y1];
-                    boxMatrix[x2][y2].transform.position = boxMatrix[x1][y1].GetComponent<Box>().CalculatationPosition(x1, y1);
-                    DataManager.ins.colorMatrix[x2][y2] = boxMatrix[x2][y2].GetComponent<Box>().type;
+                    y1 = y2;
+                    y2 = y1 + 1;
+                    color1 = color2;
+                    boxMatrix[x1][y1].transform.position = boxMatrix[x1][y1].GetComponent<Box>().CalculatationPosition(x1, y1);
+                    DataManager.ins.colorMatrixCasual[x1][y1] = boxMatrix[x1][y1].GetComponent<Box>().type;
+                    
+                    boxMatrix[x2][y2].transform.position = boxMatrix[x2][y2].GetComponent<Box>().CalculatationPosition(x2, y2);
+                    DataManager.ins.colorMatrixCasual[x2][y2] = boxMatrix[x2][y2].GetComponent<Box>().type;
                 }
                 if (boxMatrix[x2][y2] != null && y1 < 9 && y2 == y1 + 1 && x1 == x2 && boxMatrix[x1][y1].GetComponent<Box>().type != boxMatrix[x2][y2].GetComponent<Box>().type)
                 {
@@ -385,26 +498,28 @@ public class GameController : MonoBehaviour
                     boxMatrix[x2][y2].GetComponent<Box>().y--;
                     boxMatrix[x2][y2].GetComponent<Box>().MoveDown1();
                     boxMatrix[x2][y2] = boxMatrix[x1][y1];
-                    boxMatrix[x2][y2].transform.position = boxMatrix[x1][y1].GetComponent<Box>().CalculatationPosition(x1, y1);
-                    DataManager.ins.colorMatrix[x2][y2] = boxMatrix[x1][y1].GetComponent<Box>().type;
-                    boxMatrix[x1][y1] = boxMatrix[x2][y2];
-                    boxMatrix[x1][y1].transform.position = boxMatrix[x2][y2].GetComponent<Box>().CalculatationPosition(x2, y2);
-                    DataManager.ins.colorMatrix[x1][y1] = boxMatrix[x1][y1].GetComponent<Box>().type;
+                    y1 = y2;
+                    y2 = y1 - 1;
+                    color1 = color2;
+                    boxMatrix[x2][y2].transform.position = boxMatrix[x2][y2].GetComponent<Box>().CalculatationPosition(x2, y2);
+                    DataManager.ins.colorMatrixCasual[x1][y1] = boxMatrix[x1][y1].GetComponent<Box>().type;
+                    
+                    boxMatrix[x1][y1].transform.position = boxMatrix[x1][y1].GetComponent<Box>().CalculatationPosition(x1, y1);
+                    DataManager.ins.colorMatrixCasual[x1][y1] = boxMatrix[x1][y1].GetComponent<Box>().type;
                 }
-                CheckWinLose();
-                SaveBox();
+                CheckWinLoseCasual();
+                SaveBoxCasual();
             }         
             moveBox.Clear();
             clickBox1 = false;
             clickBox2 = false;
             useIt1 = false;
-        }
-        
+        }      
     }
 
-    public void Item2(int x, int y)
+    public void Item2Casual(int x, int y)
     {
-        AddScore(5);
+        AddScoreCasual(5);
         GameObject explosion = Instantiate(explosionPrefabs);
         explosion.GetComponent<ParticleSystem>().Play();
         explosion.transform.position = boxMatrix[x][y].transform.position;
@@ -412,13 +527,13 @@ public class GameController : MonoBehaviour
         Destroy(explosion, 0.5f);
         boxMatrix[x][y] = null;
         MoveBox();
-        CheckWinLose();
-        SaveBox();
+        CheckWinLoseCasual();
+        SaveBoxCasual();
         breakBox.Clear();
         useIt2 = false;
     }
 
-    public void Item3(int x, int y)
+    public void Item3Casual(int x, int y)
     {
         GameObject explosion = Instantiate(explosionPrefabs);
         explosion.GetComponent<ParticleSystem>().Play();
@@ -431,9 +546,9 @@ public class GameController : MonoBehaviour
         box1.GetComponent<Box>().OnSpawn(x, y, (BoxType)color);
         boxMatrix[x][y] = box1;
         box1.transform.position = box1.GetComponent<Box>().CalculatationPosition(x, y);
-        DataManager.ins.colorMatrix[x][y] = boxMatrix[x][y].GetComponent<Box>().type;
-        CheckWinLose();
-        SaveBox();     
+        DataManager.ins.colorMatrixCasual[x][y] = boxMatrix[x][y].GetComponent<Box>().type;
+        CheckWinLoseCasual();
+        SaveBoxCasual();     
         useIt3 = false;
     }
 }

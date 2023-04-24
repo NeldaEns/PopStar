@@ -7,22 +7,28 @@ using System.Runtime.Serialization.Formatters.Binary;
 public class DataManager : MonoBehaviour
 {
     public static DataManager ins;
-    public int score;
-    public int highScore;
+    public int scoreCasual;
+    public int scoreClassic;
+    public int highScoreCasual;
+    public int highScoreClassic;
     public int level;
     public float target;
     public int coin;
     public bool start_new_game;
 
-    public List<List<BoxType>> colorMatrix;
+    public List<List<BoxType>> colorMatrixCasual;
+    public List<List<BoxType1>> colorMatrixClassic;
 
-    private const string score_key = "score_key";
-    private const string high_score_key = "high_score_key";
+    private const string score_casual_key = "score_casual_key";
+    private const string score_classic_key = "score_classic_key";
+    private const string high_score_casual_key = "high_score_casual_key";
+    private const string high_score_classic_key = "high_score_classic_key";
     private const string level_key = "level_key";
     private const string target_key = "target_key";
     private const string coin_key = "coin_key";
     private const string color_key = "color_key";
-    private const string first_time_play = "first_time_play";
+    private const string first_time_play_casual = "first_time_play_casual";
+    private const string first_time_play_classic = "first_time_play_classic";
 
 
     private void Awake()
@@ -37,40 +43,60 @@ public class DataManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
 
-        FirstTimePlay();
+        FirstTimePlayCasual();
+        
     }
 
-    public void FirstTimePlay()
+    public void FirstTimePlayCasual()
     {
-        if (PlayerPrefs.HasKey(first_time_play))
+        if (PlayerPrefs.HasKey(first_time_play_casual))
         {
-            LoadData();
+            LoadDataCasual();
         }
         else
         {
-            PlayerPrefs.SetInt(first_time_play, 0);
-            StartData();
+            PlayerPrefs.SetInt(first_time_play_casual, 0);
+            StartDataCasual();
+        }
+    }
+    public void FirstTimePlayClassic()
+    {
+        if (PlayerPrefs.HasKey(first_time_play_casual))
+        {
+            LoadDataClassic();
+        }
+        else
+        {
+            PlayerPrefs.SetInt(first_time_play_casual, 0);
+            StartDataClassic();
         }
     }
 
-    public void LoadData()
+    public void LoadDataCasual()
     {
-        LoadScore();
-        LoadHighScore();
+        LoadScoreCasual();
+        LoadHighScoreCasual();
         LoadLevel();
         LoadTarget();
         LoadCoin();
-        LoadJson();
+        LoadJsonCasual();
+    }
+    public void LoadDataClassic ()
+    {
+        LoadScoreClassic();
+        LoadHighScoreClassic();
+        LoadCoin();
+        LoadJsonClassic();
     }
 
-    public void StartData()
+    public void StartDataCasual()
     {
-        score = 0;
+        scoreCasual = 0;
         level = 1;
         target = 1000;
-        highScore = 0;
+        highScoreCasual = 0;
         coin = 1000;
-        colorMatrix = new List<List<BoxType>>();
+        colorMatrixCasual = new List<List<BoxType>>();
 
         for (int i = 0; i < 10; i++)
         {
@@ -81,58 +107,112 @@ public class DataManager : MonoBehaviour
                 row.Add(BoxType.None);  
             }
 
-            colorMatrix.Add(row);
+            colorMatrixCasual.Add(row);
         }
-        SaveJson();
+        SaveJsonCasual();
         SaveCoin();
-        SaveScore();
+        SaveScoreCasual();
         SaveLevel();
         SaveTarget();
-        SaveHighScore();
+        SaveHighScoreCasual();
     }
-
-    public void SaveJson()
+    public void StartDataClassic()
     {
-        List<string> jsonsColor = new List<string>();
+        scoreClassic = 0;
+        highScoreClassic = 0;
+        colorMatrixClassic = new List<List<BoxType1>>();
 
         for (int i = 0; i < 10; i++)
         {
-            string jsonColor = JsonHelper.ToJson<BoxType>(colorMatrix[i]);
-            jsonsColor.Add(jsonColor);
+            List<BoxType1> row = new List<BoxType1>();
+
+            for (int j = 0; j < 10; j++)
+            {
+                row.Add(BoxType1.None);
+            }
+
+            colorMatrixClassic.Add(row);
         }
-        string finalJson = JsonHelper.ToJson<string>(jsonsColor);
+        SaveJsonClassic();
+        SaveCoin();
+        SaveScoreClassic();
+        SaveHighScoreClassic();
+    }
+
+    public void SaveJsonCasual()
+    {
+        List<string> jsonsColorCasual = new List<string>();
+
+        for (int i = 0; i < 10; i++)
+        {
+            string jsonColor = JsonHelper.ToJson<BoxType>(colorMatrixCasual[i]);
+            jsonsColorCasual.Add(jsonColor);
+        }
+        string finalJson = JsonHelper.ToJson<string>(jsonsColorCasual);
         PlayerPrefs.SetString(color_key, finalJson);
     }
 
-    public void LoadJson()
+    public void SaveJsonClassic()
+    {
+        List<string> jsonsColorClassic = new List<string>();
+
+        for (int i = 0; i < 10; i++)
+        {
+            string jsonColor = JsonHelper.ToJson<BoxType1>(colorMatrixClassic[i]);
+            jsonsColorClassic.Add(jsonColor);
+        }
+        string finalJson = JsonHelper.ToJson<string>(jsonsColorClassic);
+        PlayerPrefs.SetString(color_key, finalJson);
+    }
+
+    public void LoadJsonCasual()
     {
         string finalJson = PlayerPrefs.GetString(color_key);
 
         List<string> jsonsColor = JsonHelper.FromJson<string>(finalJson);
 
-        colorMatrix = new List<List<BoxType>>();
+        colorMatrixCasual = new List<List<BoxType>>();
         for(int i = 0; i < 10; i++)
         {
             List<BoxType> row = JsonHelper.FromJson<BoxType>(jsonsColor[i]);
-            colorMatrix.Add(row);
+            colorMatrixCasual.Add(row);
         }
     }
 
-    public void ResetData()
+    public void LoadJsonClassic()
     {
-        score = 0;
+        string finalJson = PlayerPrefs.GetString(color_key);
+
+        List<string> jsonsColor = JsonHelper.FromJson<string>(finalJson);
+
+        colorMatrixClassic = new List<List<BoxType1>>();
+        for (int i = 0; i < 10; i++)
+        {
+            List<BoxType1> row = JsonHelper.FromJson<BoxType1>(jsonsColor[i]);
+            colorMatrixClassic.Add(row);
+        }
+    }
+
+    public void ResetDataCasual()
+    {
+        scoreCasual = 0;
         level = 1;
         target = 1000;
     }
 
-    public void LoadScore()
+    public void ResetDataClassic()
     {
-        score = PlayerPrefs.GetInt(score_key, 0);
+        scoreClassic = 0;
     }
 
-    public void LoadHighScore()
+    public void LoadScoreCasual()
     {
-        highScore = PlayerPrefs.GetInt(high_score_key, 0);
+        scoreCasual = PlayerPrefs.GetInt(score_casual_key, 0);
+    }
+
+    public void LoadHighScoreCasual()
+    {
+        highScoreCasual = PlayerPrefs.GetInt(high_score_casual_key, 0);
     }
 
     public void LoadLevel()
@@ -148,14 +228,14 @@ public class DataManager : MonoBehaviour
     {
         coin = PlayerPrefs.GetInt(coin_key, 0);
     }
-    public void SaveScore()
+    public void SaveScoreCasual()
     {
-        PlayerPrefs.SetInt(score_key, score);
+        PlayerPrefs.SetInt(score_casual_key, scoreCasual);
     }
 
-    public void SaveHighScore()
+    public void SaveHighScoreCasual()
     {
-        PlayerPrefs.SetInt(high_score_key, highScore);
+        PlayerPrefs.SetInt(high_score_casual_key, highScoreCasual);
     }
 
     public void SaveLevel()
@@ -170,6 +250,27 @@ public class DataManager : MonoBehaviour
     public void SaveCoin()
     {
         PlayerPrefs.SetInt(coin_key, coin);
+    }
+
+    public void LoadScoreClassic()
+    {
+        scoreClassic = PlayerPrefs.GetInt(score_classic_key, 0);
+    }
+
+    public void LoadHighScoreClassic()
+    {
+        highScoreClassic = PlayerPrefs.GetInt(high_score_classic_key, 0);
+    }
+
+    public void SaveScoreClassic()
+    {
+        PlayerPrefs.SetInt(score_classic_key, scoreClassic);
+    }
+
+    public void SaveHighScoreClassic()
+    {
+        PlayerPrefs.SetInt(high_score_classic_key, highScoreClassic);
+
     }
 }
 
