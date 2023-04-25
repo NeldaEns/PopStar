@@ -166,7 +166,7 @@ GameObject:
   - component: {fileID: 1452572261002127517}
   - component: {fileID: -375113940615315908}
   m_Layer: 5
-  m_Name: GameOver
+  m_Name: GameOverCasual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -242,8 +242,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c938f94c72df7644822280cc08e9284, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreText: {fileID: 8153013802020320607}
-  highScoreText: {fileID: 7786894493278707599}
+  scoreCasualText: {fileID: 8153013802020320607}
+  highScoreCasualText: {fileID: 7786894493278707599}
 --- !u!1 &2348735438117249055
 GameObject:
   m_ObjectHideFlags: 0
@@ -313,8 +313,8 @@ MonoBehaviour:
     m_FontSize: 32
     m_FontStyle: 0
     m_BestFit: 1
-    m_MinSize: 0
-    m_MaxSize: 300
+    m_MinSize: 3
+    m_MaxSize: 48
     m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -664,7 +664,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: -375113940615315908}
-        m_MethodName: RestartGame
+        m_MethodName: RestartGameCasual
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

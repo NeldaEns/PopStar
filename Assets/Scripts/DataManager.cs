@@ -14,7 +14,8 @@ public class DataManager : MonoBehaviour
     public int level;
     public float target;
     public int coin;
-    public bool start_new_game;
+    public bool start_new_game_casual;
+    public bool start_new_game_classic;
 
     public List<List<BoxType>> colorMatrixCasual;
     public List<List<BoxType1>> colorMatrixClassic;
@@ -26,7 +27,8 @@ public class DataManager : MonoBehaviour
     private const string level_key = "level_key";
     private const string target_key = "target_key";
     private const string coin_key = "coin_key";
-    private const string color_key = "color_key";
+    private const string color_casual_key = "color_casual_key";
+    private const string color_classic_key = "color_classic_key";
     private const string first_time_play_casual = "first_time_play_casual";
     private const string first_time_play_classic = "first_time_play_classic";
 
@@ -44,7 +46,7 @@ public class DataManager : MonoBehaviour
         }
 
         FirstTimePlayCasual();
-        
+        FirstTimePlayClassic();
     }
 
     public void FirstTimePlayCasual()
@@ -61,13 +63,13 @@ public class DataManager : MonoBehaviour
     }
     public void FirstTimePlayClassic()
     {
-        if (PlayerPrefs.HasKey(first_time_play_casual))
+        if (PlayerPrefs.HasKey(first_time_play_classic))
         {
             LoadDataClassic();
         }
         else
         {
-            PlayerPrefs.SetInt(first_time_play_casual, 0);
+            PlayerPrefs.SetInt(first_time_play_classic, 0);
             StartDataClassic();
         }
     }
@@ -81,7 +83,7 @@ public class DataManager : MonoBehaviour
         LoadCoin();
         LoadJsonCasual();
     }
-    public void LoadDataClassic ()
+    public void LoadDataClassic()
     {
         LoadScoreClassic();
         LoadHighScoreClassic();
@@ -149,7 +151,7 @@ public class DataManager : MonoBehaviour
             jsonsColorCasual.Add(jsonColor);
         }
         string finalJson = JsonHelper.ToJson<string>(jsonsColorCasual);
-        PlayerPrefs.SetString(color_key, finalJson);
+        PlayerPrefs.SetString(color_casual_key, finalJson);
     }
 
     public void SaveJsonClassic()
@@ -162,12 +164,12 @@ public class DataManager : MonoBehaviour
             jsonsColorClassic.Add(jsonColor);
         }
         string finalJson = JsonHelper.ToJson<string>(jsonsColorClassic);
-        PlayerPrefs.SetString(color_key, finalJson);
+        PlayerPrefs.SetString(color_classic_key, finalJson);
     }
 
     public void LoadJsonCasual()
     {
-        string finalJson = PlayerPrefs.GetString(color_key);
+        string finalJson = PlayerPrefs.GetString(color_casual_key);
 
         List<string> jsonsColor = JsonHelper.FromJson<string>(finalJson);
 
@@ -181,7 +183,7 @@ public class DataManager : MonoBehaviour
 
     public void LoadJsonClassic()
     {
-        string finalJson = PlayerPrefs.GetString(color_key);
+        string finalJson = PlayerPrefs.GetString(color_classic_key);
 
         List<string> jsonsColor = JsonHelper.FromJson<string>(finalJson);
 

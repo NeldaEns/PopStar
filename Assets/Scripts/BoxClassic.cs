@@ -112,23 +112,23 @@ public class BoxClassic : MonoBehaviour
         {
             if (GameController.instance.clickBox1)
             {
-                GameController.instance.ClickMoveBox2(x, y);
+                GameController.instance.ClickMoveBoxClassic2(x, y);
             }
             else
             {
-                GameController.instance.ClickMoveBox1(x, y);
+                GameController.instance.ClickMoveBoxClassic1(x, y);
             }
 
-            GameController.instance.Item1Casual();
+            GameController.instance.Item1Classic();
         }
         else if (GameController.instance.useIt2)
         {
             GameController.instance.breakBox.Add(gameObject);
-            GameController.instance.Item2Casual(x, y);
+            GameController.instance.Item2Classic(x, y);
         }
         else
         {
-            GameController.instance.Item3Casual(x, y);
+            GameController.instance.Item3Classic(x, y);
         }
     }
 }
@@ -141,7 +141,6 @@ public enum BoxType1
     Purple,
     Red,
     Yellow,
-    Green,
 }
 
 

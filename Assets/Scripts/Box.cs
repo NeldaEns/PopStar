@@ -113,11 +113,11 @@ public class Box : MonoBehaviour
         {          
             if(GameController.instance.clickBox1)
             {
-                GameController.instance.ClickMoveBox2(x, y);
+                GameController.instance.ClickMoveBoxCasual2(x, y);
             }
             else
             {
-                GameController.instance.ClickMoveBox1(x, y);
+                GameController.instance.ClickMoveBoxCasual1(x, y);
             }
             
             GameController.instance.Item1Casual();    
