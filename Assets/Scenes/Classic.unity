@@ -164,12 +164,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acadfc699c321984cb779f852f6d18ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  box:
-  - {fileID: 4253190129349916855, guid: 24191a6c10275f847b59b352a9058b84, type: 3}
-  - {fileID: 7607158356857295072, guid: 80d2e1784dd7d9c4d875819d3ca80ac1, type: 3}
-  - {fileID: 4309607857140016051, guid: 0c8bd63bd3d7665469d1e8ca37247dbc, type: 3}
-  - {fileID: 2055527538098360328, guid: 99c98f030e8ac18458a68256b909e5eb, type: 3}
-  - {fileID: 2159904201265755569, guid: b4fce6c8ae0b85943a4ef2b5aa49e19e, type: 3}
+  boxCasual: []
+  boxClassic:
+  - {fileID: 6238241667796657097, guid: 341f02e2293448747928f75da4da8d7d, type: 3}
+  - {fileID: 8245205051416306723, guid: 3032d56dd91e78b48a04c7ed81925fc0, type: 3}
+  - {fileID: 6260591237884620227, guid: beb26c0c9e911f741b3ac5f25c21c1f2, type: 3}
+  - {fileID: 8767522516303372319, guid: 05990726c652d7b47b12b8531d11240d, type: 3}
+  - {fileID: 4604176088102395324, guid: 90e5e5e3cf591634792bbd664bfebbcb, type: 3}
+  - {fileID: 5266119337395358011, guid: a479270fb789d7f4e88af8a69d504b2e, type: 3}
   - {fileID: 0}
   breakBox: []
   explosionPrefabs: {fileID: 2203112218923668955, guid: 83b2697b2cf7ace41ac9f0ccb51f546a,

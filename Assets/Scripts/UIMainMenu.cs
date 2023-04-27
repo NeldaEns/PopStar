@@ -10,14 +10,14 @@ public class UIMainMenu : UIScreenBase
     {
         if(DataManager.ins.scoreCasual == 0)
         {
-            if(DataManager.ins.highScoreCasual == 0)
+            if (DataManager.ins.highScoreCasual == 0)
             {
                 DataManager.ins.start_new_game_casual = true;
-                DataManager.ins.StartDataCasual();               
-                SceneManager.LoadScene(1);               
+                DataManager.ins.StartDataCasual();
+                SceneManager.LoadScene(1);
                 UIController.ins.ShowCasual();
             }
-             else
+            else
             {
                 RestartCasual();
             }
@@ -65,7 +65,7 @@ public class UIMainMenu : UIScreenBase
 
     public void ContinueClassic()
     {
-        DataManager.ins.start_new_game_classic = false;
+        DataManager.ins.start_new_game_classic = false; 
         SceneManager.LoadScene(2);
         UIController.ins.ShowClassic();
     }

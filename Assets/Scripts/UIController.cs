@@ -11,8 +11,8 @@ public class UIController : MonoBehaviour
     public GameObject casualPanel;
     public GameObject classicPanel;
     public GameObject mainCameraPrefabs;
-    public GameOverScreenCasual GameOverScreenCasual;
-    public GameOverScreenClassic GameOverScreenClassic;
+    public GameOverScreenCasual casualGameOverScreen;
+    public GameOverScreenClassic classicGameOverScreen;
 
     private void Awake()
     {
@@ -59,12 +59,12 @@ public class UIController : MonoBehaviour
     public void ShowGameOverCasual()
     {
         Destroy(currentScreen.gameObject);
-        currentScreen = Instantiate(GameOverScreenCasual, transform).GetComponent<GameOverScreenCasual>();
+        currentScreen = Instantiate(casualGameOverScreen, transform).GetComponent<GameOverScreenCasual>();
     }
 
     public void ShowGameOverClassic()
     {
         Destroy(currentScreen.gameObject);
-        currentScreen = Instantiate(GameOverScreenClassic, transform).GetComponent<GameOverScreenClassic>();    
+        currentScreen = Instantiate(classicGameOverScreen, transform).GetComponent<GameOverScreenClassic>();    
     }
 }   

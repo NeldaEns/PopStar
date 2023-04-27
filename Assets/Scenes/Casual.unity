@@ -216,17 +216,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acadfc699c321984cb779f852f6d18ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  box:
-  - {fileID: 4253190129349916855, guid: 24191a6c10275f847b59b352a9058b84, type: 3}
+  boxCasual:
+  - {fileID: 7740012786303393321, guid: 24191a6c10275f847b59b352a9058b84, type: 3}
   - {fileID: 7607158356857295072, guid: 80d2e1784dd7d9c4d875819d3ca80ac1, type: 3}
   - {fileID: 4309607857140016051, guid: 0c8bd63bd3d7665469d1e8ca37247dbc, type: 3}
   - {fileID: 2055527538098360328, guid: 99c98f030e8ac18458a68256b909e5eb, type: 3}
   - {fileID: 2159904201265755569, guid: b4fce6c8ae0b85943a4ef2b5aa49e19e, type: 3}
   - {fileID: 0}
+  boxClassic: []
   breakBox: []
   explosionPrefabs: {fileID: 2203112218923668955, guid: 83b2697b2cf7ace41ac9f0ccb51f546a,
     type: 3}
-  GameOverScreen: {fileID: 0}
+  useIt1: 0
+  useIt2: 0
+  useIt3: 0
+  clickBox1: 0
+  clickBox2: 0
+  moveBox: []
 --- !u!4 &1578716626
 Transform:
   m_ObjectHideFlags: 0

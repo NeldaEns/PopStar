@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class GameOverScreenCasual : UIScreenBase
 {
     public Text scoreCasualText;
-    public Text highScoreCasualText;
+    public Text highScoreCasualText;    
 
     public override void OnShow()
     {

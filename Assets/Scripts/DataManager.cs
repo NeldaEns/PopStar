@@ -160,10 +160,10 @@ public class DataManager : MonoBehaviour
 
         for (int i = 0; i < 10; i++)
         {
-            string jsonColor = JsonHelper.ToJson<BoxType1>(colorMatrixClassic[i]);
+            string jsonColor = JsonHelper1.ToJson<BoxType1>(colorMatrixClassic[i]);
             jsonsColorClassic.Add(jsonColor);
         }
-        string finalJson = JsonHelper.ToJson<string>(jsonsColorClassic);
+        string finalJson = JsonHelper1.ToJson<string>(jsonsColorClassic);
         PlayerPrefs.SetString(color_classic_key, finalJson);
     }
 
@@ -185,12 +185,12 @@ public class DataManager : MonoBehaviour
     {
         string finalJson = PlayerPrefs.GetString(color_classic_key);
 
-        List<string> jsonsColor = JsonHelper.FromJson<string>(finalJson);
+        List<string> jsonsColor = JsonHelper1.FromJson<string>(finalJson);
 
         colorMatrixClassic = new List<List<BoxType1>>();
         for (int i = 0; i < 10; i++)
         {
-            List<BoxType1> row = JsonHelper.FromJson<BoxType1>(jsonsColor[i]);
+            List<BoxType1> row = JsonHelper1.FromJson<BoxType1>(jsonsColor[i]);
             colorMatrixClassic.Add(row);
         }
     }

@@ -141,6 +141,7 @@ public enum BoxType1
     Purple,
     Red,
     Yellow,
+    Green,
 }
 
 

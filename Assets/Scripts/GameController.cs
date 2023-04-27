@@ -11,7 +11,8 @@ public class GameController : MonoBehaviour
 
     public List<List<GameObject>> boxMatrixClassic;
 
-    public List<GameObject> box;
+    public List<GameObject> boxCasual;
+    public List<GameObject> boxClassic;
 
     public List<GameObject> breakBox;
 
@@ -69,16 +70,16 @@ public class GameController : MonoBehaviour
             for (int i = 0; i < 10; i++)
             {
                 for (int j = 0; j < 10; j++)
-                {
+                {                    
                     SpawnBoxCasual1(i, j);
                 }
             }
         }
-        if(DataManager.ins.start_new_game_classic == true)
-        {
-            for(int i = 0; i < 10; i++)
+        if (DataManager.ins.start_new_game_classic == true)
+        {           
+            for (int i = 0; i < 10; i++)
             {
-                for(int j = 0; j < 10; j++)
+                for (int j = 0; j < 10; j++)
                 {
                     SpawnBoxClassic(i, j);
                 }
@@ -96,11 +97,10 @@ public class GameController : MonoBehaviour
         }
     }
 
-
     public void SpawnBoxCasual(int x, int y)
     {
         int color = Random.Range(1, 6);
-        GameObject box1 = Instantiate(this.box[color - 1]);
+        GameObject box1 = Instantiate(boxCasual[color - 1]);
         Vector3 pos = box1.GetComponent<Box>().CalculatationPosition(x, y);
         box1.transform.position = pos;
         box1.GetComponent<Box>().OnSpawn(x, y, (BoxType)color);
@@ -109,8 +109,8 @@ public class GameController : MonoBehaviour
 
     public void SpawnBoxClassic(int x, int y)
     {
-        int color = Random.Range(1, 6);
-        GameObject box1 = Instantiate(this.box[color - 1]);
+        int color = Random.Range(1, 7);
+        GameObject box1 = Instantiate(boxClassic[color - 1]);
         Vector3 pos = box1.GetComponent<BoxClassic>().CalculatationPosition(x, y);
         box1.transform.position = pos;
         box1.GetComponent<BoxClassic>().OnSpawn(x, y, (BoxType1)color);
@@ -126,7 +126,7 @@ public class GameController : MonoBehaviour
         }
         else
         {
-            GameObject box2 = Instantiate(this.box[(int)color1 - 1]);
+            GameObject box2 = Instantiate(this.boxCasual[(int)color1 - 1]);
             Vector3 pos = box2.GetComponent<Box>().CalculatationPosition(x, y);
             box2.transform.position = pos;
             box2.GetComponent<Box>().OnSpawn(x, y, color1);
@@ -142,7 +142,7 @@ public class GameController : MonoBehaviour
         }
         else
         {
-            GameObject box2 = Instantiate(this.box[(int)color1 - 1]);
+            GameObject box2 = Instantiate(this.boxClassic[(int)color1 - 1]);
             Vector3 pos = box2.GetComponent<BoxClassic>().CalculatationPosition(x, y);
             box2.transform.position = pos;
             box2.GetComponent<BoxClassic>().OnSpawn(x, y, color1);
@@ -323,7 +323,6 @@ public class GameController : MonoBehaviour
 
         for (int i = 8; i >= 0; i--)
         {
-
             if (boxMatrixClassic[i][0] == null)
             {
                 for (int j = i; j < 9; j++)
@@ -392,7 +391,7 @@ public class GameController : MonoBehaviour
             {
                 for (int j = 0; j < 10; j++)
                 {
-                    Destroy(boxMatrixCasual[j][i], 0.05f);
+                    Destroy(boxMatrixCasual[j][i]);
                     boxMatrixCasual[j][i] = null;
                 }
             }
@@ -435,8 +434,8 @@ public class GameController : MonoBehaviour
                 }
             }
             UIController.ins.ShowGameOverClassic();
-            ((GameOverScreenCasual)UIController.ins.currentScreen).ScoreCasual();
-            ((GameOverScreenCasual)UIController.ins.currentScreen).HighScoreCasual();
+            ((GameOverScreenClassic)UIController.ins.currentScreen).ScoreClassic();
+            ((GameOverScreenClassic)UIController.ins.currentScreen).HighScoreClassic();
         }
     }
 
@@ -700,7 +699,7 @@ public class GameController : MonoBehaviour
         Destroy(explosion, 0.5f);
         boxMatrixCasual[x][y] = null;
         int color = Random.Range(1, 6);
-        GameObject box1 = Instantiate(this.box[color - 1]);
+        GameObject box1 = Instantiate(this.boxCasual[color - 1]);
         box1.GetComponent<Box>().OnSpawn(x, y, (BoxType)color);
         boxMatrixCasual[x][y] = box1;
         box1.transform.position = box1.GetComponent<Box>().CalculatationPosition(x, y);
@@ -825,7 +824,7 @@ public class GameController : MonoBehaviour
         Destroy(explosion, 0.5f);
         boxMatrixClassic[x][y] = null;
         int color = Random.Range(1, 7);
-        GameObject box1 = Instantiate(this.box[color - 1]);
+        GameObject box1 = Instantiate(this.boxClassic[color - 1]);
         box1.GetComponent<BoxClassic>().OnSpawn(x, y, (BoxType1)color);
         boxMatrixClassic[x][y] = box1;
         box1.transform.position = box1.GetComponent<BoxClassic>().CalculatationPosition(x, y);
