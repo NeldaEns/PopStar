@@ -76,6 +76,7 @@ public class UICasual : UIScreenBase
     {
         if (DataManager.ins.coin > 1)
         {
+            AudioManager.ins.Play("click");
             DataManager.ins.coin = DataManager.ins.coin - 2;
             DataManager.ins.SaveCoin();
             UpdateCoinText();
@@ -87,6 +88,7 @@ public class UICasual : UIScreenBase
     {
         if (DataManager.ins.coin > 2)
         {
+            AudioManager.ins.Play("click");
             DataManager.ins.coin = DataManager.ins.coin - 3;
             DataManager.ins.SaveCoin();
             UpdateCoinText();
@@ -98,6 +100,7 @@ public class UICasual : UIScreenBase
     {
         if (DataManager.ins.coin > 3)
         {
+            AudioManager.ins.Play("click");
             DataManager.ins.coin = DataManager.ins.coin - 4;
             DataManager.ins.SaveCoin();
             UpdateCoinText();

@@ -35,12 +35,13 @@ public class UIController : MonoBehaviour
         Canvas canvas = gameObject.GetComponent<Canvas>();
         canvas.renderMode = RenderMode.ScreenSpaceCamera;
         canvas.worldCamera = Camera.main;       
-        currentScreen = Instantiate(mainMenu, transform).GetComponent<UIMainMenu>();         
+        currentScreen = Instantiate(mainMenu, transform).GetComponent<UIMainMenu>();        
     }
 
     public void ShowCasual()
     {
-        Destroy(currentScreen.gameObject); 
+        Destroy(currentScreen.gameObject);
+        AudioManager.ins.Play("gamestart");
         currentScreen = Instantiate(casualPanel, transform).GetComponent<UICasual>();
     }
 
@@ -59,6 +60,7 @@ public class UIController : MonoBehaviour
     public void ShowGameOverCasual()
     {
         Destroy(currentScreen.gameObject);
+        AudioManager.ins.Play("gameover");
         currentScreen = Instantiate(casualGameOverScreen, transform).GetComponent<GameOverScreenCasual>();
     }
 

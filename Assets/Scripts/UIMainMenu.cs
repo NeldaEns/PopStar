@@ -8,10 +8,11 @@ public class UIMainMenu : UIScreenBase
 
     public void StartCasual()
     {
-        if(DataManager.ins.scoreCasual == 0)
+        AudioManager.ins.Play("click");
+        if (DataManager.ins.scoreCasual == 0)
         {
             if (DataManager.ins.highScoreCasual == 0)
-            {
+            {                
                 DataManager.ins.start_new_game_casual = true;
                 DataManager.ins.StartDataCasual();
                 SceneManager.LoadScene(1);
@@ -43,6 +44,7 @@ public class UIMainMenu : UIScreenBase
     }
     public void RestartCasual()
     {
+        AudioManager.ins.Play("click1");
         DataManager.ins.start_new_game_casual = true;
         DataManager.ins.ResetDataCasual();
         SceneManager.LoadScene(1);
@@ -58,6 +60,7 @@ public class UIMainMenu : UIScreenBase
     }
     public void ContinueCasual()
     {
+        AudioManager.ins.Play("click1");
         DataManager.ins.start_new_game_casual = false;
         SceneManager.LoadScene(1);
         UIController.ins.ShowCasual(); 
