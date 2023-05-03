@@ -230,27 +230,27 @@ public class GameController : MonoBehaviour
             j = j + i * 10;
             if(breakBox.Count == 2)
             {
-                AudioManager.ins.Play("click");
+                AudioManager.ins.PlaySFX("click");
             }
             if(breakBox.Count > 2 && breakBox.Count < 5 )
             {
-                AudioManager.ins.Play("good");
+                AudioManager.ins.PlaySFX("good");
             }
             if(breakBox.Count > 4 && breakBox.Count < 7)
             {
-                AudioManager.ins.Play("great");
+                AudioManager.ins.PlaySFX("great");
             }
             if (breakBox.Count > 6 && breakBox.Count < 9 )
             {
-                AudioManager.ins.Play("excellent");
+                AudioManager.ins.PlaySFX("excellent");
             }
             if (breakBox.Count > 8 && breakBox.Count < 11)
             {
-                AudioManager.ins.Play("amazing");
+                AudioManager.ins.PlaySFX("amazing");
             }
             if (breakBox.Count > 10)
             {
-                AudioManager.ins.Play("unbelievable");
+                AudioManager.ins.PlaySFX("unbelievable");
             }
             AddScoreCasual(j);
             GameObject explosion = Instantiate(explosionPrefabs);
@@ -428,7 +428,7 @@ public class GameController : MonoBehaviour
                 {
                     for (int j = 0; j < 10; j++)
                     {
-                        AudioManager.ins.Play("gamestart");
+                        AudioManager.ins.PlaySFX("gamestart");
                         SpawnBoxCasual(i, j);
                         DataManager.ins.colorMatrixCasual[i][j] = boxMatrixCasual[i][j].GetComponent<Box>().type;
                     }
@@ -585,7 +585,7 @@ public class GameController : MonoBehaviour
 
     public void ClickMoveBoxCasual1(int x, int y)
     {
-        AudioManager.ins.Play("it1");
+        AudioManager.ins.PlaySFX("it1");
         moveBox.Add(boxMatrixCasual[x][y]);
         clickBox1 = true;       
     }
@@ -596,7 +596,7 @@ public class GameController : MonoBehaviour
     }
     public void ClickMoveBoxCasual2(int x, int y)
     {
-        AudioManager.ins.Play("it1");
+        AudioManager.ins.PlaySFX("it1");
         moveBox.Add(boxMatrixCasual[x][y]);
         clickBox2 = true;       
     }
@@ -698,7 +698,7 @@ public class GameController : MonoBehaviour
 
     public void Item2Casual(int x, int y)
     {
-        AudioManager.ins.Play("it2");
+        AudioManager.ins.PlaySFX("it2");
         AddScoreCasual(5);
         GameObject explosion = Instantiate(explosionPrefabs);
         explosion.GetComponent<ParticleSystem>().Play();
@@ -715,7 +715,7 @@ public class GameController : MonoBehaviour
 
     public void Item3Casual(int x, int y)
     {
-        AudioManager.ins.Play("it3");
+        AudioManager.ins.PlaySFX("it3");
         GameObject explosion = Instantiate(explosionPrefabs);
         explosion.GetComponent<ParticleSystem>().Play();
         explosion.transform.position = boxMatrixCasual[x][y].transform.position;

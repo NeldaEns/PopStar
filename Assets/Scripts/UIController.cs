@@ -41,7 +41,7 @@ public class UIController : MonoBehaviour
     public void ShowCasual()
     {
         Destroy(currentScreen.gameObject);
-        AudioManager.ins.Play("gamestart");
+        AudioManager.ins.PlaySFX("gamestart");
         currentScreen = Instantiate(casualPanel, transform).GetComponent<UICasual>();
     }
 
@@ -60,7 +60,7 @@ public class UIController : MonoBehaviour
     public void ShowGameOverCasual()
     {
         Destroy(currentScreen.gameObject);
-        AudioManager.ins.Play("gameover");
+        AudioManager.ins.PlaySFX("gameover");
         currentScreen = Instantiate(casualGameOverScreen, transform).GetComponent<GameOverScreenCasual>();
     }
 

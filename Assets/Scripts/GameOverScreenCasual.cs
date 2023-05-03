@@ -36,7 +36,7 @@ public class GameOverScreenCasual : UIScreenBase
     public void Menu()
     {
         Hide();
-        AudioManager.ins.Play("click1");
+        AudioManager.ins.PlaySFX("click1");
         UIController.ins.ShowMenu();
         SceneManager.LoadScene(0);
         DataManager.ins.ResetDataCasual();

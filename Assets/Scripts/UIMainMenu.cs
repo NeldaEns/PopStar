@@ -2,13 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UIMainMenu : UIScreenBase
 {
+    [SerializeField] private Slider musicSlider, sfxSlider;
 
+    private void Start()
+    {
+        if(PlayerPrefs.HasKey("musicVolume"))
+        {
+            LoadVolume();
+        }
+        else
+        {
+            MusicVolume();
+        }
+    }
     public void StartCasual()
     {
-        AudioManager.ins.Play("click");
+        AudioManager.ins.PlaySFX("click");
         if (DataManager.ins.scoreCasual == 0)
         {
             if (DataManager.ins.highScoreCasual == 0)
@@ -44,7 +57,7 @@ public class UIMainMenu : UIScreenBase
     }
     public void RestartCasual()
     {
-        AudioManager.ins.Play("click1");
+        AudioManager.ins.PlaySFX("click1");
         DataManager.ins.start_new_game_casual = true;
         DataManager.ins.ResetDataCasual();
         SceneManager.LoadScene(1);
@@ -60,7 +73,7 @@ public class UIMainMenu : UIScreenBase
     }
     public void ContinueCasual()
     {
-        AudioManager.ins.Play("click1");
+        AudioManager.ins.PlaySFX("click1");
         DataManager.ins.start_new_game_casual = false;
         SceneManager.LoadScene(1);
         UIController.ins.ShowCasual(); 
@@ -79,11 +92,38 @@ public class UIMainMenu : UIScreenBase
     }
     public void Back()
     {
+        AudioManager.ins.PlaySFX("click");
         Application.Quit();
     }
     public override void Hide()
     {
         base.Hide();
-        Debug.Log("chay tiep");
+    }
+
+    public void MusicVolume()
+    {
+        float volume = musicSlider.value;
+        PlayerPrefs.SetFloat("musicVolume", volume);
+    }
+
+    public void LoadVolume()
+    {
+        musicSlider.value = PlayerPrefs.GetFloat("musicVolume");
+        MusicVolume();
+    }
+
+    public void SFXVolume()
+    {
+        AudioManager.ins.SFXVolume(sfxSlider.value);
+    }
+
+    public void MusicButton()
+    {
+        AudioManager.ins.PlaySFX("click");
+    }
+
+    public void SFXButton()
+    {
+        AudioManager.ins.PlaySFX("click");
     }
 }
