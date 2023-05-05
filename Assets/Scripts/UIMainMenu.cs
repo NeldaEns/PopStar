@@ -6,19 +6,8 @@ using UnityEngine.UI;
 
 public class UIMainMenu : UIScreenBase
 {
-    [SerializeField] private Slider musicSlider, sfxSlider;
-
-    private void Start()
-    {
-        if(PlayerPrefs.HasKey("musicVolume"))
-        {
-            LoadVolume();
-        }
-        else
-        {
-            MusicVolume();
-        }
-    }
+    [SerializeField] public Slider musicSlider, sfxSlider;
+   
     public void StartCasual()
     {
         AudioManager.ins.PlaySFX("click");
@@ -36,6 +25,19 @@ public class UIMainMenu : UIScreenBase
                 RestartCasual();
             }
         }     
+    }
+
+    private void Start()
+    {
+        DataManager.ins.SaveMusicVolume();
+        DataManager.ins.SaveMusicSliderValue();
+        DataManager.ins.musicVolume = musicSlider.value;
+        musicSlider.value = DataManager.ins.musicSliderValue;
+
+        //DataManager.ins.SaveSFXVolume();
+        //DataManager.ins.SaveSFXSliderValue();
+        //DataManager.ins.sfxVolume = sfxSlider.value;
+        //sfxSlider.value = DataManager.ins.sfxSliderValue;
     }
 
     public void StartClassic()
@@ -102,18 +104,19 @@ public class UIMainMenu : UIScreenBase
 
     public void MusicVolume()
     {
-        float volume = musicSlider.value;
-        PlayerPrefs.SetFloat("musicVolume", volume);
-    }
-
-    public void LoadVolume()
-    {
-        musicSlider.value = PlayerPrefs.GetFloat("musicVolume");
-        MusicVolume();
-    }
+        DataManager.ins.musicVolume = musicSlider.value;
+        DataManager.ins.SaveMusicVolume();
+        DataManager.ins.musicSliderValue = musicSlider.value;
+        DataManager.ins.SaveMusicSliderValue();
+        AudioManager.ins.MusicVolume(musicSlider.value);
+    }   
 
     public void SFXVolume()
     {
+        DataManager.ins.sfxVolume = sfxSlider.value;
+        DataManager.ins.SaveSFXVolume();
+        DataManager.ins.sfxSliderValue = sfxSlider.value;
+        DataManager.ins.SaveSFXSliderValue();
         AudioManager.ins.SFXVolume(sfxSlider.value);
     }
 

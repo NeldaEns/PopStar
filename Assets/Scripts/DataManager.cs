@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
+using UnityEngine.Audio;
+using System;
 
 public class DataManager : MonoBehaviour
 {
@@ -16,6 +17,10 @@ public class DataManager : MonoBehaviour
     public int coin;
     public bool start_new_game_casual;
     public bool start_new_game_classic;
+    public float musicVolume;
+    public float sfxVolume;
+    public float musicSliderValue;
+    public float sfxSliderValue;
 
     public List<List<BoxType>> colorMatrixCasual;
     public List<List<BoxType1>> colorMatrixClassic;
@@ -31,8 +36,11 @@ public class DataManager : MonoBehaviour
     private const string color_classic_key = "color_classic_key";
     private const string first_time_play_casual = "first_time_play_casual";
     private const string first_time_play_classic = "first_time_play_classic";
-
-
+    private const string music_volume = "music_volume";
+    private const string sfx_volume = "sfx_volume";
+    private const string music_slider_value = "music_slider_value";
+    private const string sfx_slider_value = "sfx_slider_value";
+  
     private void Awake()
     {
         if (ins != null)
@@ -44,7 +52,8 @@ public class DataManager : MonoBehaviour
             ins = this;
             DontDestroyOnLoad(gameObject);
         }
-
+        musicSliderValue = 1;
+        sfxSliderValue = 1;
         FirstTimePlayCasual();
         FirstTimePlayClassic();
     }
@@ -82,6 +91,8 @@ public class DataManager : MonoBehaviour
         LoadTarget();
         LoadCoin();
         LoadJsonCasual();
+        LoadMusicVolume();
+        LoadMusicSliderValue();
     }
     public void LoadDataClassic()
     {
@@ -108,7 +119,6 @@ public class DataManager : MonoBehaviour
             {
                 row.Add(BoxType.None);  
             }
-
             colorMatrixCasual.Add(row);
         }
         SaveJsonCasual();
@@ -117,6 +127,8 @@ public class DataManager : MonoBehaviour
         SaveLevel();
         SaveTarget();
         SaveHighScoreCasual();
+        SaveMusicVolume();
+        SaveMusicSliderValue();
     }
     public void StartDataClassic()
     {
@@ -230,6 +242,46 @@ public class DataManager : MonoBehaviour
     {
         coin = PlayerPrefs.GetInt(coin_key, 0);
     }
+
+    public void LoadMusicVolume()
+    {      
+        musicVolume = PlayerPrefs.GetFloat(music_volume);
+    }
+
+    public void LoadMusicSliderValue()
+    {
+        musicSliderValue = PlayerPrefs.GetFloat(music_slider_value);
+    }
+
+    public void LoadSFXSliderValue()
+    {
+        sfxSliderValue = PlayerPrefs.GetFloat(sfx_slider_value);
+    }
+
+    public void SaveMusicSliderValue()
+    {
+        PlayerPrefs.SetFloat(music_slider_value, musicSliderValue);
+    }
+
+    public void SaveSFXSliderValue()
+    {
+        PlayerPrefs.SetFloat(sfx_slider_value, sfxSliderValue);
+    }
+
+    public void LoadSFXVolume()
+    {
+        sfxVolume = PlayerPrefs.GetFloat(sfx_volume, 1);
+    }
+
+    public void SaveMusicVolume()
+    {       
+        PlayerPrefs.SetFloat(music_volume, musicVolume);
+    }
+
+    public void SaveSFXVolume()
+    {
+        PlayerPrefs.SetFloat(sfx_volume, sfxVolume);
+    }
     public void SaveScoreCasual()
     {
         PlayerPrefs.SetInt(score_casual_key, scoreCasual);
@@ -274,5 +326,6 @@ public class DataManager : MonoBehaviour
         PlayerPrefs.SetInt(high_score_classic_key, highScoreClassic);
 
     }
+
 }
 

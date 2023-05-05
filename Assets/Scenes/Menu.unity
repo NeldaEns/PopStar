@@ -679,6 +679,9 @@ MonoBehaviour:
   coin: 0
   start_new_game_casual: 0
   start_new_game_classic: 0
+  musicVolume: 1
+  sfxVolume: 0
+  musicSliderValue: 0
 --- !u!4 &1320249118
 Transform:
   m_ObjectHideFlags: 0
