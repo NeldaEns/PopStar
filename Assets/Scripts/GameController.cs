@@ -30,6 +30,11 @@ public class GameController : MonoBehaviour
 
     private void Awake()
     {
+        if(instance != null)
+        {
+            Destroy(instance.gameObject);
+        }
+
         instance = this;
     }
     private void Start()
@@ -70,7 +75,7 @@ public class GameController : MonoBehaviour
             for (int i = 0; i < 10; i++)
             {
                 for (int j = 0; j < 10; j++)
-                {                    
+                {
                     SpawnBoxCasual1(i, j);
                 }
             }
@@ -80,7 +85,7 @@ public class GameController : MonoBehaviour
             for (int i = 0; i < 10; i++)
             {
                 for (int j = 0; j < 10; j++)
-                {
+                {                  
                     SpawnBoxClassic(i, j);
                 }
             }
@@ -266,11 +271,32 @@ public class GameController : MonoBehaviour
         for (int i = 0; i < breakBox.Count; i++)
         {
             int j = 5;
-            if (breakBox.Count > 1)
+            j = j + i * 10;
+            if (breakBox.Count == 2)
             {
-                j = j + i * 10;
-                AddScoreClassic(j);
+                AudioManager.ins.PlaySFX("click");
             }
+            if (breakBox.Count > 2 && breakBox.Count < 5)
+            {
+                AudioManager.ins.PlaySFX("good");
+            }
+            if (breakBox.Count > 4 && breakBox.Count < 7)
+            {
+                AudioManager.ins.PlaySFX("great");
+            }
+            if (breakBox.Count > 6 && breakBox.Count < 9)
+            {
+                AudioManager.ins.PlaySFX("excellent");
+            }
+            if (breakBox.Count > 8 && breakBox.Count < 11)
+            {
+                AudioManager.ins.PlaySFX("amazing");
+            }
+            if (breakBox.Count > 10)
+            {
+                AudioManager.ins.PlaySFX("unbelievable");
+            }
+            AddScoreClassic(j);
             GameObject explosion = Instantiate(explosionPrefabs);
             explosion.GetComponent<ParticleSystem>().Play();
             explosion.transform.position = breakBox[i].transform.position;
@@ -342,25 +368,19 @@ public class GameController : MonoBehaviour
             boxMatrixClassic[x][9] = null;
         }
 
-        for (int i = 8; i >= 0; i--)
+        for (int i = 9; i >= 0; i--)
         {
             if (boxMatrixClassic[i][0] == null)
             {
-                for (int j = i; j < 9; j++)
+                for (int j = i; j < 10; j++)
                 {
                     for (int k = 0; k < 10; k++)
-                    {
-                        boxMatrixClassic[j][k] = boxMatrixClassic[j + 1][k];
-                        if (boxMatrixClassic[j][k] != null)
+                    {                       
+                        if (boxMatrixClassic[j][k] == null)
                         {
-                            boxMatrixClassic[j][k].GetComponent<BoxClassic>().x--;
-                            boxMatrixClassic[j][k].GetComponent<BoxClassic>().MoveLeft();
+                            SpawnBoxClassic(j, k);
                         }
                     }
-                }
-                for (int h = 0; h < 10; h++)
-                {
-                    boxMatrixClassic[9][h] = null;
                 }
             }
         }
@@ -591,6 +611,7 @@ public class GameController : MonoBehaviour
     }
     public void ClickMoveBoxClassic1(int x, int y)
     {
+        AudioManager.ins.PlaySFX("it1");
         moveBox.Add(boxMatrixClassic[x][y]);
         clickBox1 = true;
     }
@@ -602,6 +623,7 @@ public class GameController : MonoBehaviour
     }
     public void ClickMoveBoxClassic2(int x, int y)
     {
+        AudioManager.ins.PlaySFX("it1");
         moveBox.Add(boxMatrixClassic[x][y]);
         clickBox2 = true;
     }
@@ -825,6 +847,7 @@ public class GameController : MonoBehaviour
 
     public void Item2Classic(int x, int y)
     {
+        AudioManager.ins.PlaySFX("it2");
         AddScoreClassic(5);
         GameObject explosion = Instantiate(explosionPrefabs);
         explosion.GetComponent<ParticleSystem>().Play();
@@ -841,6 +864,7 @@ public class GameController : MonoBehaviour
 
     public void Item3Classic(int x, int y)
     {
+        AudioManager.ins.PlaySFX("it3");
         GameObject explosion = Instantiate(explosionPrefabs);
         explosion.GetComponent<ParticleSystem>().Play();
         explosion.transform.position = boxMatrixClassic[x][y].transform.position;

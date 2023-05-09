@@ -48,6 +48,7 @@ public class UIController : MonoBehaviour
     public void ShowClassic()
     {
         Destroy(currentScreen.gameObject);
+        AudioManager.ins.PlaySFX("gamestart");
         currentScreen = Instantiate(classicPanel, transform).GetComponent<UIClassic>();
     }
 
@@ -67,6 +68,7 @@ public class UIController : MonoBehaviour
     public void ShowGameOverClassic()
     {
         Destroy(currentScreen.gameObject);
+        AudioManager.ins.PlaySFX("gameover");
         currentScreen = Instantiate(classicGameOverScreen, transform).GetComponent<GameOverScreenClassic>();    
     }
 }   

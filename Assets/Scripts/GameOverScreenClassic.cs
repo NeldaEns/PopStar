@@ -36,6 +36,7 @@ public class GameOverScreenClassic : UIScreenBase
     public void Menu()
     {
         Hide();
+        AudioManager.ins.PlaySFX("click1");
         UIController.ins.ShowMenu();
         SceneManager.LoadScene(0);
         DataManager.ins.ResetDataClassic();

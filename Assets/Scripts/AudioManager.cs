@@ -27,8 +27,7 @@ public class AudioManager : MonoBehaviour
         PlayMusic("bg");
         musicSource.volume = DataManager.ins.musicVolume;
         DataManager.ins.LoadMusicVolume();
-        sfxSources.volume = DataManager.ins.sfxVolume;
-        DataManager.ins.LoadSFXVolume();
+        
     }
 
     public void PlayMusic(string name)
@@ -39,8 +38,7 @@ public class AudioManager : MonoBehaviour
             Debug.Log("Sound Not Found");
         }
         else
-        {
-            musicSource.volume = s.volume;
+        {           
             musicSource.loop = s.loop;
             musicSource.clip = s.clip;
             musicSource.Play();

@@ -970,8 +970,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf48c4a61faeb20499663e0646e27c03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  musicSlider: {fileID: 0}
-  sfxSlider: {fileID: 0}
+  musicSlider: {fileID: 4529084628931620182}
+  sfxSlider: {fileID: 4529084629228584046}
 --- !u!1 &4033821150214614763
 GameObject:
   m_ObjectHideFlags: 0
@@ -3610,8 +3610,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf48c4a61faeb20499663e0646e27c03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  musicSlider: {fileID: 0}
-  sfxSlider: {fileID: 0}
+  musicSlider: {fileID: 4529084628931620182}
+  sfxSlider: {fileID: 4529084629228584046}
 --- !u!1 &4529084628586962847
 GameObject:
   m_ObjectHideFlags: 0

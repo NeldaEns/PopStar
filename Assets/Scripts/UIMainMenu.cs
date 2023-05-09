@@ -29,20 +29,16 @@ public class UIMainMenu : UIScreenBase
 
     private void Start()
     {
-        DataManager.ins.SaveMusicVolume();
-        DataManager.ins.SaveMusicSliderValue();
-        DataManager.ins.musicVolume = musicSlider.value;
+        sfxSlider.value = DataManager.ins.sfxSliderValue;       
+        DataManager.ins.sfxVolume = sfxSlider.value;
         musicSlider.value = DataManager.ins.musicSliderValue;
-
-        //DataManager.ins.SaveSFXVolume();
-        //DataManager.ins.SaveSFXSliderValue();
-        //DataManager.ins.sfxVolume = sfxSlider.value;
-        //sfxSlider.value = DataManager.ins.sfxSliderValue;
+        DataManager.ins.musicVolume = musicSlider.value;
     }
 
     public void StartClassic()
     {
-        if(DataManager.ins.scoreClassic == 0)
+        AudioManager.ins.PlaySFX("click");
+        if (DataManager.ins.scoreClassic == 0)
         {
             if(DataManager.ins.highScoreClassic == 0)
             {
@@ -68,6 +64,7 @@ public class UIMainMenu : UIScreenBase
 
     public void RestartClassic()
     {
+        AudioManager.ins.PlaySFX("click1");
         DataManager.ins.start_new_game_classic = true;
         DataManager.ins.ResetDataClassic();
         SceneManager.LoadScene(2);
@@ -83,6 +80,7 @@ public class UIMainMenu : UIScreenBase
 
     public void ContinueClassic()
     {
+        AudioManager.ins.PlaySFX("click1");
         DataManager.ins.start_new_game_classic = false; 
         SceneManager.LoadScene(2);
         UIController.ins.ShowClassic();

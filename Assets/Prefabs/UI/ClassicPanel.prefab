@@ -233,7 +233,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 2
+  m_Text: '4
+
+'
 --- !u!1 &953860622685601758
 GameObject:
   m_ObjectHideFlags: 0
@@ -352,7 +354,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5127460576816593932}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6026539894839434549}
+        m_MethodName: It1
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1082526431601378042
 GameObject:
   m_ObjectHideFlags: 0
@@ -1073,7 +1086,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5513750332801209370}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6026539894839434549}
+        m_MethodName: It3
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4841815202581841993
 GameObject:
   m_ObjectHideFlags: 0
@@ -2055,7 +2079,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7837910471116666109}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6026539894839434549}
+        m_MethodName: It2
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8570675037253931456
 GameObject:
   m_ObjectHideFlags: 0

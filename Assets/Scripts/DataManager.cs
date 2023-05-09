@@ -52,8 +52,8 @@ public class DataManager : MonoBehaviour
             ins = this;
             DontDestroyOnLoad(gameObject);
         }
-        musicSliderValue = 1;
         sfxSliderValue = 1;
+        musicSliderValue = 1;
         FirstTimePlayCasual();
         FirstTimePlayClassic();
     }
@@ -93,6 +93,8 @@ public class DataManager : MonoBehaviour
         LoadJsonCasual();
         LoadMusicVolume();
         LoadMusicSliderValue();
+        LoadSFXVolume();
+        LoadSFXSliderValue();
     }
     public void LoadDataClassic()
     {
@@ -129,6 +131,8 @@ public class DataManager : MonoBehaviour
         SaveHighScoreCasual();
         SaveMusicVolume();
         SaveMusicSliderValue();
+        SaveSFXVolume();
+        SaveSFXSliderValue();
     }
     public void StartDataClassic()
     {
@@ -211,7 +215,7 @@ public class DataManager : MonoBehaviour
     {
         scoreCasual = 0;
         level = 1;
-        target = 1000;
+        target = 1000;       
     }
 
     public void ResetDataClassic()
