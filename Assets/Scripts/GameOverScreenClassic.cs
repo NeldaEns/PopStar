@@ -29,7 +29,7 @@ public class GameOverScreenClassic : UIScreenBase
     {
         DataManager.ins.start_new_game_classic = true;
         DataManager.ins.ResetDataClassic();
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(1);
         UIController.ins.ShowClassic();
     }
 

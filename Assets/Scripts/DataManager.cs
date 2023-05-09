@@ -10,32 +10,43 @@ public class DataManager : MonoBehaviour
     public static DataManager ins;
     public int scoreCasual;
     public int scoreClassic;
+    public int scoreSurvival;
     public int highScoreCasual;
     public int highScoreClassic;
+    public int highScoreSurvival;
     public int level;
     public float target;
     public int coin;
     public bool start_new_game_casual;
     public bool start_new_game_classic;
+    public bool start_new_game_survival;
     public float musicVolume;
     public float sfxVolume;
     public float musicSliderValue;
     public float sfxSliderValue;
+    public bool casualGame;
+    public bool classicGame;
+    public bool survivalGame;
 
     public List<List<BoxType>> colorMatrixCasual;
     public List<List<BoxType1>> colorMatrixClassic;
+    public List<List<BoxType2>> colorMatrixSurvival;
 
     private const string score_casual_key = "score_casual_key";
     private const string score_classic_key = "score_classic_key";
+    private const string score_survival_key = "score_survival_key";
     private const string high_score_casual_key = "high_score_casual_key";
     private const string high_score_classic_key = "high_score_classic_key";
+    private const string high_score_survival_key = "high_score_survival_key";
     private const string level_key = "level_key";
     private const string target_key = "target_key";
     private const string coin_key = "coin_key";
     private const string color_casual_key = "color_casual_key";
     private const string color_classic_key = "color_classic_key";
+    private const string color_survival_key = "color_survival_key";
     private const string first_time_play_casual = "first_time_play_casual";
     private const string first_time_play_classic = "first_time_play_classic";
+    private const string first_time_play_survival = "first_time_play_survival";
     private const string music_volume = "music_volume";
     private const string sfx_volume = "sfx_volume";
     private const string music_slider_value = "music_slider_value";
@@ -82,6 +93,18 @@ public class DataManager : MonoBehaviour
             StartDataClassic();
         }
     }
+    public void FirstTimePlaySurvival()
+    {
+        if (PlayerPrefs.HasKey(first_time_play_survival))
+        {
+            LoadDataSurvival();
+        }
+        else
+        {
+            PlayerPrefs.SetInt(first_time_play_classic, 0);
+            StartDataSurvival();
+        }
+    }
 
     public void LoadDataCasual()
     {
@@ -102,6 +125,13 @@ public class DataManager : MonoBehaviour
         LoadHighScoreClassic();
         LoadCoin();
         LoadJsonClassic();
+    }
+    public void LoadDataSurvival()
+    {
+        LoadScoreSurvival();
+        LoadHighScoreSurvival();
+        LoadCoin();
+        LoadJsonSurvival();
     }
 
     public void StartDataCasual()
@@ -156,6 +186,28 @@ public class DataManager : MonoBehaviour
         SaveScoreClassic();
         SaveHighScoreClassic();
     }
+    public void StartDataSurvival()
+    {
+        scoreSurvival = 0;
+        highScoreSurvival = 0;
+        colorMatrixSurvival = new List<List<BoxType2>>();
+
+        for (int i = 0; i < 10; i++)
+        {
+            List<BoxType2> row = new List<BoxType2>();
+
+            for (int j = 0; j < 10; j++)
+            {
+                row.Add(BoxType2.None);
+            }
+
+            colorMatrixSurvival.Add(row);
+        }
+        SaveJsonSurvival();
+        SaveCoin();
+        SaveScoreSurvival();
+        SaveHighScoreSurvival();
+    }
 
     public void SaveJsonCasual()
     {
@@ -182,7 +234,18 @@ public class DataManager : MonoBehaviour
         string finalJson = JsonHelper1.ToJson<string>(jsonsColorClassic);
         PlayerPrefs.SetString(color_classic_key, finalJson);
     }
+    public void SaveJsonSurvival()
+    {
+        List<string> jsonsColorSurvival = new List<string>();
 
+        for (int i = 0; i < 10; i++)
+        {
+            string jsonColor = JsonHelper.ToJson<BoxType2>(colorMatrixSurvival[i]);
+            jsonsColorSurvival.Add(jsonColor);
+        }
+        string finalJson = JsonHelper.ToJson<string>(jsonsColorSurvival);
+        PlayerPrefs.SetString(color_survival_key, finalJson);
+    }
     public void LoadJsonCasual()
     {
         string finalJson = PlayerPrefs.GetString(color_casual_key);
@@ -211,6 +274,19 @@ public class DataManager : MonoBehaviour
         }
     }
 
+    public void LoadJsonSurvival()
+    {
+        string finalJson = PlayerPrefs.GetString(color_survival_key);
+
+        List<string> jsonsColor = JsonHelper.FromJson<string>(finalJson);
+
+        colorMatrixSurvival = new List<List<BoxType2>>();
+        for (int i = 0; i < 10; i++)
+        {
+            List<BoxType2> row = JsonHelper.FromJson<BoxType2>(jsonsColor[i]);
+            colorMatrixSurvival.Add(row);
+        }
+    }
     public void ResetDataCasual()
     {
         scoreCasual = 0;
@@ -221,6 +297,10 @@ public class DataManager : MonoBehaviour
     public void ResetDataClassic()
     {
         scoreClassic = 0;
+    }
+    public void ResetDataSurvival()
+    {
+        scoreSurvival = 0;
     }
 
     public void LoadScoreCasual()
@@ -330,6 +410,24 @@ public class DataManager : MonoBehaviour
         PlayerPrefs.SetInt(high_score_classic_key, highScoreClassic);
 
     }
+    public void LoadScoreSurvival()
+    {
+        scoreSurvival = PlayerPrefs.GetInt(score_survival_key, 0);
+    }
 
+    public void LoadHighScoreSurvival()
+    {
+        highScoreSurvival = PlayerPrefs.GetInt(high_score_survival_key, 0);
+    }
+
+    public void SaveScoreSurvival()
+    {
+        PlayerPrefs.SetInt(score_survival_key, scoreSurvival);
+    }
+
+    public void SaveHighScoreSurvival()
+    {
+        PlayerPrefs.SetInt(high_score_survival_key, highScoreSurvival);
+    }
 }
 

@@ -7,9 +7,19 @@ using UnityEngine.UI;
 public class UIMainMenu : UIScreenBase
 {
     [SerializeField] public Slider musicSlider, sfxSlider;
-   
+
+    private void Start()
+    {
+        sfxSlider.value = DataManager.ins.sfxSliderValue;
+        DataManager.ins.sfxVolume = sfxSlider.value;
+        musicSlider.value = DataManager.ins.musicSliderValue;
+        DataManager.ins.musicVolume = musicSlider.value;
+    }
     public void StartCasual()
     {
+        DataManager.ins.survivalGame = false;
+        DataManager.ins.classicGame = false;
+        DataManager.ins.casualGame = true;
         AudioManager.ins.PlaySFX("click");
         if (DataManager.ins.scoreCasual == 0)
         {
@@ -26,25 +36,19 @@ public class UIMainMenu : UIScreenBase
             }
         }     
     }
-
-    private void Start()
-    {
-        sfxSlider.value = DataManager.ins.sfxSliderValue;       
-        DataManager.ins.sfxVolume = sfxSlider.value;
-        musicSlider.value = DataManager.ins.musicSliderValue;
-        DataManager.ins.musicVolume = musicSlider.value;
-    }
-
     public void StartClassic()
     {
+        DataManager.ins.survivalGame = false;
+        DataManager.ins.casualGame = false;
+        DataManager.ins.classicGame = true;
         AudioManager.ins.PlaySFX("click");
         if (DataManager.ins.scoreClassic == 0)
-        {
+        {   
             if(DataManager.ins.highScoreClassic == 0)
             {
                 DataManager.ins.start_new_game_classic = true;
                 DataManager.ins.StartDataClassic();
-                SceneManager.LoadScene(2);
+                SceneManager.LoadScene(1);
                 UIController.ins.ShowClassic();
             }
             else
@@ -53,8 +57,31 @@ public class UIMainMenu : UIScreenBase
             }
         }
     }
+    public void StartSurvival()
+    {
+        DataManager.ins.casualGame = false;
+        DataManager.ins.classicGame = false;
+        DataManager.ins.survivalGame = true;
+        AudioManager.ins.PlaySFX("click");
+        if (DataManager.ins.scoreSurvival == 0)
+        {
+            if (DataManager.ins.highScoreSurvival == 0)
+            {
+                DataManager.ins.start_new_game_survival = true;
+                DataManager.ins.StartDataSurvival();
+                SceneManager.LoadScene(1);
+                UIController.ins.ShowSurvival();
+            }
+            else
+            {
+                RestartSurvival();
+            }
+        }
+    }
     public void RestartCasual()
     {
+        DataManager.ins.classicGame = false;
+        DataManager.ins.casualGame = true;
         AudioManager.ins.PlaySFX("click1");
         DataManager.ins.start_new_game_casual = true;
         DataManager.ins.ResetDataCasual();
@@ -64,28 +91,55 @@ public class UIMainMenu : UIScreenBase
 
     public void RestartClassic()
     {
+        DataManager.ins.survivalGame = false;
+        DataManager.ins.casualGame = false;
+        DataManager.ins.classicGame = true;
         AudioManager.ins.PlaySFX("click1");
         DataManager.ins.start_new_game_classic = true;
         DataManager.ins.ResetDataClassic();
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(1);
         UIController.ins.ShowClassic();
+    }
+    public void RestartSurvival()
+    {
+        DataManager.ins.casualGame = false;
+        DataManager.ins.classicGame = false;
+        DataManager.ins.survivalGame = true;
+        AudioManager.ins.PlaySFX("click1");
+        DataManager.ins.start_new_game_survival = true;
+        DataManager.ins.ResetDataSurvival();
+        SceneManager.LoadScene(1);
+        UIController.ins.ShowSurvival();
     }
     public void ContinueCasual()
     {
+        DataManager.ins.classicGame = false;
+        DataManager.ins.casualGame = true;
         AudioManager.ins.PlaySFX("click1");
         DataManager.ins.start_new_game_casual = false;
         SceneManager.LoadScene(1);
         UIController.ins.ShowCasual(); 
     }
-
     public void ContinueClassic()
     {
+        DataManager.ins.survivalGame = false;
+        DataManager.ins.casualGame = false; 
+        DataManager.ins.classicGame = true;
         AudioManager.ins.PlaySFX("click1");
         DataManager.ins.start_new_game_classic = false; 
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(1);
         UIController.ins.ShowClassic();
     }
-
+    public void ContinueSurvival()
+    {
+        DataManager.ins.casualGame = false;
+        DataManager.ins.classicGame = false;
+        DataManager.ins.survivalGame = true;
+        AudioManager.ins.PlaySFX("click1");
+        DataManager.ins.start_new_game_survival = false;
+        SceneManager.LoadScene(1);
+        UIController.ins.ShowSurvival();
+    }
     public override void OnShow()
     {
         base.OnShow();

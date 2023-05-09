@@ -11,8 +11,11 @@ public class GameController : MonoBehaviour
 
     public List<List<GameObject>> boxMatrixClassic;
 
+    public List<List<GameObject>> boxMatrixSurvival;
+
     public List<GameObject> boxCasual;
     public List<GameObject> boxClassic;
+    public List<GameObject> boxSurvival;
 
     public List<GameObject> breakBox;
 
@@ -60,43 +63,83 @@ public class GameController : MonoBehaviour
             }
             boxMatrixClassic.Add(listBoxClassic);
         }
-        if (DataManager.ins.start_new_game_casual == true)
+
+        boxMatrixSurvival = new List<List<GameObject>>();
+        for(int i = 0; i < 10; i++)
         {
-            for (int i = 0; i < 10; i++)
+            List<GameObject> listBoxSurvival = new List<GameObject>();
+            for(int j = 0; j < 10; j++)
             {
-                for (int j = 0; j < 10; j++)
+                listBoxSurvival.Add(null);
+            }
+            boxMatrixSurvival.Add(listBoxSurvival);
+        }
+        if (DataManager.ins.casualGame == true && DataManager.ins.classicGame == false && DataManager.ins.survivalGame == false)
+        {
+            if (DataManager.ins.start_new_game_casual == true)
+            {
+                for (int i = 0; i < 10; i++)
                 {
-                    SpawnBoxCasual(i, j);
+                    for (int j = 0; j < 10; j++)
+                    {
+                        SpawnBoxCasual(i, j);
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    for (int j = 0; j < 10; j++)
+                    {
+                        SpawnBoxCasual1(i, j);
+                    }
                 }
             }
         }
-        else
+        if (DataManager.ins.classicGame == true && DataManager.ins.casualGame == false && DataManager.ins.survivalGame == false)
         {
-            for (int i = 0; i < 10; i++)
+            if (DataManager.ins.start_new_game_classic == true)
             {
-                for (int j = 0; j < 10; j++)
+                for (int i = 0; i < 10; i++)
                 {
-                    SpawnBoxCasual1(i, j);
+                    for (int j = 0; j < 10; j++)
+                    {
+                        SpawnBoxClassic(i, j);
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    for (int j = 0; j < 10; j++)
+                    {
+                        SpawnBoxClassic1(i, j);
+                    }
                 }
             }
         }
-        if (DataManager.ins.start_new_game_classic == true)
-        {           
-            for (int i = 0; i < 10; i++)
+        if(DataManager.ins.survivalGame == true && DataManager.ins.casualGame == false && DataManager.ins.classicGame == false)
+        {
+            if(DataManager.ins.start_new_game_survival == true)
             {
-                for (int j = 0; j < 10; j++)
-                {                  
-                    SpawnBoxClassic(i, j);
+                for(int i = 0; i < 10; i++)
+                {
+                    for(int j = 0; j < 10; j++)
+                    {
+                        SpawnBoxSurvival(i, j);
+                    }
                 }
             }
-        }
-        else
-        {
-            for (int i = 0; i < 10; i++)
+            else
             {
-                for (int j = 0; j < 10; j++)
+                for (int i = 0; i < 10; i++)
                 {
-                    SpawnBoxClassic1(i, j);
+                    for (int j = 0; j < 10; j++)
+                    {
+                        SpawnBoxSurvival1(i, j);
+                    }
                 }
             }
         }
@@ -114,12 +157,22 @@ public class GameController : MonoBehaviour
 
     public void SpawnBoxClassic(int x, int y)
     {
-        int color = Random.Range(1, 7);
+        int color = Random.Range(1, 6);
         GameObject box1 = Instantiate(boxClassic[color - 1]);
         Vector3 pos = box1.GetComponent<BoxClassic>().CalculatationPosition(x, y);
         box1.transform.position = pos;
         box1.GetComponent<BoxClassic>().OnSpawn(x, y, (BoxType1)color);
         boxMatrixClassic[x][y] = box1;
+    }
+
+    public void SpawnBoxSurvival(int x, int y)
+    {
+        int color = Random.Range(1, 6);
+        GameObject box1 = Instantiate(boxSurvival[color - 1]);
+        Vector3 pos = box1.GetComponent<BoxSurvival>().CalculatationPosition(x, y);
+        box1.transform.position = pos;
+        box1.GetComponent<BoxSurvival>().OnSpawn(x, y, (BoxType2)color);
+        boxMatrixSurvival[x][y] = box1;
     }
 
     public void SpawnBoxCasual1(int x, int y)
@@ -136,6 +189,22 @@ public class GameController : MonoBehaviour
             box2.transform.position = pos;
             box2.GetComponent<Box>().OnSpawn(x, y, color1);
             boxMatrixCasual[x][y] = box2;
+        }
+    }
+    public void SpawnBoxSurvival1(int x, int y)
+    {
+        BoxType2 color1 = DataManager.ins.colorMatrixSurvival[x][y];
+        if (color1 == BoxType2.None)
+        {
+            boxMatrixSurvival[x][y] = null;
+        }
+        else
+        {
+            GameObject box2 = Instantiate(this.boxSurvival[(int)color1 - 1]);
+            Vector3 pos = box2.GetComponent<BoxSurvival>().CalculatationPosition(x, y);
+            box2.transform.position = pos;
+            box2.GetComponent<BoxSurvival>().OnSpawn(x, y, color1);
+            boxMatrixSurvival[x][y] = box2;
         }
     }
     public void SpawnBoxClassic1(int x, int y)
@@ -226,6 +295,41 @@ public class GameController : MonoBehaviour
         breakBox.Clear();
         CheckWinLoseClassic();
     }
+    public void FindBreakBoxSurvival()
+    {
+        for (int i = 0; i < breakBox.Count; i++)
+        {
+            int x = breakBox[i].GetComponent<BoxSurvival>().x;
+            int y = breakBox[i].GetComponent<BoxSurvival>().y;
+            if (x > 0 && boxMatrixSurvival[x - 1][y] != null && boxMatrixSurvival[x - 1][y].GetComponent<BoxSurvival>().type == breakBox[i].GetComponent<BoxSurvival>().type && !KTBoxSurvival(boxMatrixSurvival[x - 1][y]))
+            {
+                breakBox.Add(boxMatrixSurvival[x - 1][y]);
+            }
+            if (x < 9 && boxMatrixSurvival[x + 1][y] != null && boxMatrixSurvival[x + 1][y].GetComponent<BoxSurvival>().type == breakBox[i].GetComponent<BoxSurvival>().type && !KTBoxSurvival(boxMatrixSurvival[x + 1][y]))
+            {
+                breakBox.Add(boxMatrixSurvival[x + 1][y]);
+            }
+            if (y > 0 && boxMatrixSurvival[x][y - 1] != null && boxMatrixSurvival[x][y - 1].GetComponent<BoxSurvival>().type == breakBox[i].GetComponent<BoxSurvival>().type && !KTBoxSurvival(boxMatrixSurvival[x][y - 1]))
+            {
+                breakBox.Add(boxMatrixSurvival[x][y - 1]);
+            }
+            if (y < 9 && boxMatrixSurvival[x][y + 1] != null && boxMatrixSurvival[x][y + 1].GetComponent<BoxSurvival>().type == breakBox[i].GetComponent<BoxSurvival>().type && !KTBoxSurvival(boxMatrixSurvival[x][y + 1]))
+            {
+                breakBox.Add(boxMatrixSurvival[x][y + 1]);
+            }
+        }
+        if (breakBox.Count > 1)
+        {
+            BreakBoxSurvival();
+
+            MoveBoxSurvival();
+
+            SaveBoxSurvival();
+
+        }
+        breakBox.Clear();
+        CheckWinLoseSurvival();
+    }
 
     public void BreakBoxCasual()
     {
@@ -305,6 +409,44 @@ public class GameController : MonoBehaviour
         }
     }
 
+    public void BreakBoxSurvival()
+    {
+        for (int i = 0; i < breakBox.Count; i++)
+        {
+            int j = 5;
+            j = j + i * 10;
+            if (breakBox.Count == 2)
+            {
+                AudioManager.ins.PlaySFX("click");
+            }
+            if (breakBox.Count > 2 && breakBox.Count < 5)
+            {
+                AudioManager.ins.PlaySFX("good");
+            }
+            if (breakBox.Count > 4 && breakBox.Count < 7)
+            {
+                AudioManager.ins.PlaySFX("great");
+            }
+            if (breakBox.Count > 6 && breakBox.Count < 9)
+            {
+                AudioManager.ins.PlaySFX("excellent");
+            }
+            if (breakBox.Count > 8 && breakBox.Count < 11)
+            {
+                AudioManager.ins.PlaySFX("amazing");
+            }
+            if (breakBox.Count > 10)
+            {
+                AudioManager.ins.PlaySFX("unbelievable");
+            }
+            AddScoreSurvival(j);
+            GameObject explosion = Instantiate(explosionPrefabs);
+            explosion.GetComponent<ParticleSystem>().Play();
+            explosion.transform.position = breakBox[i].transform.position;
+            Destroy(breakBox[i]);
+            Destroy(explosion, 0.5f);
+        }
+    }
     public void MoveBoxCasual()
     {
         for (int i = 0; i < breakBox.Count; i++)
@@ -385,6 +527,49 @@ public class GameController : MonoBehaviour
             }
         }
     }
+    public void MoveBoxSurvival()
+    {
+        for (int i = 0; i < breakBox.Count; i++)
+        {
+
+            int x = breakBox[i].GetComponent<BoxSurvival>().x;
+            int y = breakBox[i].GetComponent<BoxSurvival>().y;
+            for (int j = y; j < 9; j++)
+            {
+                boxMatrixSurvival[x][j] = boxMatrixSurvival[x][j + 1];
+                if (boxMatrixSurvival[x][j] != null)
+                {
+                    boxMatrixSurvival[x][j].GetComponent<BoxSurvival>().y--;
+                    boxMatrixSurvival[x][j].GetComponent<BoxSurvival>().MoveDown();
+                }
+            }
+            boxMatrixSurvival[x][9] = null;
+        }
+
+        for (int i = 8; i >= 0; i--)
+        {
+
+            if (boxMatrixSurvival[i][0] == null)
+            {
+                for (int j = i; j < 9; j++)
+                {
+                    for (int k = 0; k < 10; k++)
+                    {
+                        boxMatrixSurvival[j][k] = boxMatrixSurvival[j + 1][k];
+                        if (boxMatrixSurvival[j][k] != null)
+                        {
+                            boxMatrixSurvival[j][k].GetComponent<BoxSurvival>().x--;
+                            boxMatrixSurvival[j][k].GetComponent<BoxSurvival>().MoveLeft();
+                        }
+                    }
+                }
+                for (int h = 0; h < 10; h++)
+                {
+                    boxMatrixSurvival[9][h] = null;
+                }
+            }
+        }
+    }
 
     public void SaveBoxCasual()
     {
@@ -423,7 +608,24 @@ public class GameController : MonoBehaviour
         }
         DataManager.ins.SaveJsonClassic();
     }
-
+    public void SaveBoxSurvival()
+    {
+        for (int i = 0; i < boxMatrixSurvival.Count; i++)
+        {
+            for (int j = 0; j < boxMatrixSurvival[i].Count; j++)
+            {
+                if (boxMatrixSurvival[i][j] == null)
+                {
+                    DataManager.ins.colorMatrixSurvival[i][j] = BoxType2.None;
+                }
+                else
+                {
+                    DataManager.ins.colorMatrixSurvival[i][j] = boxMatrixSurvival[i][j].GetComponent<BoxSurvival>().type;
+                }
+            }
+        }
+        DataManager.ins.SaveJsonSurvival();
+    }
     public void CheckWinLoseCasual()
     {
         if (KTGameLoseCasual())
@@ -480,6 +682,23 @@ public class GameController : MonoBehaviour
             ((GameOverScreenClassic)UIController.ins.currentScreen).HighScoreClassic();
         }
     }
+    public void CheckWinLoseSurvival()
+    {
+        if (KTGameLoseSurvival())
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    Destroy(boxMatrixSurvival[j][i], 0.05f);
+                    boxMatrixClassic[j][i] = null;
+                }
+            }
+            UIController.ins.ShowGameOverSurvival();
+            ((SurvivalGameOverScreen)UIController.ins.currentScreen).ScoreSurvival();
+            ((SurvivalGameOverScreen)UIController.ins.currentScreen).HighScoreSurvival();
+        }
+    }
 
     public void AddScoreCasual(int addedScore)
     {
@@ -496,7 +715,6 @@ public class GameController : MonoBehaviour
         ((UICasual)UIController.ins.currentScreen).UpdateLevelText();
         ((UICasual)UIController.ins.currentScreen).UpdateCoinText();
     }
-
     public void AddScoreClassic(int addScore)
     {
         DataManager.ins.scoreClassic += addScore;
@@ -509,6 +727,19 @@ public class GameController : MonoBehaviour
         }
         ((UIClassic)UIController.ins.currentScreen).UpdateHighScoreText();
         ((UIClassic)UIController.ins.currentScreen).UpdateCoinText();
+    }
+    public void AddScoreSurvival(int addScore)
+    {
+        DataManager.ins.scoreSurvival += addScore;
+        DataManager.ins.SaveScoreSurvival();
+        ((UISurvival)UIController.ins.currentScreen).UpdateScoreText();
+        if (DataManager.ins.scoreSurvival > DataManager.ins.highScoreSurvival)
+        {
+            DataManager.ins.highScoreSurvival = DataManager.ins.scoreSurvival;
+            DataManager.ins.SaveHighScoreSurvival();
+        }
+        ((UISurvival)UIController.ins.currentScreen).UpdateHighScoreText();
+        ((UISurvival)UIController.ins.currentScreen).UpdateCoinText();
     }
 
     public bool KTGameLoseCasual()
@@ -539,7 +770,6 @@ public class GameController : MonoBehaviour
         }
         return true;
     }
-
     public bool KTGameLoseClassic()
     {
         for (int i = 0; i < 10; i++)
@@ -559,6 +789,34 @@ public class GameController : MonoBehaviour
                 if (i < 9 && boxMatrixClassic[j][i + 1] != null && boxMatrixClassic[j][i] != null)
                 {
                     bool kt1 = boxMatrixClassic[j][i].GetComponent<BoxClassic>().type == boxMatrixClassic[j][i + 1].GetComponent<BoxClassic>().type;
+                    if (kt1)
+                    {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+    public bool KTGameLoseSurvival()
+    {
+        for (int i = 0; i < 10; i++)
+        {
+            for (int j = 0; j < 10; j++)
+            {
+
+                if (j < 9 && boxMatrixSurvival[j + 1][i] != null && boxMatrixSurvival[j][i] != null)
+                {
+                    bool kt1 = boxMatrixSurvival[j][i].GetComponent<BoxSurvival>().type == boxMatrixSurvival[j + 1][i].GetComponent<BoxSurvival>().type;
+                    if (kt1)
+                    {
+                        return false;
+                    }
+                }
+
+                if (i < 9 && boxMatrixSurvival[j][i + 1] != null && boxMatrixSurvival[j][i] != null)
+                {
+                    bool kt1 = boxMatrixSurvival[j][i].GetComponent<BoxSurvival>().type == boxMatrixSurvival[j][i + 1].GetComponent<BoxSurvival>().type;
                     if (kt1)
                     {
                         return false;
@@ -602,6 +860,23 @@ public class GameController : MonoBehaviour
         }
         return false;
     }
+    public bool KTBoxSurvival(GameObject box)
+    {
+        for (int i = 0; i < breakBox.Count; i++)
+        {
+            int boxX = box.GetComponent<BoxSurvival>().x;
+            int boxY = box.GetComponent<BoxSurvival>().y;
+
+            int breakBoxX = breakBox[i].GetComponent<BoxSurvival>().x;
+            int breakBoxY = breakBox[i].GetComponent<BoxSurvival>().y;
+
+            if (boxX == breakBoxX && boxY == breakBoxY)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public void ClickMoveBoxCasual1(int x, int y)
     {
@@ -625,6 +900,18 @@ public class GameController : MonoBehaviour
     {
         AudioManager.ins.PlaySFX("it1");
         moveBox.Add(boxMatrixClassic[x][y]);
+        clickBox2 = true;
+    }
+    public void ClickMoveBoxSurvival1(int x, int y)
+    {
+        AudioManager.ins.PlaySFX("it1");
+        moveBox.Add(boxMatrixSurvival[x][y]);
+        clickBox1 = true;
+    }
+    public void ClickMoveBoxSurvival2(int x, int y)
+    {
+        AudioManager.ins.PlaySFX("it1");
+        moveBox.Add(boxMatrixSurvival[x][y]);
         clickBox2 = true;
     }
 
@@ -879,6 +1166,131 @@ public class GameController : MonoBehaviour
         DataManager.ins.colorMatrixClassic[x][y] = boxMatrixClassic[x][y].GetComponent<BoxClassic>().type;
         CheckWinLoseClassic();
         SaveBoxClassic();
+        useIt3 = false;
+    }
+    public void Item1Survival()
+    {
+        if (clickBox1 == true && clickBox2 == true)
+        {
+            if (moveBox.Count == 2)
+            {
+                int x1 = moveBox[0].GetComponent<BoxSurvival>().x;
+                int y1 = moveBox[0].GetComponent<BoxSurvival>().y;
+                int x2 = moveBox[1].GetComponent<BoxSurvival>().x;
+                int y2 = moveBox[1].GetComponent<BoxSurvival>().y;
+
+                BoxType2 color1 = boxMatrixSurvival[x1][y1].GetComponent<BoxSurvival>().type;
+                BoxType2 color2 = boxMatrixSurvival[x2][y2].GetComponent<BoxSurvival>().type;
+
+                if (x1 > 0 && x2 == x1 - 1 && y1 == y2 && boxMatrixSurvival[x2][y2] != null && boxMatrixSurvival[x1][y1].GetComponent<BoxSurvival>().type != boxMatrixSurvival[x2][y2].GetComponent<BoxSurvival>().type)
+                {
+
+                    boxMatrixSurvival[x1][y1].GetComponent<BoxSurvival>().x--;
+                    boxMatrixSurvival[x1][y1].GetComponent<BoxSurvival>().MoveLeft1();
+                    boxMatrixSurvival[x2][y2].GetComponent<BoxSurvival>().x++;
+                    boxMatrixSurvival[x2][y2].GetComponent<BoxSurvival>().MoveRight();
+                    boxMatrixSurvival[x1][y1] = boxMatrixSurvival[x2][y2];
+                    x1 = x2;
+                    x2 = x1 + 1;
+                    color1 = color2;
+                    boxMatrixSurvival[x1][y1].transform.position = boxMatrixSurvival[x1][y1].GetComponent<BoxSurvival>().CalculatationPosition(x1, y1);
+                    DataManager.ins.colorMatrixSurvival[x1][y1] = boxMatrixSurvival[x1][y1].GetComponent<BoxSurvival>().type;
+                    boxMatrixSurvival[x2][y2].transform.position = boxMatrixSurvival[x2][y2].GetComponent<BoxSurvival>().CalculatationPosition(x2, y2);
+                    DataManager.ins.colorMatrixSurvival[x1][y1] = boxMatrixSurvival[x1][y1].GetComponent<BoxSurvival>().type;
+
+                }
+                if (boxMatrixSurvival[x2][y2] != null && x1 < 9 && x2 == x1 + 1 && y1 == y2 && boxMatrixSurvival[x1][y1].GetComponent<BoxSurvival>().type != boxMatrixSurvival[x2][y2].GetComponent<BoxSurvival>().type)
+                {
+                    boxMatrixSurvival[x1][y1].GetComponent<BoxSurvival>().x++;
+                    boxMatrixSurvival[x1][y1].GetComponent<BoxSurvival>().MoveRight();
+                    boxMatrixSurvival[x2][y2].GetComponent<BoxSurvival>().x--;
+                    boxMatrixSurvival[x2][y2].GetComponent<BoxSurvival>().MoveLeft1();
+                    boxMatrixSurvival[x2][y2] = boxMatrixSurvival[x1][y1];
+                    x1 = x2;
+                    x2 = x1 - 1;
+                    color1 = color2;
+                    boxMatrixSurvival[x2][y2].transform.position = boxMatrixSurvival[x2][y2].GetComponent<BoxSurvival>().CalculatationPosition(x2, y2);
+                    DataManager.ins.colorMatrixSurvival[x2][y2] = boxMatrixSurvival[x2][y2].GetComponent<BoxSurvival>().type;
+
+                    boxMatrixSurvival[x1][y1].transform.position = boxMatrixSurvival[x1][y1].GetComponent<BoxSurvival>().CalculatationPosition(x1, y1);
+                    DataManager.ins.colorMatrixSurvival[x1][y1] = boxMatrixSurvival[x1][y1].GetComponent<BoxSurvival>().type;
+                }
+                if (boxMatrixSurvival[x2][y2] != null && y1 > 0 && y2 == y1 - 1 && x1 == x2 && boxMatrixSurvival[x1][y1].GetComponent<BoxSurvival>().type != boxMatrixSurvival[x2][y2].GetComponent<BoxSurvival>().type)
+                {
+                    boxMatrixSurvival[x1][y1].GetComponent<BoxSurvival>().y--;
+                    boxMatrixSurvival[x1][y1].GetComponent<BoxSurvival>().MoveDown1();
+                    boxMatrixSurvival[x2][y2].GetComponent<BoxSurvival>().y++;
+                    boxMatrixSurvival[x2][y2].GetComponent<BoxSurvival>().MoveUp();
+                    boxMatrixSurvival[x1][y1] = boxMatrixSurvival[x2][y2];
+                    y1 = y2;
+                    y2 = y1 + 1;
+                    color1 = color2;
+                    boxMatrixSurvival[x1][y1].transform.position = boxMatrixSurvival[x1][y1].GetComponent<BoxSurvival>().CalculatationPosition(x1, y1);
+                    DataManager.ins.colorMatrixSurvival[x1][y1] = boxMatrixSurvival[x1][y1].GetComponent<BoxSurvival>().type;
+
+                    boxMatrixSurvival[x2][y2].transform.position = boxMatrixSurvival[x2][y2].GetComponent<BoxSurvival>().CalculatationPosition(x2, y2);
+                    DataManager.ins.colorMatrixSurvival[x2][y2] = boxMatrixSurvival[x2][y2].GetComponent<BoxSurvival>().type;
+                }
+                if (boxMatrixSurvival[x2][y2] != null && y1 < 9 && y2 == y1 + 1 && x1 == x2 && boxMatrixSurvival[x1][y1].GetComponent<BoxSurvival>().type != boxMatrixSurvival[x2][y2].GetComponent<BoxSurvival>().type)
+                {
+                    boxMatrixSurvival[x1][y1].GetComponent<BoxSurvival>().y++;
+                    boxMatrixSurvival[x1][y1].GetComponent<BoxSurvival>().MoveUp();
+                    boxMatrixSurvival[x2][y2].GetComponent<BoxSurvival>().y--;
+                    boxMatrixSurvival[x2][y2].GetComponent<BoxSurvival>().MoveDown1();
+                    boxMatrixSurvival[x2][y2] = boxMatrixSurvival[x1][y1];
+                    y1 = y2;
+                    y2 = y1 - 1;
+                    color1 = color2;
+                    boxMatrixSurvival[x2][y2].transform.position = boxMatrixSurvival[x2][y2].GetComponent<BoxSurvival>().CalculatationPosition(x2, y2);
+                    DataManager.ins.colorMatrixSurvival[x1][y1] = boxMatrixSurvival[x1][y1].GetComponent<BoxSurvival>().type;
+
+                    boxMatrixSurvival[x1][y1].transform.position = boxMatrixSurvival[x1][y1].GetComponent<BoxSurvival>().CalculatationPosition(x1, y1);
+                    DataManager.ins.colorMatrixSurvival[x1][y1] = boxMatrixSurvival[x1][y1].GetComponent<BoxSurvival>().type;
+                }
+                CheckWinLoseSurvival();
+                SaveBoxSurvival();
+            }
+            moveBox.Clear();
+            clickBox1 = false;
+            clickBox2 = false;
+            useIt1 = false;
+        }
+    }
+
+    public void Item2Survival(int x, int y)
+    {
+        AudioManager.ins.PlaySFX("it2");
+        AddScoreClassic(5);
+        GameObject explosion = Instantiate(explosionPrefabs);
+        explosion.GetComponent<ParticleSystem>().Play();
+        explosion.transform.position = boxMatrixSurvival[x][y].transform.position;
+        Destroy(boxMatrixSurvival[x][y]);
+        Destroy(explosion, 0.5f);
+        boxMatrixSurvival[x][y] = null;
+        MoveBoxSurvival();
+        CheckWinLoseSurvival();
+        SaveBoxSurvival();
+        breakBox.Clear();
+        useIt2 = false;
+    }
+
+    public void Item3Survival(int x, int y)
+    {
+        AudioManager.ins.PlaySFX("it3");
+        GameObject explosion = Instantiate(explosionPrefabs);
+        explosion.GetComponent<ParticleSystem>().Play();
+        explosion.transform.position = boxMatrixSurvival[x][y].transform.position;
+        Destroy(boxMatrixSurvival[x][y]);
+        Destroy(explosion, 0.5f);
+        boxMatrixSurvival[x][y] = null;
+        int color = Random.Range(1, 7);
+        GameObject box1 = Instantiate(this.boxSurvival[color - 1]);
+        box1.GetComponent<BoxSurvival>().OnSpawn(x, y, (BoxType2)color);
+        boxMatrixSurvival[x][y] = box1;
+        box1.transform.position = box1.GetComponent<BoxSurvival>().CalculatationPosition(x, y);
+        DataManager.ins.colorMatrixSurvival[x][y] = boxMatrixSurvival[x][y].GetComponent<BoxSurvival>().type;
+        CheckWinLoseSurvival();
+        SaveBoxSurvival();
         useIt3 = false;
     }
 }

@@ -223,7 +223,20 @@ MonoBehaviour:
   - {fileID: 2055527538098360328, guid: 99c98f030e8ac18458a68256b909e5eb, type: 3}
   - {fileID: 2159904201265755569, guid: b4fce6c8ae0b85943a4ef2b5aa49e19e, type: 3}
   - {fileID: 0}
-  boxClassic: []
+  boxClassic:
+  - {fileID: 6238241667796657097, guid: 341f02e2293448747928f75da4da8d7d, type: 3}
+  - {fileID: 8245205051416306723, guid: 3032d56dd91e78b48a04c7ed81925fc0, type: 3}
+  - {fileID: 8767522516303372319, guid: 05990726c652d7b47b12b8531d11240d, type: 3}
+  - {fileID: 4604176088102395324, guid: 90e5e5e3cf591634792bbd664bfebbcb, type: 3}
+  - {fileID: 5266119337395358011, guid: a479270fb789d7f4e88af8a69d504b2e, type: 3}
+  - {fileID: 0}
+  boxSurvival:
+  - {fileID: 7673834451986718239, guid: b671e900f9babbf488a6ee470d1f2cfc, type: 3}
+  - {fileID: 2333417275533333947, guid: 1697dd9bb3a5cf9438655b8853fbec14, type: 3}
+  - {fileID: 2201201445316271367, guid: 6a27759caba86d14eabf12c0a938e6ee, type: 3}
+  - {fileID: 4179905267234753732, guid: a0315346a33f20948bb22e214230db70, type: 3}
+  - {fileID: 2894133741832295134, guid: 5a32b8f79112dcf41bdda798ed8801f3, type: 3}
+  - {fileID: 0}
   breakBox: []
   explosionPrefabs: {fileID: 2203112218923668955, guid: 83b2697b2cf7ace41ac9f0ccb51f546a,
     type: 3}
