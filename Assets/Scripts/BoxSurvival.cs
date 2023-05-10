@@ -24,12 +24,6 @@ public class BoxSurvival : MonoBehaviour
         type = _type;
     }
 
-    public void OnSpawn(int _x, int _y)
-    {
-        x = _x;
-        y = _y;
-    }
-
     public void MoveDown()
     {
         StartCoroutine(MoveCoroutine());
@@ -150,9 +144,4 @@ public enum BoxType2
     Green,
 }
 
-public enum Bomb
-{
-    None = 0,
-    bomb,
-}
 

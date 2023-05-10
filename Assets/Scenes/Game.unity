@@ -237,6 +237,9 @@ MonoBehaviour:
   - {fileID: 4179905267234753732, guid: a0315346a33f20948bb22e214230db70, type: 3}
   - {fileID: 2894133741832295134, guid: 5a32b8f79112dcf41bdda798ed8801f3, type: 3}
   - {fileID: 0}
+  listBomb:
+  - {fileID: 4762992999193200240, guid: 7f2dddf0b166210438b74f8694a3b8fd, type: 3}
+  - {fileID: 0}
   breakBox: []
   explosionPrefabs: {fileID: 2203112218923668955, guid: 83b2697b2cf7ace41ac9f0ccb51f546a,
     type: 3}

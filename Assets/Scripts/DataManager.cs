@@ -31,6 +31,7 @@ public class DataManager : MonoBehaviour
     public List<List<BoxType>> colorMatrixCasual;
     public List<List<BoxType1>> colorMatrixClassic;
     public List<List<BoxType2>> colorMatrixSurvival;
+    public List<List<Bom>> bombMatrix;
 
     private const string score_casual_key = "score_casual_key";
     private const string score_classic_key = "score_classic_key";
@@ -44,6 +45,7 @@ public class DataManager : MonoBehaviour
     private const string color_casual_key = "color_casual_key";
     private const string color_classic_key = "color_classic_key";
     private const string color_survival_key = "color_survival_key";
+    private const string bomb_key = "bomb_key";
     private const string first_time_play_casual = "first_time_play_casual";
     private const string first_time_play_classic = "first_time_play_classic";
     private const string first_time_play_survival = "first_time_play_survival";
@@ -67,6 +69,7 @@ public class DataManager : MonoBehaviour
         musicSliderValue = 1;
         FirstTimePlayCasual();
         FirstTimePlayClassic();
+        FirstTimePlaySurvival();
     }
 
     public void FirstTimePlayCasual()
@@ -101,7 +104,7 @@ public class DataManager : MonoBehaviour
         }
         else
         {
-            PlayerPrefs.SetInt(first_time_play_classic, 0);
+            PlayerPrefs.SetInt(first_time_play_survival, 0);
             StartDataSurvival();
         }
     }
@@ -246,6 +249,18 @@ public class DataManager : MonoBehaviour
         string finalJson = JsonHelper.ToJson<string>(jsonsColorSurvival);
         PlayerPrefs.SetString(color_survival_key, finalJson);
     }
+
+    public void SaveJsonBomb()
+    {
+        List<string> jsonBomb = new List<string>();
+        for (int i = 0; i < 10; i++)
+        {
+            string jsonBom = JsonHelper.ToJson<Bom>(bombMatrix[i]);
+            jsonBomb.Add(jsonBom);
+        }
+        string finalJson = JsonHelper.ToJson<string>(jsonBomb);
+        PlayerPrefs.SetString(bomb_key, finalJson);
+    }
     public void LoadJsonCasual()
     {
         string finalJson = PlayerPrefs.GetString(color_casual_key);
@@ -285,6 +300,20 @@ public class DataManager : MonoBehaviour
         {
             List<BoxType2> row = JsonHelper.FromJson<BoxType2>(jsonsColor[i]);
             colorMatrixSurvival.Add(row);
+        }
+    }
+
+    public void LoadJsonBomb()
+    {
+        string finalJson = PlayerPrefs.GetString(bomb_key);
+
+        List<string> jsonBomb = JsonHelper.FromJson<string>(finalJson);
+
+        bombMatrix = new List<List<Bom>>();
+        for(int i = 0; i < 10; i++)
+        {
+            List<Bom> row = JsonHelper.FromJson<Bom>(jsonBomb[i]);
+            bombMatrix.Add(row);
         }
     }
     public void ResetDataCasual()

@@ -12,13 +12,13 @@ public class GameController : MonoBehaviour
     public List<List<GameObject>> boxMatrixClassic;
 
     public List<List<GameObject>> boxMatrixSurvival;
+    public List<List<GameObject>> bombMatrix;
 
     public List<GameObject> boxCasual;
     public List<GameObject> boxClassic;
     public List<GameObject> boxSurvival;
-
+    public List<GameObject> listBomb;
     public List<GameObject> breakBox;
-
     public GameObject explosionPrefabs;
 
     public bool useIt1;
@@ -73,6 +73,17 @@ public class GameController : MonoBehaviour
                 listBoxSurvival.Add(null);
             }
             boxMatrixSurvival.Add(listBoxSurvival);
+        }
+
+        bombMatrix = new List<List<GameObject>>();
+        for(int i = 0; i < 10; i++)
+        {
+            List<GameObject> listBomb = new List<GameObject>();
+            for(int j = 0; j < 10; j++)
+            {
+                listBomb.Add(null);
+            }
+            bombMatrix.Add(listBomb);
         }
         if (DataManager.ins.casualGame == true && DataManager.ins.classicGame == false && DataManager.ins.survivalGame == false)
         {
@@ -175,6 +186,16 @@ public class GameController : MonoBehaviour
         boxMatrixSurvival[x][y] = box1;
     }
 
+    public void SpawnBomb(int x, int y)
+    {
+        int bomb = Random.Range(1, 2);
+        GameObject bom = Instantiate(listBomb[bomb - 1]);
+        Vector3 pos = bom.GetComponent<Bomb>().CalculatationPosition(x, y);
+        bom.transform.position = pos;
+        bom.GetComponent<Bomb>().OnSpawn(x, y, (Bom)bomb);
+        bombMatrix[x][y] = bom;
+    }
+
     public void SpawnBoxCasual1(int x, int y)
     {
         BoxType color1 = DataManager.ins.colorMatrixCasual[x][y];
@@ -189,6 +210,23 @@ public class GameController : MonoBehaviour
             box2.transform.position = pos;
             box2.GetComponent<Box>().OnSpawn(x, y, color1);
             boxMatrixCasual[x][y] = box2;
+        }
+    }
+
+    public void SpawnBomb1(int x, int y)
+    {
+        Bom bomb = DataManager.ins.bombMatrix[x][y];
+        if (bomb == Bom.None)
+        {
+            bombMatrix[x][y] = null;
+        }
+        else
+        {
+            GameObject bomb2 = Instantiate(this.listBomb[(int)bomb - 1]);
+            Vector3 pos = bomb2.GetComponent<Bomb>().CalculatationPosition(x, y);
+            bomb2.transform.position = pos;
+            bomb2.GetComponent<Bomb>().OnSpawn(x, y, bomb);
+            bombMatrix[x][y] = bomb2;
         }
     }
     public void SpawnBoxSurvival1(int x, int y)
@@ -220,7 +258,7 @@ public class GameController : MonoBehaviour
             Vector3 pos = box2.GetComponent<BoxClassic>().CalculatationPosition(x, y);
             box2.transform.position = pos;
             box2.GetComponent<BoxClassic>().OnSpawn(x, y, color1);
-            boxMatrixCasual[x][y] = box2;
+            boxMatrixClassic[x][y] = box2;
         }
     }
 
@@ -686,17 +724,19 @@ public class GameController : MonoBehaviour
     {
         if (KTGameLoseSurvival())
         {
+            Debug.Log(boxSurvival.Count);
             for (int i = 0; i < 10; i++)
             {
                 for (int j = 0; j < 10; j++)
-                {
-                    Destroy(boxMatrixSurvival[j][i], 0.05f);
-                    boxMatrixClassic[j][i] = null;
+                {                   
+                    Destroy(boxMatrixSurvival[j][i]);
+                    
                 }
             }
-            UIController.ins.ShowGameOverSurvival();
-            ((SurvivalGameOverScreen)UIController.ins.currentScreen).ScoreSurvival();
-            ((SurvivalGameOverScreen)UIController.ins.currentScreen).HighScoreSurvival();
+            
+            //UIController.ins.ShowGameOverSurvival();
+            //((SurvivalGameOverScreen)UIController.ins.currentScreen).ScoreSurvival();
+            //((SurvivalGameOverScreen)UIController.ins.currentScreen).HighScoreSurvival();
         }
     }
 
@@ -811,7 +851,7 @@ public class GameController : MonoBehaviour
                     if (kt1)
                     {
                         return false;
-                    }
+                    }                   
                 }
 
                 if (i < 9 && boxMatrixSurvival[j][i + 1] != null && boxMatrixSurvival[j][i] != null)
@@ -820,8 +860,9 @@ public class GameController : MonoBehaviour
                     if (kt1)
                     {
                         return false;
-                    }
+                    }                   
                 }
+
             }
         }
         return true;
