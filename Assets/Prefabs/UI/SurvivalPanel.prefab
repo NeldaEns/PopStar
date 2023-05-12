@@ -1241,7 +1241,7 @@ GameObject:
   - component: {fileID: 5396594566843268661}
   - component: {fileID: 1059276927344623751}
   m_Layer: 5
-  m_Name: Classic
+  m_Name: Survival
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

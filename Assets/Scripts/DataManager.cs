@@ -128,6 +128,10 @@ public class DataManager : MonoBehaviour
         LoadHighScoreClassic();
         LoadCoin();
         LoadJsonClassic();
+        LoadMusicVolume();
+        LoadMusicSliderValue();
+        LoadSFXVolume();
+        LoadSFXSliderValue();
     }
     public void LoadDataSurvival()
     {
@@ -135,6 +139,10 @@ public class DataManager : MonoBehaviour
         LoadHighScoreSurvival();
         LoadCoin();
         LoadJsonSurvival();
+        LoadMusicVolume();
+        LoadMusicSliderValue();
+        LoadSFXVolume();
+        LoadSFXSliderValue();
     }
 
     public void StartDataCasual()
@@ -188,6 +196,10 @@ public class DataManager : MonoBehaviour
         SaveCoin();
         SaveScoreClassic();
         SaveHighScoreClassic();
+        LoadMusicVolume();
+        LoadMusicSliderValue();
+        LoadSFXVolume();
+        LoadSFXSliderValue();
     }
     public void StartDataSurvival()
     {
@@ -195,11 +207,11 @@ public class DataManager : MonoBehaviour
         highScoreSurvival = 0;
         colorMatrixSurvival = new List<List<BoxType2>>();
 
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 15; i++)
         {
             List<BoxType2> row = new List<BoxType2>();
 
-            for (int j = 0; j < 10; j++)
+            for (int j = 0; j < 15; j++)
             {
                 row.Add(BoxType2.None);
             }
@@ -210,6 +222,10 @@ public class DataManager : MonoBehaviour
         SaveCoin();
         SaveScoreSurvival();
         SaveHighScoreSurvival();
+        LoadMusicVolume();
+        LoadMusicSliderValue();
+        LoadSFXVolume();
+        LoadSFXSliderValue();
     }
 
     public void SaveJsonCasual()
@@ -241,7 +257,7 @@ public class DataManager : MonoBehaviour
     {
         List<string> jsonsColorSurvival = new List<string>();
 
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 15; i++)
         {
             string jsonColor = JsonHelper.ToJson<BoxType2>(colorMatrixSurvival[i]);
             jsonsColorSurvival.Add(jsonColor);
@@ -296,7 +312,7 @@ public class DataManager : MonoBehaviour
         List<string> jsonsColor = JsonHelper.FromJson<string>(finalJson);
 
         colorMatrixSurvival = new List<List<BoxType2>>();
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 15; i++)
         {
             List<BoxType2> row = JsonHelper.FromJson<BoxType2>(jsonsColor[i]);
             colorMatrixSurvival.Add(row);

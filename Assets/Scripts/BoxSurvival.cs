@@ -9,8 +9,8 @@ public class BoxSurvival : MonoBehaviour
     public int y;
     public BoxType2 type;
 
-    Vector3 firstPos = new Vector3(-3.015f, -3.015f);
-    float boxSize = 0.67f;
+    Vector3 firstPos = new Vector3(-3.115f, -3.115f);
+    float boxSize = 0.445f;
 
     public Vector3 CalculatationPosition(int x, int y)
     {
@@ -138,6 +138,7 @@ public enum BoxType2
 {
     None = 0,
     Blue,
+    Pink,
     Purple,
     Red,
     Yellow,

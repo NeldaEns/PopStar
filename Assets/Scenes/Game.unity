@@ -232,6 +232,7 @@ MonoBehaviour:
   - {fileID: 0}
   boxSurvival:
   - {fileID: 7673834451986718239, guid: b671e900f9babbf488a6ee470d1f2cfc, type: 3}
+  - {fileID: 8495594004849882974, guid: 4ec6a76d37aafa3409443fd008f955f0, type: 3}
   - {fileID: 2333417275533333947, guid: 1697dd9bb3a5cf9438655b8853fbec14, type: 3}
   - {fileID: 2201201445316271367, guid: 6a27759caba86d14eabf12c0a938e6ee, type: 3}
   - {fileID: 4179905267234753732, guid: a0315346a33f20948bb22e214230db70, type: 3}
@@ -249,6 +250,7 @@ MonoBehaviour:
   clickBox1: 0
   clickBox2: 0
   moveBox: []
+  listBox: []
 --- !u!4 &1578716626
 Transform:
   m_ObjectHideFlags: 0
