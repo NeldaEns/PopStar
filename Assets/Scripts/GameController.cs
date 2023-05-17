@@ -746,19 +746,14 @@ public class GameController : MonoBehaviour
             for (int i = 0; i < 15; i++)
             {
                 for (int j = 0; j < 15; j++)
-                {                   
-                    if(boxMatrixSurvival[j][i] == null)
-                    {
-                        SpawnBoxSurvival(j, i);
-                    }
-                    else
-                    {
-                        UIController.ins.ShowGameOverSurvival();
-                        ((SurvivalGameOverScreen)UIController.ins.currentScreen).ScoreSurvival();
-                        ((SurvivalGameOverScreen)UIController.ins.currentScreen).HighScoreSurvival();
-                    }
+                {
+                    Destroy(boxMatrixSurvival[j][i], 0.05f);
+                    boxMatrixSurvival[j][i] = null;
                 }
-            }            
+            }
+            UIController.ins.ShowGameOverSurvival();
+            ((SurvivalGameOverScreen)UIController.ins.currentScreen).ScoreSurvival();
+            ((SurvivalGameOverScreen)UIController.ins.currentScreen).HighScoreSurvival();
         }
     }
 
