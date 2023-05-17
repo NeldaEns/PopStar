@@ -64,7 +64,6 @@ public class GameController : MonoBehaviour
             }
             boxMatrixClassic.Add(listBoxClassic);
         }
-
         boxMatrixSurvival = new List<List<GameObject>>();
         for(int i = 0; i < 15; i++)
         {
@@ -231,6 +230,7 @@ public class GameController : MonoBehaviour
             bombMatrix[x][y] = bomb2;
         }
     }
+
     public void SpawnBoxSurvival1(int x, int y)
     {
         BoxType2 color1 = DataManager.ins.colorMatrixSurvival[x][y];
@@ -247,6 +247,7 @@ public class GameController : MonoBehaviour
             boxMatrixSurvival[x][y] = box2;
         }
     }
+
     public void SpawnBoxClassic1(int x, int y)
     {      
         BoxType1 color1 = DataManager.ins.colorMatrixClassic[x][y];
@@ -335,6 +336,7 @@ public class GameController : MonoBehaviour
         breakBox.Clear();
         CheckWinLoseClassic();
     }
+
     public void FindBreakBoxSurvival()
     {
         for (int i = 0; i < breakBox.Count; i++)
@@ -487,6 +489,7 @@ public class GameController : MonoBehaviour
             Destroy(explosion, 0.5f);
         }
     }
+
     public void MoveBoxCasual()
     {
         for (int i = 0; i < breakBox.Count; i++)
@@ -567,6 +570,7 @@ public class GameController : MonoBehaviour
             }
         }
     }
+
     public void MoveBoxSurvival()
     {
         for (int i = 0; i < breakBox.Count; i++)
@@ -638,6 +642,7 @@ public class GameController : MonoBehaviour
         }
         DataManager.ins.SaveJsonClassic();
     }
+
     public void SaveBoxSurvival()
     {
         for (int i = 0; i < boxMatrixSurvival.Count; i++)
@@ -675,6 +680,7 @@ public class GameController : MonoBehaviour
         }
         DataManager.ins.SaveJsonBomb();
     }
+
     public void CheckWinLoseCasual()
     {
         if (KTGameLoseCasual())
@@ -714,6 +720,7 @@ public class GameController : MonoBehaviour
             }
         }
     }
+
     public void CheckWinLoseClassic()
     {
         if (KTGameLoseClassic())
@@ -731,6 +738,7 @@ public class GameController : MonoBehaviour
             ((GameOverScreenClassic)UIController.ins.currentScreen).HighScoreClassic();
         }
     }
+
     public void CheckWinLoseSurvival()
     {
         if (KTGameLoseSurvival())
@@ -769,6 +777,7 @@ public class GameController : MonoBehaviour
         ((UICasual)UIController.ins.currentScreen).UpdateLevelText();
         ((UICasual)UIController.ins.currentScreen).UpdateCoinText();
     }
+
     public void AddScoreClassic(int addScore)
     {
         DataManager.ins.scoreClassic += addScore;
@@ -782,6 +791,7 @@ public class GameController : MonoBehaviour
         ((UIClassic)UIController.ins.currentScreen).UpdateHighScoreText();
         ((UIClassic)UIController.ins.currentScreen).UpdateCoinText();
     }
+
     public void AddScoreSurvival(int addScore)
     {
         DataManager.ins.scoreSurvival += addScore;
@@ -824,6 +834,7 @@ public class GameController : MonoBehaviour
         }
         return true;
     }
+
     public bool KTGameLoseClassic()
     {
         for (int i = 0; i < 10; i++)
@@ -852,6 +863,7 @@ public class GameController : MonoBehaviour
         }
         return true;
     }
+
     public bool KTGameLoseSurvival()
     {
         for (int i = 0; i < 15; i++)
@@ -880,6 +892,7 @@ public class GameController : MonoBehaviour
         return true;
 
     }
+
     public bool KTBoxCasual(GameObject box)
     { 
         for(int i = 0; i < breakBox.Count; i++)
@@ -897,6 +910,7 @@ public class GameController : MonoBehaviour
         }
         return false;
     }
+
     public bool KTBoxClassic(GameObject box)
     {
         for (int i = 0; i < breakBox.Count; i++)
@@ -914,6 +928,7 @@ public class GameController : MonoBehaviour
         }
         return false;
     }
+
     public bool KTBoxSurvival(GameObject box)
     {
         for (int i = 0; i < breakBox.Count; i++)
@@ -938,30 +953,35 @@ public class GameController : MonoBehaviour
         moveBox.Add(boxMatrixCasual[x][y]);
         clickBox1 = true;       
     }
+
     public void ClickMoveBoxClassic1(int x, int y)
     {
         AudioManager.ins.PlaySFX("it1");
         moveBox.Add(boxMatrixClassic[x][y]);
         clickBox1 = true;
     }
+
     public void ClickMoveBoxCasual2(int x, int y)
     {
         AudioManager.ins.PlaySFX("it1");
         moveBox.Add(boxMatrixCasual[x][y]);
         clickBox2 = true;       
     }
+
     public void ClickMoveBoxClassic2(int x, int y)
     {
         AudioManager.ins.PlaySFX("it1");
         moveBox.Add(boxMatrixClassic[x][y]);
         clickBox2 = true;
     }
+
     public void ClickMoveBoxSurvival1(int x, int y)
     {
         AudioManager.ins.PlaySFX("it1");
         moveBox.Add(boxMatrixSurvival[x][y]);
         clickBox1 = true;
     }
+
     public void ClickMoveBoxSurvival2(int x, int y)
     {
         AudioManager.ins.PlaySFX("it1");
@@ -982,6 +1002,7 @@ public class GameController : MonoBehaviour
 
                 BoxType color1 = boxMatrixCasual[x1][y1].GetComponent<Box>().type;
                 BoxType color2 = boxMatrixCasual[x2][y2].GetComponent<Box>().type;
+                BoxType temp;
 
                 if (x1 > 0 && x2 == x1 - 1 && y1 == y2 && boxMatrixCasual[x2][y2] != null && boxMatrixCasual[x1][y1].GetComponent<Box>().type != boxMatrixCasual[x2][y2].GetComponent<Box>().type)
                 {
@@ -993,7 +1014,9 @@ public class GameController : MonoBehaviour
                     boxMatrixCasual[x1][y1] = boxMatrixCasual[x2][y2];
                     x1 = x2;
                     x2 = x1 + 1;
+                    temp = color1;
                     color1 = color2;
+                    color2 = temp;
                     boxMatrixCasual[x1][y1].transform.position = boxMatrixCasual[x1][y1].GetComponent<Box>().CalculatationPosition(x1, y1);
                     DataManager.ins.colorMatrixCasual[x1][y1] = boxMatrixCasual[x1][y1].GetComponent<Box>().type;
 
@@ -1010,7 +1033,9 @@ public class GameController : MonoBehaviour
                     boxMatrixCasual[x2][y2] = boxMatrixCasual[x1][y1];
                     x1 = x2;
                     x2 = x1 - 1;
+                    temp = color1;
                     color1 = color2;
+                    color2 = temp;
                     boxMatrixCasual[x2][y2].transform.position = boxMatrixCasual[x2][y2].GetComponent<Box>().CalculatationPosition(x2, y2);
                     DataManager.ins.colorMatrixCasual[x2][y2] = boxMatrixCasual[x2][y2].GetComponent<Box>().type;
 
@@ -1026,7 +1051,9 @@ public class GameController : MonoBehaviour
                     boxMatrixCasual[x1][y1] = boxMatrixCasual[x2][y2];
                     y1 = y2;
                     y2 = y1 + 1;
+                    temp = color1;
                     color1 = color2;
+                    color2 = temp;
                     boxMatrixCasual[x1][y1].transform.position = boxMatrixCasual[x1][y1].GetComponent<Box>().CalculatationPosition(x1, y1);
                     DataManager.ins.colorMatrixCasual[x1][y1] = boxMatrixCasual[x1][y1].GetComponent<Box>().type;
 
@@ -1042,7 +1069,9 @@ public class GameController : MonoBehaviour
                     boxMatrixCasual[x2][y2] = boxMatrixCasual[x1][y1];
                     y1 = y2;
                     y2 = y1 - 1;
+                    temp = color1;
                     color1 = color2;
+                    color2 = temp;
                     boxMatrixCasual[x2][y2].transform.position = boxMatrixCasual[x2][y2].GetComponent<Box>().CalculatationPosition(x2, y2);
                     DataManager.ins.colorMatrixCasual[x1][y1] = boxMatrixCasual[x1][y1].GetComponent<Box>().type;
 
@@ -1109,7 +1138,7 @@ public class GameController : MonoBehaviour
 
                 BoxType1 color1 = boxMatrixClassic[x1][y1].GetComponent<BoxClassic>().type;
                 BoxType1 color2 = boxMatrixClassic[x2][y2].GetComponent<BoxClassic>().type;
-
+                BoxType1 temp;
                 if (x1 > 0 && x2 == x1 - 1 && y1 == y2 && boxMatrixClassic[x2][y2] != null && boxMatrixClassic[x1][y1].GetComponent<BoxClassic>().type != boxMatrixClassic[x2][y2].GetComponent<BoxClassic>().type)
                 {
 
@@ -1120,7 +1149,9 @@ public class GameController : MonoBehaviour
                     boxMatrixClassic[x1][y1] = boxMatrixClassic[x2][y2];
                     x1 = x2;
                     x2 = x1 + 1;
+                    temp = color1;
                     color1 = color2;
+                    color2 = temp;
                     boxMatrixClassic[x1][y1].transform.position = boxMatrixClassic[x1][y1].GetComponent<BoxClassic>().CalculatationPosition(x1, y1);
                     DataManager.ins.colorMatrixClassic[x1][y1] = boxMatrixClassic[x1][y1].GetComponent<BoxClassic>().type;
 
@@ -1137,7 +1168,9 @@ public class GameController : MonoBehaviour
                     boxMatrixClassic[x2][y2] = boxMatrixClassic[x1][y1];
                     x1 = x2;
                     x2 = x1 - 1;
+                    temp = color1;
                     color1 = color2;
+                    color2 = temp;
                     boxMatrixClassic[x2][y2].transform.position = boxMatrixClassic[x2][y2].GetComponent<BoxClassic>().CalculatationPosition(x2, y2);
                     DataManager.ins.colorMatrixClassic[x2][y2] = boxMatrixClassic[x2][y2].GetComponent<BoxClassic>().type;
 
@@ -1153,7 +1186,9 @@ public class GameController : MonoBehaviour
                     boxMatrixClassic[x1][y1] = boxMatrixClassic[x2][y2];
                     y1 = y2;
                     y2 = y1 + 1;
+                    temp = color1;
                     color1 = color2;
+                    color2 = temp;
                     boxMatrixClassic[x1][y1].transform.position = boxMatrixClassic[x1][y1].GetComponent<BoxClassic>().CalculatationPosition(x1, y1);
                     DataManager.ins.colorMatrixClassic[x1][y1] = boxMatrixClassic[x1][y1].GetComponent<BoxClassic>().type;
 
@@ -1169,7 +1204,9 @@ public class GameController : MonoBehaviour
                     boxMatrixClassic[x2][y2] = boxMatrixClassic[x1][y1];
                     y1 = y2;
                     y2 = y1 - 1;
+                    temp = color1;
                     color1 = color2;
+                    color2 = temp;
                     boxMatrixClassic[x2][y2].transform.position = boxMatrixClassic[x2][y2].GetComponent<BoxClassic>().CalculatationPosition(x2, y2);
                     DataManager.ins.colorMatrixClassic[x1][y1] = boxMatrixClassic[x1][y1].GetComponent<BoxClassic>().type;
 
@@ -1222,6 +1259,7 @@ public class GameController : MonoBehaviour
         SaveBoxClassic();
         useIt3 = false;
     }
+
     public void Item1Survival()
     {
         if (clickBox1 == true && clickBox2 == true)
@@ -1232,7 +1270,7 @@ public class GameController : MonoBehaviour
                 int y1 = moveBox[0].GetComponent<BoxSurvival>().y;
                 int x2 = moveBox[1].GetComponent<BoxSurvival>().x;
                 int y2 = moveBox[1].GetComponent<BoxSurvival>().y;
-
+                BoxType2 temp;
                 BoxType2 color1 = boxMatrixSurvival[x1][y1].GetComponent<BoxSurvival>().type;
                 BoxType2 color2 = boxMatrixSurvival[x2][y2].GetComponent<BoxSurvival>().type;
 
@@ -1246,7 +1284,9 @@ public class GameController : MonoBehaviour
                     boxMatrixSurvival[x1][y1] = boxMatrixSurvival[x2][y2];
                     x1 = x2;
                     x2 = x1 + 1;
+                    temp = color1;
                     color1 = color2;
+                    color2 = temp;
                     boxMatrixSurvival[x1][y1].transform.position = boxMatrixSurvival[x1][y1].GetComponent<BoxSurvival>().CalculatationPosition(x1, y1);
                     DataManager.ins.colorMatrixSurvival[x1][y1] = boxMatrixSurvival[x1][y1].GetComponent<BoxSurvival>().type;
                     boxMatrixSurvival[x2][y2].transform.position = boxMatrixSurvival[x2][y2].GetComponent<BoxSurvival>().CalculatationPosition(x2, y2);
@@ -1262,7 +1302,9 @@ public class GameController : MonoBehaviour
                     boxMatrixSurvival[x2][y2] = boxMatrixSurvival[x1][y1];
                     x1 = x2;
                     x2 = x1 - 1;
+                    temp = color1;
                     color1 = color2;
+                    color2 = temp;
                     boxMatrixSurvival[x2][y2].transform.position = boxMatrixSurvival[x2][y2].GetComponent<BoxSurvival>().CalculatationPosition(x2, y2);
                     DataManager.ins.colorMatrixSurvival[x2][y2] = boxMatrixSurvival[x2][y2].GetComponent<BoxSurvival>().type;
 
@@ -1278,7 +1320,9 @@ public class GameController : MonoBehaviour
                     boxMatrixSurvival[x1][y1] = boxMatrixSurvival[x2][y2];
                     y1 = y2;
                     y2 = y1 + 1;
+                    temp = color1;
                     color1 = color2;
+                    color2 = temp;
                     boxMatrixSurvival[x1][y1].transform.position = boxMatrixSurvival[x1][y1].GetComponent<BoxSurvival>().CalculatationPosition(x1, y1);
                     DataManager.ins.colorMatrixSurvival[x1][y1] = boxMatrixSurvival[x1][y1].GetComponent<BoxSurvival>().type;
 
@@ -1294,7 +1338,9 @@ public class GameController : MonoBehaviour
                     boxMatrixSurvival[x2][y2] = boxMatrixSurvival[x1][y1];
                     y1 = y2;
                     y2 = y1 - 1;
+                    temp = color1;
                     color1 = color2;
+                    color2 = temp;
                     boxMatrixSurvival[x2][y2].transform.position = boxMatrixSurvival[x2][y2].GetComponent<BoxSurvival>().CalculatationPosition(x2, y2);
                     DataManager.ins.colorMatrixSurvival[x1][y1] = boxMatrixSurvival[x1][y1].GetComponent<BoxSurvival>().type;
 
