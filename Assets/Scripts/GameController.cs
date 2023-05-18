@@ -12,12 +12,11 @@ public class GameController : MonoBehaviour
     public List<List<GameObject>> boxMatrixClassic;
 
     public List<List<GameObject>> boxMatrixSurvival;
-    public List<List<GameObject>> bombMatrix;
+
 
     public List<GameObject> boxCasual;
     public List<GameObject> boxClassic;
     public List<GameObject> boxSurvival;
-    public List<GameObject> listBomb;
     public List<GameObject> breakBox;
     public GameObject explosionPrefabs;
 
@@ -75,16 +74,6 @@ public class GameController : MonoBehaviour
             boxMatrixSurvival.Add(listBoxSurvival);
         }
 
-        bombMatrix = new List<List<GameObject>>();
-        for(int i = 0; i < 10; i++)
-        {
-            List<GameObject> listBomb = new List<GameObject>();
-            for(int j = 0; j < 10; j++)
-            {
-                listBomb.Add(null);
-            }
-            bombMatrix.Add(listBomb);
-        }
         if (DataManager.ins.casualGame == true && DataManager.ins.classicGame == false && DataManager.ins.survivalGame == false)
         {
             if (DataManager.ins.start_new_game_casual == true)
@@ -187,16 +176,6 @@ public class GameController : MonoBehaviour
         boxMatrixSurvival[x][y] = box1;
     }
 
-    public void SpawnBomb(int x, int y)
-    {
-        int bomb = Random.Range(1, 2);
-        GameObject bom = Instantiate(listBomb[bomb - 1]);
-        Vector3 pos = bom.GetComponent<Bomb>().CalculatationPosition(x, y);
-        bom.transform.position = pos;
-        bom.GetComponent<Bomb>().OnSpawn(x, y, (Bom)bomb);
-        bombMatrix[x][y] = bom;
-    }
-
     public void SpawnBoxCasual1(int x, int y)
     {
         BoxType color1 = DataManager.ins.colorMatrixCasual[x][y];
@@ -211,23 +190,6 @@ public class GameController : MonoBehaviour
             box2.transform.position = pos;
             box2.GetComponent<Box>().OnSpawn(x, y, color1);
             boxMatrixCasual[x][y] = box2;
-        }
-    }
-
-    public void SpawnBomb1(int x, int y)
-    {
-        Bom bomb = DataManager.ins.bombMatrix[x][y];
-        if (bomb == Bom.None)
-        {
-            bombMatrix[x][y] = null;
-        }
-        else
-        {
-            GameObject bomb2 = Instantiate(this.listBomb[(int)bomb - 1]);
-            Vector3 pos = bomb2.GetComponent<Bomb>().CalculatationPosition(x, y);
-            bomb2.transform.position = pos;
-            bomb2.GetComponent<Bomb>().OnSpawn(x, y, bomb);
-            bombMatrix[x][y] = bomb2;
         }
     }
 
@@ -660,25 +622,6 @@ public class GameController : MonoBehaviour
             }
         }
         DataManager.ins.SaveJsonSurvival();
-    }
-
-    public void SaveBombSurvival()
-    {
-        for(int i = 0; i < bombMatrix.Count; i++)
-        {
-            for(int j = 0; j < bombMatrix[i].Count; j++)
-            {
-                if(bombMatrix[i][j] == null)
-                {
-                    DataManager.ins.bombMatrix[i][j] = Bom.None;
-                }
-                else
-                {
-                    DataManager.ins.bombMatrix[i][j] = bombMatrix[i][j].GetComponent<Bomb>().bomb;
-                }
-            }
-        }
-        DataManager.ins.SaveJsonBomb();
     }
 
     public void CheckWinLoseCasual()

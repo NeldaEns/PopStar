@@ -31,7 +31,6 @@ public class DataManager : MonoBehaviour
     public List<List<BoxType>> colorMatrixCasual;
     public List<List<BoxType1>> colorMatrixClassic;
     public List<List<BoxType2>> colorMatrixSurvival;
-    public List<List<Bom>> bombMatrix;
 
     private const string score_casual_key = "score_casual_key";
     private const string score_classic_key = "score_classic_key";
@@ -45,7 +44,6 @@ public class DataManager : MonoBehaviour
     private const string color_casual_key = "color_casual_key";
     private const string color_classic_key = "color_classic_key";
     private const string color_survival_key = "color_survival_key";
-    private const string bomb_key = "bomb_key";
     private const string first_time_play_casual = "first_time_play_casual";
     private const string first_time_play_classic = "first_time_play_classic";
     private const string first_time_play_survival = "first_time_play_survival";
@@ -84,6 +82,7 @@ public class DataManager : MonoBehaviour
             StartDataCasual();
         }
     }
+
     public void FirstTimePlayClassic()
     {
         if (PlayerPrefs.HasKey(first_time_play_classic))
@@ -96,6 +95,7 @@ public class DataManager : MonoBehaviour
             StartDataClassic();
         }
     }
+
     public void FirstTimePlaySurvival()
     {
         if (PlayerPrefs.HasKey(first_time_play_survival))
@@ -122,6 +122,7 @@ public class DataManager : MonoBehaviour
         LoadSFXVolume();
         LoadSFXSliderValue();
     }
+
     public void LoadDataClassic()
     {
         LoadScoreClassic();
@@ -133,6 +134,7 @@ public class DataManager : MonoBehaviour
         LoadSFXVolume();
         LoadSFXSliderValue();
     }
+
     public void LoadDataSurvival()
     {
         LoadScoreSurvival();
@@ -175,6 +177,7 @@ public class DataManager : MonoBehaviour
         SaveSFXVolume();
         SaveSFXSliderValue();
     }
+
     public void StartDataClassic()
     {
         scoreClassic = 0;
@@ -201,6 +204,7 @@ public class DataManager : MonoBehaviour
         LoadSFXVolume();
         LoadSFXSliderValue();
     }
+
     public void StartDataSurvival()
     {
         scoreSurvival = 0;
@@ -253,6 +257,7 @@ public class DataManager : MonoBehaviour
         string finalJson = JsonHelper1.ToJson<string>(jsonsColorClassic);
         PlayerPrefs.SetString(color_classic_key, finalJson);
     }
+
     public void SaveJsonSurvival()
     {
         List<string> jsonsColorSurvival = new List<string>();
@@ -266,17 +271,6 @@ public class DataManager : MonoBehaviour
         PlayerPrefs.SetString(color_survival_key, finalJson);
     }
 
-    public void SaveJsonBomb()
-    {
-        List<string> jsonBomb = new List<string>();
-        for (int i = 0; i < 10; i++)
-        {
-            string jsonBom = JsonHelper.ToJson<Bom>(bombMatrix[i]);
-            jsonBomb.Add(jsonBom);
-        }
-        string finalJson = JsonHelper.ToJson<string>(jsonBomb);
-        PlayerPrefs.SetString(bomb_key, finalJson);
-    }
     public void LoadJsonCasual()
     {
         string finalJson = PlayerPrefs.GetString(color_casual_key);
@@ -319,19 +313,6 @@ public class DataManager : MonoBehaviour
         }
     }
 
-    public void LoadJsonBomb()
-    {
-        string finalJson = PlayerPrefs.GetString(bomb_key);
-
-        List<string> jsonBomb = JsonHelper.FromJson<string>(finalJson);
-
-        bombMatrix = new List<List<Bom>>();
-        for(int i = 0; i < 10; i++)
-        {
-            List<Bom> row = JsonHelper.FromJson<Bom>(jsonBomb[i]);
-            bombMatrix.Add(row);
-        }
-    }
     public void ResetDataCasual()
     {
         scoreCasual = 0;
@@ -343,6 +324,7 @@ public class DataManager : MonoBehaviour
     {
         scoreClassic = 0;
     }
+
     public void ResetDataSurvival()
     {
         scoreSurvival = 0;
@@ -367,6 +349,7 @@ public class DataManager : MonoBehaviour
     {
         target = PlayerPrefs.GetInt(target_key, 1000);
     }
+
     public void LoadCoin()
     {
         coin = PlayerPrefs.GetInt(coin_key, 0);
@@ -430,6 +413,7 @@ public class DataManager : MonoBehaviour
     {
         PlayerPrefs.SetFloat(target_key, target);
     }
+
     public void SaveCoin()
     {
         PlayerPrefs.SetInt(coin_key, coin);
@@ -455,6 +439,7 @@ public class DataManager : MonoBehaviour
         PlayerPrefs.SetInt(high_score_classic_key, highScoreClassic);
 
     }
+
     public void LoadScoreSurvival()
     {
         scoreSurvival = PlayerPrefs.GetInt(score_survival_key, 0);
