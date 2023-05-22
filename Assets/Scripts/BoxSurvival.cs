@@ -119,7 +119,6 @@ public class BoxSurvival : MonoBehaviour
             {
                 GameController.instance.ClickMoveBoxSurvival1(x, y);
             }
-
             GameController.instance.Item1Survival();
         }
         else if (GameController.instance.useIt2)

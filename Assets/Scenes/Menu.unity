@@ -827,7 +827,7 @@ MonoBehaviour:
     type: 3}
   casualGameOverScreen: {fileID: 3608699428795023418, guid: 5f49404390847464e83d1ba695faadce,
     type: 3}
-  classicGameOverScreen: {fileID: 5053779996436791950, guid: 637d5afe5dfff4d40a8c2249ef2ecdfc,
+  classicGameOverScreen: {fileID: 9114436014817134106, guid: 12a6cc9903c0da040b68d56598d102b0,
     type: 3}
-  survivalGameOverScreen: {fileID: 3733568619204998572, guid: 2072d3cc62aa7fe4b96b1e99c2047407,
+  survivalGameOverScreen: {fileID: 6299794368759526607, guid: 80c6bf61339aac041867029ed825f296,
     type: 3}

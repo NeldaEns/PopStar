@@ -238,11 +238,18 @@ MonoBehaviour:
   - {fileID: 4179905267234753732, guid: a0315346a33f20948bb22e214230db70, type: 3}
   - {fileID: 2894133741832295134, guid: 5a32b8f79112dcf41bdda798ed8801f3, type: 3}
   - {fileID: 0}
-  listBomb:
-  - {fileID: 4762992999193200240, guid: 7f2dddf0b166210438b74f8694a3b8fd, type: 3}
-  - {fileID: 0}
   breakBox: []
-  explosionPrefabs: {fileID: 2203112218923668955, guid: 83b2697b2cf7ace41ac9f0ccb51f546a,
+  explosion1: {fileID: 2203112218923668955, guid: c90b513b3349e7f4a8cf5785bdca0b67,
+    type: 3}
+  goodexplosion: {fileID: 2203112218923668955, guid: ec638e4a656dc1946a6d35d24cc141ed,
+    type: 3}
+  greatexplosion: {fileID: 2203112218923668955, guid: 83b2697b2cf7ace41ac9f0ccb51f546a,
+    type: 3}
+  excellentexplosion: {fileID: 2203112218923668955, guid: a2b01b4df4dc24a4b8eebeacd808dcc5,
+    type: 3}
+  amazingexplosion: {fileID: 2203112218923668955, guid: c82e0ce1d5f778248a5fe613d3bd1b42,
+    type: 3}
+  unbelievableexplosion: {fileID: 2203112218923668955, guid: 8ddfa78634522034fafc79e87df1570c,
     type: 3}
   useIt1: 0
   useIt2: 0
