@@ -725,6 +725,8 @@ public class GameController : MonoBehaviour
                 UIController.ins.ShowGameOverCasual();
                 ((GameOverScreenCasual)UIController.ins.currentScreen).ScoreCasual();
                 ((GameOverScreenCasual)UIController.ins.currentScreen).HighScoreCasual();
+                DataManager.ins.start_new_game_casual = true;
+                DataManager.ins.ResetDataCasual();
             }
         }
     }

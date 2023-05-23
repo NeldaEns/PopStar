@@ -145,7 +145,7 @@ public class UIMainMenu : UIScreenBase
         base.OnShow();
     }
     public void Back()
-    {
+    {       
         AudioManager.ins.PlaySFX("click");
         Application.Quit();
     }
