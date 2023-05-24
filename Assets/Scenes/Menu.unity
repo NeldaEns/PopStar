@@ -815,13 +815,13 @@ MonoBehaviour:
     type: 3}
   classicPanel: {fileID: 4073754724881319021, guid: 999f91d3e2574fa41a2f388996c3a284,
     type: 3}
-  survivalPanel: {fileID: 4959113781176624724, guid: 5f70ffef9ed5097428d94ef10eef9fd4,
+  survivalPanel: {fileID: 4073754724881319021, guid: 044c3a44a28d29b46820394e0d01be41,
     type: 3}
   mainCameraPrefabs: {fileID: 5040824005224592753, guid: b9771b9356d550a4d8cd7bbbe0ec78fd,
     type: 3}
   casualGameOverScreen: {fileID: 3608699428795023418, guid: 5f49404390847464e83d1ba695faadce,
     type: 3}
-  classicGameOverScreen: {fileID: 9114436014817134106, guid: 12a6cc9903c0da040b68d56598d102b0,
+  classicGameOverScreen: {fileID: 7161775208826532765, guid: d019320dc2aa0ca428b1e09071cb680d,
     type: 3}
-  survivalGameOverScreen: {fileID: 6299794368759526607, guid: 80c6bf61339aac041867029ed825f296,
+  survivalGameOverScreen: {fileID: 3622473503173753616, guid: 1eab8dfb1e0fba847905ba24f6b62d62,
     type: 3}

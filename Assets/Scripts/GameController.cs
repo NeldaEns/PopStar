@@ -161,6 +161,18 @@ public class GameController : MonoBehaviour
         boxMatrixCasual[x][y] = box1;
     }
 
+    public IEnumerator SpawnBox(int x, int y)
+    {
+        int color = Random.Range(1, 6);
+        GameObject box1 = Instantiate(boxCasual[color - 1]);
+        Vector3 pos = box1.GetComponent<Box>().CalculatationPosition(x, y);
+        box1.transform.position = pos;
+        box1.GetComponent<Box>().OnSpawn(x, y, (BoxType)color);
+        boxMatrixCasual[x][y] = box1;
+        yield return new WaitForSeconds(0.5f);
+        StartCoroutine(SpawnBox(x, y));
+    }
+
     public void SpawnBoxClassic(int x, int y)
     {
         int color = Random.Range(1, 6);

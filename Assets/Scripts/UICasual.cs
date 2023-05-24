@@ -11,6 +11,7 @@ public class UICasual : UIScreenBase
     public Text txtHighScore;
     public Text txtTarget;
     public Text txtCoin;
+    public GameObject panel;
 
 
     private void Start()
