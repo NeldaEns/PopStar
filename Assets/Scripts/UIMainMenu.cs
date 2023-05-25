@@ -26,7 +26,7 @@ public class UIMainMenu : UIScreenBase
             if (DataManager.ins.highScoreCasual == 0)
             {                
                 DataManager.ins.start_new_game_casual = true;
-                DataManager.ins.StartDataCasual();
+                DataManager.ins.StartDataCasual();              
                 SceneManager.LoadScene(1);
                 UIController.ins.ShowCasual();
             }

@@ -48,7 +48,7 @@ public class GameController : MonoBehaviour
     private void Start()
     {
         boxMatrixCasual = new List<List<GameObject>>();      
-        for (int i = 0; i < 10; i++)
+        for(int i = 0; i < 10; i++)
         {
             List<GameObject> listBoxCasual = new List<GameObject>();
 
@@ -59,7 +59,7 @@ public class GameController : MonoBehaviour
             boxMatrixCasual.Add(listBoxCasual);
         }
         boxMatrixClassic = new List<List<GameObject>>();
-        for (int i = 0; i < 10; i++)
+        for(int i = 0; i < 10; i++)
         {
             List<GameObject> listBoxClassic = new List<GameObject>();
             for(int j = 0; j < 10; j++)
@@ -79,7 +79,7 @@ public class GameController : MonoBehaviour
             boxMatrixSurvival.Add(listBoxSurvival);
         }
 
-        if (DataManager.ins.casualGame == true && DataManager.ins.classicGame == false && DataManager.ins.survivalGame == false)
+        if(DataManager.ins.casualGame == true && DataManager.ins.classicGame == false && DataManager.ins.survivalGame == false)
         {
             if (DataManager.ins.start_new_game_casual == true)
             {
@@ -102,7 +102,7 @@ public class GameController : MonoBehaviour
                 }
             }
         }
-        if (DataManager.ins.classicGame == true && DataManager.ins.casualGame == false && DataManager.ins.survivalGame == false)
+        if(DataManager.ins.classicGame == true && DataManager.ins.casualGame == false && DataManager.ins.survivalGame == false)
         {
             if (DataManager.ins.start_new_game_classic == true)
             {
@@ -142,8 +142,7 @@ public class GameController : MonoBehaviour
                 for (int i = 0; i < 15; i++)
                 {
                     for (int j = 0; j < 15; j++)
-                    {
-                        
+                    {                       
                         SpawnBoxSurvival1(i, j);
                     }
                 }
@@ -159,18 +158,6 @@ public class GameController : MonoBehaviour
         box1.transform.position = pos;
         box1.GetComponent<Box>().OnSpawn(x, y, (BoxType)color);
         boxMatrixCasual[x][y] = box1;
-    }
-
-    public IEnumerator SpawnBox(int x, int y)
-    {
-        int color = Random.Range(1, 6);
-        GameObject box1 = Instantiate(boxCasual[color - 1]);
-        Vector3 pos = box1.GetComponent<Box>().CalculatationPosition(x, y);
-        box1.transform.position = pos;
-        box1.GetComponent<Box>().OnSpawn(x, y, (BoxType)color);
-        boxMatrixCasual[x][y] = box1;
-        yield return new WaitForSeconds(0.5f);
-        StartCoroutine(SpawnBox(x, y));
     }
 
     public void SpawnBoxClassic(int x, int y)
@@ -364,7 +351,7 @@ public class GameController : MonoBehaviour
                 explosion.GetComponent<ParticleSystem>().Play();
                 explosion.transform.position = breakBox[i].transform.position;
                 AudioManager.ins.PlaySFX("click");
-                Destroy(explosion, 2f);
+                Destroy(explosion, 3f);
             }
             if(breakBox.Count > 2 && breakBox.Count < 5 )
             {
@@ -372,7 +359,7 @@ public class GameController : MonoBehaviour
                 goodexplosion1.GetComponent<ParticleSystem>().Play();
                 goodexplosion1.transform.position = breakBox[i].transform.position;
                 AudioManager.ins.PlaySFX("good");
-                Destroy(goodexplosion1, 2f);
+                Destroy(goodexplosion1, 3f);
             }
             if(breakBox.Count > 4 && breakBox.Count < 7)
             {
@@ -380,7 +367,7 @@ public class GameController : MonoBehaviour
                 greatexplosion1.GetComponent<ParticleSystem>().Play();
                 greatexplosion1.transform.position = breakBox[i].transform.position;
                 AudioManager.ins.PlaySFX("great");
-                Destroy(greatexplosion1, 2f);
+                Destroy(greatexplosion1, 3f);
             }
             if (breakBox.Count > 6 && breakBox.Count < 9 )
             {
@@ -388,7 +375,7 @@ public class GameController : MonoBehaviour
                 excellentexplosion1.GetComponent<ParticleSystem>().Play();
                 excellentexplosion1.transform.position = breakBox[i].transform.position;
                 AudioManager.ins.PlaySFX("excellent");
-                Destroy(excellentexplosion1, 2f);
+                Destroy(excellentexplosion1, 3f);
             }
             if (breakBox.Count > 8 && breakBox.Count < 11)
             {
@@ -396,7 +383,7 @@ public class GameController : MonoBehaviour
                 amazingexplosion1.GetComponent<ParticleSystem>().Play();
                 amazingexplosion1.transform.position = breakBox[i].transform.position;
                 AudioManager.ins.PlaySFX("amazing");
-                Destroy(amazingexplosion1, 2f);
+                Destroy(amazingexplosion1, 3f);
             }
             if (breakBox.Count > 10)
             {
@@ -404,7 +391,7 @@ public class GameController : MonoBehaviour
                 unbelievableexplosion1.GetComponent<ParticleSystem>().Play();
                 unbelievableexplosion1.transform.position = breakBox[i].transform.position;
                 AudioManager.ins.PlaySFX("unbelievable");
-                Destroy(unbelievableexplosion1, 2f);
+                Destroy(unbelievableexplosion1, 3f);
             }
             AddScoreCasual(j);       
             Destroy(breakBox[i]);          
@@ -423,7 +410,7 @@ public class GameController : MonoBehaviour
                 explosion.GetComponent<ParticleSystem>().Play();
                 explosion.transform.position = breakBox[i].transform.position;
                 AudioManager.ins.PlaySFX("click");
-                Destroy(explosion, 2f);
+                Destroy(explosion, 3f);
             }
             if (breakBox.Count > 2 && breakBox.Count < 5)
             {
@@ -431,7 +418,7 @@ public class GameController : MonoBehaviour
                 goodexplosion1.GetComponent<ParticleSystem>().Play();
                 goodexplosion1.transform.position = breakBox[i].transform.position;
                 AudioManager.ins.PlaySFX("good");
-                Destroy(goodexplosion1, 2f);
+                Destroy(goodexplosion1, 3f);
             }
             if (breakBox.Count > 4 && breakBox.Count < 7)
             {
@@ -439,7 +426,7 @@ public class GameController : MonoBehaviour
                 greatexplosion1.GetComponent<ParticleSystem>().Play();
                 greatexplosion1.transform.position = breakBox[i].transform.position;
                 AudioManager.ins.PlaySFX("great");
-                Destroy(greatexplosion1, 2f);
+                Destroy(greatexplosion1, 3f);
             }
             if (breakBox.Count > 6 && breakBox.Count < 9)
             {
@@ -447,7 +434,7 @@ public class GameController : MonoBehaviour
                 excellentexplosion1.GetComponent<ParticleSystem>().Play();
                 excellentexplosion1.transform.position = breakBox[i].transform.position;
                 AudioManager.ins.PlaySFX("excellent");
-                Destroy(excellentexplosion1, 2f);
+                Destroy(excellentexplosion1, 3f);
             }
             if (breakBox.Count > 8 && breakBox.Count < 11)
             {
@@ -455,7 +442,7 @@ public class GameController : MonoBehaviour
                 amazingexplosion1.GetComponent<ParticleSystem>().Play();
                 amazingexplosion1.transform.position = breakBox[i].transform.position;
                 AudioManager.ins.PlaySFX("amazing");
-                Destroy(amazingexplosion1, 2f);
+                Destroy(amazingexplosion1, 3f);
             }
             if (breakBox.Count > 10)
             {
@@ -463,7 +450,7 @@ public class GameController : MonoBehaviour
                 unbelievableexplosion1.GetComponent<ParticleSystem>().Play();
                 unbelievableexplosion1.transform.position = breakBox[i].transform.position;
                 AudioManager.ins.PlaySFX("unbelievable");
-                Destroy(unbelievableexplosion1, 2f);
+                Destroy(unbelievableexplosion1, 3f);
             }
             AddScoreClassic(j);          
             Destroy(breakBox[i]);           
@@ -482,7 +469,7 @@ public class GameController : MonoBehaviour
                 explosion.GetComponent<ParticleSystem>().Play();
                 explosion.transform.position = breakBox[i].transform.position;
                 AudioManager.ins.PlaySFX("click");
-                Destroy(explosion, 2f);
+                Destroy(explosion, 3f);
             }
             if (breakBox.Count > 2 && breakBox.Count < 5)
             {
@@ -490,7 +477,7 @@ public class GameController : MonoBehaviour
                 goodexplosion1.GetComponent<ParticleSystem>().Play();
                 goodexplosion1.transform.position = breakBox[i].transform.position;
                 AudioManager.ins.PlaySFX("good");
-                Destroy(goodexplosion1, 2f);
+                Destroy(goodexplosion1, 3f);
             }
             if (breakBox.Count > 4 && breakBox.Count < 7)
             {
@@ -498,7 +485,7 @@ public class GameController : MonoBehaviour
                 greatexplosion1.GetComponent<ParticleSystem>().Play();
                 greatexplosion1.transform.position = breakBox[i].transform.position;
                 AudioManager.ins.PlaySFX("great");
-                Destroy(greatexplosion1, 2f);
+                Destroy(greatexplosion1, 3f);
             }
             if (breakBox.Count > 6 && breakBox.Count < 9)
             {
@@ -506,7 +493,7 @@ public class GameController : MonoBehaviour
                 excellentexplosion1.GetComponent<ParticleSystem>().Play();
                 excellentexplosion1.transform.position = breakBox[i].transform.position;
                 AudioManager.ins.PlaySFX("excellent");
-                Destroy(excellentexplosion1, 2f);
+                Destroy(excellentexplosion1, 3f);
             }
             if (breakBox.Count > 8 && breakBox.Count < 11)
             {
@@ -514,7 +501,7 @@ public class GameController : MonoBehaviour
                 amazingexplosion1.GetComponent<ParticleSystem>().Play();
                 amazingexplosion1.transform.position = breakBox[i].transform.position;
                 AudioManager.ins.PlaySFX("amazing");
-                Destroy(amazingexplosion1, 2f);
+                Destroy(amazingexplosion1, 3f);
             }
             if (breakBox.Count > 10)
             {
@@ -522,7 +509,7 @@ public class GameController : MonoBehaviour
                 unbelievableexplosion1.GetComponent<ParticleSystem>().Play();
                 unbelievableexplosion1.transform.position = breakBox[i].transform.position;
                 AudioManager.ins.PlaySFX("unbelievable");
-                Destroy(unbelievableexplosion1, 2f);
+                Destroy(unbelievableexplosion1, 3f);
             }
             AddScoreSurvival(j);
             Destroy(breakBox[i]);

@@ -11,7 +11,8 @@ public class UICasual : UIScreenBase
     public Text txtHighScore;
     public Text txtTarget;
     public Text txtCoin;
-    public GameObject panel;
+    public Text txtLevel1;
+    public Text txtTarget1;
 
 
     private void Start()
@@ -21,6 +22,7 @@ public class UICasual : UIScreenBase
         UpdateLevelText();
         UpdateTargetText();
         UpdateCoinText();
+        ShowPanel();
     }
 
     private void Update()
@@ -28,6 +30,7 @@ public class UICasual : UIScreenBase
         UpdateTargetText();
         UpdateLevelText();
         UpdateCoinText();
+        ShowPanel();
     }
     public override void OnShow()
     {
@@ -40,6 +43,7 @@ public class UICasual : UIScreenBase
         UpdateLevelText();
         UpdateTargetText();
         UpdateCoinText();
+        ShowPanel();
     }
 
     public void UpdateScoreText()
@@ -64,6 +68,12 @@ public class UICasual : UIScreenBase
     public void UpdateCoinText()
     {
         txtCoin.text = DataManager.ins.coin.ToString();
+    }
+
+    public void ShowPanel()
+    {
+            txtLevel1.text = txtLevel.text;
+            txtTarget1.text = txtTarget.text;   
     }
 
     public void Back()
