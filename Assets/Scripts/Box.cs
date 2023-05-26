@@ -101,6 +101,20 @@ public class Box : MonoBehaviour
 
     }
 
+    public IEnumerator MoveCoroutine6()
+    {
+        for (int i = 0; i < 10; i++)
+        {
+            transform.position -= new Vector3(0, boxSize/10, 0);
+            yield return new WaitForSeconds(0.05f);
+        }
+    }
+
+    public void MoveStart()
+    {
+        StartCoroutine(MoveCoroutine6());
+    }
+
     private void OnMouseDown()
     {
        

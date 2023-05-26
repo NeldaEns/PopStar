@@ -29,20 +29,6 @@ public class BoxClassic : MonoBehaviour
 
     }
 
-    public void MoveLeft()
-    {
-        StartCoroutine(MoveCoroutine1());
-    }
-
-    public IEnumerator MoveCoroutine1()
-    {
-        for (int i = 0; i < 10; i++)
-        {
-            transform.position -= new Vector3(boxSize / 10, 0, 0);
-            yield return new WaitForSeconds(0.01f);
-        }
-    }
-
     public IEnumerator MoveCoroutine()
     {
         for (int i = 0; i < 10; i++)
@@ -51,6 +37,7 @@ public class BoxClassic : MonoBehaviour
             yield return new WaitForSeconds(0.01f);
         }
     }
+
     public void MoveLeft1()
     {
         StartCoroutine(MoveCoroutine2());
@@ -63,6 +50,7 @@ public class BoxClassic : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
     }
+
     public void MoveRight()
     {
         StartCoroutine(MoveCoroutine3());
@@ -75,6 +63,7 @@ public class BoxClassic : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
     }
+
     public void MoveDown1()
     {
         StartCoroutine(MoveCoroutine4());
@@ -87,6 +76,7 @@ public class BoxClassic : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
     }
+
     public void MoveUp()
     {
         StartCoroutine(MoveCoroutine5());

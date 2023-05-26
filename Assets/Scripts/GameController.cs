@@ -26,11 +26,8 @@ public class GameController : MonoBehaviour
     public GameObject unbelievableexplosion;
 
     public bool useIt1;
-
     public bool useIt2;
-
     public bool useIt3;
-
     public bool clickBox1;
     public bool clickBox2;
     public List<GameObject> moveBox;
@@ -79,7 +76,7 @@ public class GameController : MonoBehaviour
             boxMatrixSurvival.Add(listBoxSurvival);
         }
 
-        if(DataManager.ins.casualGame == true && DataManager.ins.classicGame == false && DataManager.ins.survivalGame == false)
+        if (DataManager.ins.casualGame == true && DataManager.ins.classicGame == false && DataManager.ins.survivalGame == false)
         {
             if (DataManager.ins.start_new_game_casual == true)
             {
@@ -87,6 +84,7 @@ public class GameController : MonoBehaviour
                 {
                     for (int j = 0; j < 10; j++)
                     {
+                        Time.timeScale = 0.3f;
                         SpawnBoxCasual(i, j);
                     }
                 }

@@ -15,7 +15,7 @@ public class DataManager : MonoBehaviour
     public int highScoreClassic;
     public int highScoreSurvival;
     public int level;
-    public float target;
+    public int target;
     public int coin;
     public bool start_new_game_casual;
     public bool start_new_game_classic;
@@ -411,7 +411,7 @@ public class DataManager : MonoBehaviour
 
     public void SaveTarget()
     {
-        PlayerPrefs.SetFloat(target_key, target);
+        PlayerPrefs.SetInt(target_key, target);
     }
 
     public void SaveCoin()

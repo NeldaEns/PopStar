@@ -13,7 +13,7 @@ public class UICasual : UIScreenBase
     public Text txtCoin;
     public Text txtLevel1;
     public Text txtTarget1;
-
+    public GameObject panel;
 
     private void Start()
     {
@@ -71,9 +71,9 @@ public class UICasual : UIScreenBase
     }
 
     public void ShowPanel()
-    {
-            txtLevel1.text = txtLevel.text;
-            txtTarget1.text = txtTarget.text;   
+    {       
+        txtLevel1.text = txtLevel.text;
+        txtTarget1.text = txtTarget.text;
     }
 
     public void Back()
