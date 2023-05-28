@@ -84,7 +84,6 @@ public class GameController : MonoBehaviour
                 {
                     for (int j = 0; j < 10; j++)
                     {
-                        Time.timeScale = 0.3f;
                         SpawnBoxCasual(i, j);
                     }
                 }
