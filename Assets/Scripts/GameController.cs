@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class GameController : MonoBehaviour
 {
@@ -84,7 +85,7 @@ public class GameController : MonoBehaviour
                 {
                     for (int j = 0; j < 10; j++)
                     {
-                        SpawnBoxCasual(i, j);
+                        SpawnBoxCasual(i, j);                       
                     }
                 }
             }
@@ -152,10 +153,10 @@ public class GameController : MonoBehaviour
         int color = Random.Range(1, 6);
         GameObject box1 = Instantiate(boxCasual[color - 1]);
         Vector3 pos = box1.GetComponent<Box>().CalculatationPosition(x, y);
-        box1.transform.position = pos;
+        box1.transform.localPosition = pos;
         box1.GetComponent<Box>().OnSpawn(x, y, (BoxType)color);
         boxMatrixCasual[x][y] = box1;
-    }
+    }   
 
     public void SpawnBoxClassic(int x, int y)
     {
@@ -1007,7 +1008,6 @@ public class GameController : MonoBehaviour
 
                 if (x1 > 0 && x2 == x1 - 1 && y1 == y2 && boxMatrixCasual[x2][y2] != null && boxMatrixCasual[x1][y1].GetComponent<Box>().type != boxMatrixCasual[x2][y2].GetComponent<Box>().type)
                 {
-
                     boxMatrixCasual[x1][y1].GetComponent<Box>().x--;
                     boxMatrixCasual[x1][y1].GetComponent<Box>().MoveLeft1();
                     boxMatrixCasual[x2][y2].GetComponent<Box>().x++;
