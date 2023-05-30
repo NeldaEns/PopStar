@@ -153,7 +153,7 @@ public enum BoxType
     None = 0,
     Blue,
     Pink,
-    Purple,
+    Orange,
     Red,
     Yellow,
 }

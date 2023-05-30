@@ -9,30 +9,32 @@ public class GameController : MonoBehaviour
     public static GameController instance;
 
     public List<List<GameObject>> boxMatrixCasual;
-
     public List<List<GameObject>> boxMatrixClassic;
-
     public List<List<GameObject>> boxMatrixSurvival;
-
 
     public List<GameObject> boxCasual;
     public List<GameObject> boxClassic;
     public List<GameObject> boxSurvival;
     public List<GameObject> breakBox;
+    public List<GameObject> moveBox;
+
     public GameObject explosion1;
     public GameObject goodexplosion;
     public GameObject greatexplosion;
     public GameObject excellentexplosion;
     public GameObject amazingexplosion;
     public GameObject unbelievableexplosion;
+    public GameObject objectParent;
 
     public bool useIt1;
     public bool useIt2;
     public bool useIt3;
     public bool clickBox1;
     public bool clickBox2;
-    public List<GameObject> moveBox;
-    public List<GameObject> listBox;
+
+    public Transform popup;
+    public Ease ease;
+
 
     private void Awake()
     {
@@ -43,6 +45,7 @@ public class GameController : MonoBehaviour
 
         instance = this;
     }
+
     private void Start()
     {
         boxMatrixCasual = new List<List<GameObject>>();      
@@ -85,7 +88,9 @@ public class GameController : MonoBehaviour
                 {
                     for (int j = 0; j < 10; j++)
                     {
-                        SpawnBoxCasual(i, j);                       
+                        SpawnBoxCasual(i, j);
+                        boxMatrixCasual[i][j].transform.SetParent(objectParent.transform); 
+                        
                     }
                 }
             }
@@ -96,6 +101,10 @@ public class GameController : MonoBehaviour
                     for (int j = 0; j < 10; j++)
                     {
                         SpawnBoxCasual1(i, j);
+                        if (boxMatrixCasual[i][j] != null)
+                        {
+                            boxMatrixCasual[i][j].transform.SetParent(objectParent.transform);
+                        }
                     }
                 }
             }
@@ -109,6 +118,7 @@ public class GameController : MonoBehaviour
                     for (int j = 0; j < 10; j++)
                     {
                         SpawnBoxClassic(i, j);
+                        boxMatrixClassic[i][j].transform.SetParent(objectParent.transform);
                     }
                 }
             }
@@ -119,9 +129,14 @@ public class GameController : MonoBehaviour
                     for (int j = 0; j < 10; j++)
                     {
                         SpawnBoxClassic1(i, j);
+                        if(boxMatrixClassic[i][j] != null)
+                        {
+                            boxMatrixClassic[i][j].transform.SetParent(objectParent.transform);
+                        }
                     }
                 }
             }
+            PopupInOutBack();
         }
         if(DataManager.ins.survivalGame == true && DataManager.ins.casualGame == false && DataManager.ins.classicGame == false)
         {
@@ -132,6 +147,7 @@ public class GameController : MonoBehaviour
                     for(int j = 0; j < 15; j++)
                     {
                         SpawnBoxSurvival(i, j);
+                        boxMatrixSurvival[i][j].transform.SetParent(objectParent.transform);
                     }
                 }
             }
@@ -142,10 +158,20 @@ public class GameController : MonoBehaviour
                     for (int j = 0; j < 15; j++)
                     {                       
                         SpawnBoxSurvival1(i, j);
+                        if(boxMatrixSurvival[i][j] != null)
+                        {
+                            boxMatrixSurvival[i][j].transform.SetParent(objectParent.transform);
+                        }
                     }
                 }
             }
+            PopupInOutBack();
         }
+        popup.localScale = Vector3.zero;
+    }
+    public void PopupInOutBack()
+    {        
+        popup.DOScale(new Vector3(1, 1, 1), 0.5f).SetEase(ease);
     }
 
     public void SpawnBoxCasual(int x, int y)
@@ -724,7 +750,7 @@ public class GameController : MonoBehaviour
                 ((GameOverScreenCasual)UIController.ins.currentScreen).HighScoreCasual();
                 DataManager.ins.start_new_game_casual = true;
                 DataManager.ins.ResetDataCasual();
-            }
+            }   
         }
     }
 

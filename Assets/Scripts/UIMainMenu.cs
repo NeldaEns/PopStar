@@ -12,8 +12,9 @@ public class UIMainMenu : UIScreenBase
     {
         sfxSlider.value = DataManager.ins.sfxSliderValue;
         DataManager.ins.sfxVolume = sfxSlider.value;
+        AudioManager.ins.SFXVolume(sfxSlider.value);
         musicSlider.value = DataManager.ins.musicSliderValue;
-        DataManager.ins.musicVolume = musicSlider.value;
+
     }
     public void StartCasual()
     {
@@ -147,7 +148,6 @@ public class UIMainMenu : UIScreenBase
     public void Back()
     {       
         AudioManager.ins.PlaySFX("click");
-        Application.Quit();
     }
     public override void Hide()
     {

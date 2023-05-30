@@ -813,9 +813,9 @@ MonoBehaviour:
     type: 3}
   casualPanel: {fileID: 4073754724881319021, guid: 8aebca8f7ec5b0d4d8dab46f424b3764,
     type: 3}
-  classicPanel: {fileID: 4073754724881319021, guid: bb1134b129e1cd343814a92ddee15d87,
+  classicPanel: {fileID: 4073754724881319021, guid: fe94a5d80caee6b4eaeeb6dca376d032,
     type: 3}
-  survivalPanel: {fileID: 4073754724881319021, guid: b172a79f5dcbd8a46a0660df80f1bdf1,
+  survivalPanel: {fileID: 4073754724881319021, guid: 991b46f37efc62d4b87081dd29e8e002,
     type: 3}
   mainCameraPrefabs: {fileID: 5040824005224592753, guid: b9771b9356d550a4d8cd7bbbe0ec78fd,
     type: 3}

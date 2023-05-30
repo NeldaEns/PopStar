@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class UIController : MonoBehaviour
 {
@@ -87,4 +88,5 @@ public class UIController : MonoBehaviour
         AudioManager.ins.PlaySFX("gameover");
         currentScreen = Instantiate(survivalGameOverScreen, transform).GetComponent<SurvivalGameOverScreen>();
     }
+  
 }   

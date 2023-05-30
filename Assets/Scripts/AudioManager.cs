@@ -25,9 +25,7 @@ public class AudioManager : MonoBehaviour
     void Start()
     {
         PlayMusic("bg");
-        musicSource.volume = DataManager.ins.musicVolume;
-        DataManager.ins.LoadMusicVolume();
-        
+        musicSource.volume = DataManager.ins.musicVolume;   
     }
 
     public void PlayMusic(string name)

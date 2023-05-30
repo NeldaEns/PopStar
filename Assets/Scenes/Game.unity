@@ -306,7 +306,7 @@ MonoBehaviour:
   - {fileID: 0}
   boxClassic:
   - {fileID: 6238241667796657097, guid: 341f02e2293448747928f75da4da8d7d, type: 3}
-  - {fileID: 8245205051416306723, guid: 3032d56dd91e78b48a04c7ed81925fc0, type: 3}
+  - {fileID: 6260591237884620227, guid: beb26c0c9e911f741b3ac5f25c21c1f2, type: 3}
   - {fileID: 8767522516303372319, guid: 05990726c652d7b47b12b8531d11240d, type: 3}
   - {fileID: 4604176088102395324, guid: 90e5e5e3cf591634792bbd664bfebbcb, type: 3}
   - {fileID: 5266119337395358011, guid: a479270fb789d7f4e88af8a69d504b2e, type: 3}
@@ -320,6 +320,7 @@ MonoBehaviour:
   - {fileID: 2894133741832295134, guid: 5a32b8f79112dcf41bdda798ed8801f3, type: 3}
   - {fileID: 0}
   breakBox: []
+  moveBox: []
   explosion1: {fileID: 2203112218923668955, guid: c90b513b3349e7f4a8cf5785bdca0b67,
     type: 3}
   goodexplosion: {fileID: 2203112218923668955, guid: ec638e4a656dc1946a6d35d24cc141ed,
@@ -332,13 +333,14 @@ MonoBehaviour:
     type: 3}
   unbelievableexplosion: {fileID: 2203112218923668955, guid: 8ddfa78634522034fafc79e87df1570c,
     type: 3}
+  objectParent: {fileID: 1728260223}
   useIt1: 0
   useIt2: 0
   useIt3: 0
   clickBox1: 0
   clickBox2: 0
-  moveBox: []
-  listBox: []
+  popup: {fileID: 1728260224}
+  ease: 31
 --- !u!4 &1578716626
 Transform:
   m_ObjectHideFlags: 0
@@ -353,7 +355,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1932959317
+--- !u!1 &1728260223
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -361,7 +363,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1932959318}
+  - component: {fileID: 1728260224}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -369,13 +371,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1932959318
+--- !u!4 &1728260224
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1932959317}
+  m_GameObject: {fileID: 1728260223}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
