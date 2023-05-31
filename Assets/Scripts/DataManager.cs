@@ -17,16 +17,17 @@ public class DataManager : MonoBehaviour
     public int level;
     public int target;
     public int coin;
-    public bool start_new_game_casual;
-    public bool start_new_game_classic;
-    public bool start_new_game_survival;
-    public float musicVolume;
     public float sfxVolume;
     public float musicSliderValue;
     public float sfxSliderValue;
+    public float musicVolume;
+    public bool start_new_game_casual;
+    public bool start_new_game_classic;
+    public bool start_new_game_survival;   
     public bool casualGame;
     public bool classicGame;
     public bool survivalGame;
+
 
     public List<List<BoxType>> colorMatrixCasual;
     public List<List<BoxType1>> colorMatrixClassic;
@@ -51,6 +52,7 @@ public class DataManager : MonoBehaviour
     private const string sfx_volume = "sfx_volume";
     private const string music_slider_value = "music_slider_value";
     private const string sfx_slider_value = "sfx_slider_value";
+    private const string current_time_survival = "current_time_survival";
   
     private void Awake()
     {
@@ -153,7 +155,7 @@ public class DataManager : MonoBehaviour
         level = 1;
         target = 1000;
         highScoreCasual = 0;
-        coin = 1000;
+        coin = 0;
         colorMatrixCasual = new List<List<BoxType>>();
 
         for (int i = 0; i < 10; i++)
@@ -199,10 +201,10 @@ public class DataManager : MonoBehaviour
         SaveCoin();
         SaveScoreClassic();
         SaveHighScoreClassic();
-        LoadMusicVolume();
-        LoadMusicSliderValue();
-        LoadSFXVolume();
-        LoadSFXSliderValue();
+        SaveMusicVolume();
+        SaveMusicSliderValue();
+        SaveSFXVolume();
+        SaveSFXSliderValue();
     }
 
     public void StartDataSurvival()
@@ -226,10 +228,10 @@ public class DataManager : MonoBehaviour
         SaveCoin();
         SaveScoreSurvival();
         SaveHighScoreSurvival();
-        LoadMusicVolume();
-        LoadMusicSliderValue();
-        LoadSFXVolume();
-        LoadSFXSliderValue();
+        SaveMusicVolume();
+        SaveMusicSliderValue();
+        SaveSFXVolume();
+        SaveSFXSliderValue();
     }
 
     public void SaveJsonCasual()
@@ -317,7 +319,7 @@ public class DataManager : MonoBehaviour
     {
         scoreCasual = 0;
         level = 1;
-        target = 1000;       
+        target = 1000;
     }
 
     public void ResetDataClassic()

@@ -14,7 +14,8 @@ public class UIMainMenu : UIScreenBase
         DataManager.ins.sfxVolume = sfxSlider.value;
         AudioManager.ins.SFXVolume(sfxSlider.value);
         musicSlider.value = DataManager.ins.musicSliderValue;
-
+        DataManager.ins.musicVolume = musicSlider.value;
+        AudioManager.ins.MusicVolume(musicSlider.value);
     }
     public void StartCasual()
     {

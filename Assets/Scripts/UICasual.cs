@@ -13,7 +13,7 @@ public class UICasual : UIScreenBase
     public Text txtCoin;
     public Text txtLevel1;
     public Text txtTarget1;
-
+    public GameObject panel;
 
     private void Start()
     {

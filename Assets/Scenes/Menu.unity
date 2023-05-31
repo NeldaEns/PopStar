@@ -672,13 +672,13 @@ MonoBehaviour:
   level: 0
   target: 0
   coin: 0
-  start_new_game_casual: 0
-  start_new_game_classic: 0
-  start_new_game_survival: 0
-  musicVolume: 1
   sfxVolume: 0
   musicSliderValue: 0
   sfxSliderValue: 0
+  musicVolume: 1
+  start_new_game_casual: 0
+  start_new_game_classic: 0
+  start_new_game_survival: 0
   casualGame: 0
   classicGame: 0
   survivalGame: 0
@@ -821,7 +821,7 @@ MonoBehaviour:
     type: 3}
   casualGameOverScreen: {fileID: 3608699428795023418, guid: 5f49404390847464e83d1ba695faadce,
     type: 3}
-  classicGameOverScreen: {fileID: 3900369637177334571, guid: 4cae6ca49027a7f4a9f45a9005972444,
+  classicGameOverScreen: {fileID: 7062784119430398634, guid: 64054befafb036b4ab1c395a41e08cbd,
     type: 3}
-  survivalGameOverScreen: {fileID: 475819619201342010, guid: c7a4089845297014194096ab558f809d,
+  survivalGameOverScreen: {fileID: 237419312480319490, guid: f6cb31c8ad2f62846a41dde88e3ecf06,
     type: 3}

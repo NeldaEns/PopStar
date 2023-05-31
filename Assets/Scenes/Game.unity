@@ -242,8 +242,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
-  m_Sprite: {fileID: 21300000, guid: 12a5cf262c5bbc44d8a4c8244fa4a096, type: 3}
+  m_SortingOrder: 2
+  m_Sprite: {fileID: 21300000, guid: 1cf6128a1115bb24e9f3bbd05c07e8ab, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -334,11 +334,13 @@ MonoBehaviour:
   unbelievableexplosion: {fileID: 2203112218923668955, guid: 8ddfa78634522034fafc79e87df1570c,
     type: 3}
   objectParent: {fileID: 1728260223}
+  linebroad: {fileID: 1489979377}
   useIt1: 0
   useIt2: 0
   useIt3: 0
   clickBox1: 0
   clickBox2: 0
+  gameOver: 0
   popup: {fileID: 1728260224}
   ease: 31
 --- !u!4 &1578716626

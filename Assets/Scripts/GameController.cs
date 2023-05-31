@@ -25,12 +25,15 @@ public class GameController : MonoBehaviour
     public GameObject amazingexplosion;
     public GameObject unbelievableexplosion;
     public GameObject objectParent;
+    public GameObject linebroad;
+
 
     public bool useIt1;
     public bool useIt2;
     public bool useIt3;
     public bool clickBox1;
     public bool clickBox2;
+    public bool gameOver;
 
     public Transform popup;
     public Ease ease;
@@ -722,35 +725,46 @@ public class GameController : MonoBehaviour
                 {
                     Destroy(boxMatrixCasual[j][i]);
                     boxMatrixCasual[j][i] = null;
+                    ((UICasual)UIController.ins.currentScreen).panel.SetActive(false);
                 }
-            }
+            }            
             if (DataManager.ins.scoreCasual >= DataManager.ins.target)
             {
+                
                 DataManager.ins.level++;
                 DataManager.ins.coin++;
                 DataManager.ins.SaveLevel();
                 DataManager.ins.SaveCoin();
                 DataManager.ins.target = DataManager.ins.target + 1750;
                 DataManager.ins.SaveTarget();
+                ((UICasual)UIController.ins.currentScreen).panel.SetActive(true);
                 for (int i = 0; i < 10; i++)
                 {
                     for (int j = 0; j < 10; j++)
                     {
                         AudioManager.ins.PlaySFX("gamestart");
                         SpawnBoxCasual(i, j);
+                        boxMatrixCasual[i][j].transform.SetParent(objectParent.transform);                      
                         DataManager.ins.colorMatrixCasual[i][j] = boxMatrixCasual[i][j].GetComponent<Box>().type;
                     }
-                }
-                DataManager.ins.SaveJsonCasual();
+                }              
+                PopupInOutBack();                 
+                DataManager.ins.SaveJsonCasual();              
             }
             else
-            {
+            {               
+                linebroad.SetActive(false);
                 UIController.ins.ShowGameOverCasual();
                 ((GameOverScreenCasual)UIController.ins.currentScreen).ScoreCasual();
                 ((GameOverScreenCasual)UIController.ins.currentScreen).HighScoreCasual();
-                DataManager.ins.start_new_game_casual = true;
-                DataManager.ins.ResetDataCasual();
-            }   
+                gameOver = true;
+                if (gameOver == true)
+                {
+                    DataManager.ins.start_new_game_casual = true;
+                    DataManager.ins.ResetDataCasual();
+                }
+            }
+            popup.localScale = Vector3.zero;
         }
     }
 
@@ -766,16 +780,24 @@ public class GameController : MonoBehaviour
                     boxMatrixClassic[j][i] = null;
                 }
             }
-            UIController.ins.ShowGameOverClassic();
+            
+            linebroad.SetActive(false);
+            UIController.ins.ShowGameOverClassic();            
             ((GameOverScreenClassic)UIController.ins.currentScreen).ScoreClassic();
             ((GameOverScreenClassic)UIController.ins.currentScreen).HighScoreClassic();
+            gameOver = true;
+            if (gameOver == true)
+            {
+                DataManager.ins.start_new_game_classic = true;
+                DataManager.ins.ResetDataClassic();
+            }
         }
     }
 
     public void CheckWinLoseSurvival()
     {
         if (KTGameLoseSurvival())
-        {                         
+        {
             for (int i = 0; i < 15; i++)
             {
                 for (int j = 0; j < 15; j++)
@@ -784,9 +806,11 @@ public class GameController : MonoBehaviour
                     boxMatrixSurvival[j][i] = null;
                 }
             }
+            gameOver = true;
+            linebroad.SetActive(false);
             UIController.ins.ShowGameOverSurvival();
             ((SurvivalGameOverScreen)UIController.ins.currentScreen).ScoreSurvival();
-            ((SurvivalGameOverScreen)UIController.ins.currentScreen).HighScoreSurvival();
+            ((SurvivalGameOverScreen)UIController.ins.currentScreen).HighScoreSurvival();            
         }
     }
 
