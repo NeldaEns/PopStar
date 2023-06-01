@@ -38,7 +38,7 @@ public class UIController : MonoBehaviour
         Canvas canvas = gameObject.GetComponent<Canvas>();
         canvas.renderMode = RenderMode.ScreenSpaceCamera;
         canvas.worldCamera = Camera.main;       
-        currentScreen = Instantiate(mainMenu, transform).GetComponent<UIMainMenu>();        
+        currentScreen = Instantiate(mainMenu, transform).GetComponent<UIMainMenu>();
     }
 
     public void ShowCasual()

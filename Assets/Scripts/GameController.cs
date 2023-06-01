@@ -46,7 +46,7 @@ public class GameController : MonoBehaviour
             Destroy(instance.gameObject);
         }
 
-        instance = this;
+        instance = this;    
     }
 
     private void Start()
@@ -616,7 +616,7 @@ public class GameController : MonoBehaviour
                     {                       
                         if (boxMatrixClassic[j][k] == null)
                         {
-                            SpawnBoxClassic(j, k);
+                            SpawnBoxClassic(j, k);                           
                         }
                     }
                 }
@@ -1075,7 +1075,7 @@ public class GameController : MonoBehaviour
                     DataManager.ins.colorMatrixCasual[x1][y1] = boxMatrixCasual[x1][y1].GetComponent<Box>().type;
 
                 }
-                if (x1 < 14 && boxMatrixCasual[x2][y2] != null &&  x2 == x1 + 1 && y1 == y2 && boxMatrixCasual[x1][y1].GetComponent<Box>().type != boxMatrixCasual[x2][y2].GetComponent<Box>().type)
+                if (x1 < 9 && x2 == x1 + 1 && y1 == y2 && boxMatrixCasual[x2][y2] != null && boxMatrixCasual[x1][y1].GetComponent<Box>().type != boxMatrixCasual[x2][y2].GetComponent<Box>().type)
                 {
                     boxMatrixCasual[x1][y1].GetComponent<Box>().x++;
                     boxMatrixCasual[x1][y1].GetComponent<Box>().MoveRight();
@@ -1093,7 +1093,7 @@ public class GameController : MonoBehaviour
                     boxMatrixCasual[x1][y1].transform.position = boxMatrixCasual[x1][y1].GetComponent<Box>().CalculatationPosition(x1, y1);
                     DataManager.ins.colorMatrixCasual[x1][y1] = boxMatrixCasual[x1][y1].GetComponent<Box>().type;
                 }
-                if (y1 > 0 && boxMatrixCasual[x2][y2] != null &&  y2 == y1 - 1 && x1 == x2 && boxMatrixCasual[x1][y1].GetComponent<Box>().type != boxMatrixCasual[x2][y2].GetComponent<Box>().type)
+                if (y1 > 0  &&  y2 == y1 - 1 && x1 == x2 && boxMatrixCasual[x2][y2] != null && boxMatrixCasual[x1][y1].GetComponent<Box>().type != boxMatrixCasual[x2][y2].GetComponent<Box>().type)
                 {
                     boxMatrixCasual[x1][y1].GetComponent<Box>().y--;
                     boxMatrixCasual[x1][y1].GetComponent<Box>().MoveDown1();
@@ -1111,7 +1111,7 @@ public class GameController : MonoBehaviour
                     boxMatrixCasual[x2][y2].transform.position = boxMatrixCasual[x2][y2].GetComponent<Box>().CalculatationPosition(x2, y2);
                     DataManager.ins.colorMatrixCasual[x2][y2] = boxMatrixCasual[x2][y2].GetComponent<Box>().type;
                 }
-                if (y1 < 14 && boxMatrixCasual[x2][y2] != null &&  y2 == y1 + 1 && x1 == x2 && boxMatrixCasual[x1][y1].GetComponent<Box>().type != boxMatrixCasual[x2][y2].GetComponent<Box>().type)
+                if (y1 < 9 &&  y2 == y1 + 1 && x1 == x2 && boxMatrixCasual[x2][y2] != null && boxMatrixCasual[x1][y1].GetComponent<Box>().type != boxMatrixCasual[x2][y2].GetComponent<Box>().type)
                 {
                     boxMatrixCasual[x1][y1].GetComponent<Box>().y++;
                     boxMatrixCasual[x1][y1].GetComponent<Box>().MoveUp();
@@ -1210,7 +1210,7 @@ public class GameController : MonoBehaviour
                     DataManager.ins.colorMatrixClassic[x1][y1] = boxMatrixClassic[x1][y1].GetComponent<BoxClassic>().type;
 
                 }
-                if (x1 < 14 && boxMatrixClassic[x2][y2] != null && x2 == x1 + 1 && y1 == y2 && boxMatrixClassic[x1][y1].GetComponent<BoxClassic>().type != boxMatrixClassic[x2][y2].GetComponent<BoxClassic>().type)
+                if (x1 < 9  && x2 == x1 + 1 && y1 == y2 && boxMatrixClassic[x2][y2] != null && boxMatrixClassic[x1][y1].GetComponent<BoxClassic>().type != boxMatrixClassic[x2][y2].GetComponent<BoxClassic>().type)
                 {
                     boxMatrixClassic[x1][y1].GetComponent<BoxClassic>().x++;
                     boxMatrixClassic[x1][y1].GetComponent<BoxClassic>().MoveRight();
@@ -1228,7 +1228,7 @@ public class GameController : MonoBehaviour
                     boxMatrixClassic[x1][y1].transform.position = boxMatrixClassic[x1][y1].GetComponent<BoxClassic>().CalculatationPosition(x1, y1);
                     DataManager.ins.colorMatrixClassic[x1][y1] = boxMatrixClassic[x1][y1].GetComponent<BoxClassic>().type;
                 }
-                if (y1 > 0 && boxMatrixClassic[x2][y2] != null &&  y2 == y1 - 1 && x1 == x2 && boxMatrixClassic[x1][y1].GetComponent<BoxClassic>().type != boxMatrixClassic[x2][y2].GetComponent<BoxClassic>().type)
+                if (y1 > 0 &&  y2 == y1 - 1 && x1 == x2 && boxMatrixClassic[x2][y2] != null && boxMatrixClassic[x1][y1].GetComponent<BoxClassic>().type != boxMatrixClassic[x2][y2].GetComponent<BoxClassic>().type)
                 {
                     boxMatrixClassic[x1][y1].GetComponent<BoxClassic>().y--;
                     boxMatrixClassic[x1][y1].GetComponent<BoxClassic>().MoveDown1();
@@ -1246,7 +1246,7 @@ public class GameController : MonoBehaviour
                     boxMatrixClassic[x2][y2].transform.position = boxMatrixClassic[x2][y2].GetComponent<BoxClassic>().CalculatationPosition(x2, y2);
                     DataManager.ins.colorMatrixClassic[x2][y2] = boxMatrixClassic[x2][y2].GetComponent<BoxClassic>().type;
                 }
-                if (y1 < 14 && boxMatrixClassic[x2][y2] != null &&  y2 == y1 + 1 && x1 == x2 && boxMatrixClassic[x1][y1].GetComponent<BoxClassic>().type != boxMatrixClassic[x2][y2].GetComponent<BoxClassic>().type)
+                if (y1 < 9 &&  y2 == y1 + 1 && x1 == x2 && boxMatrixClassic[x2][y2] != null && boxMatrixClassic[x1][y1].GetComponent<BoxClassic>().type != boxMatrixClassic[x2][y2].GetComponent<BoxClassic>().type)
                 {
                     boxMatrixClassic[x1][y1].GetComponent<BoxClassic>().y++;
                     boxMatrixClassic[x1][y1].GetComponent<BoxClassic>().MoveUp();
@@ -1344,7 +1344,7 @@ public class GameController : MonoBehaviour
                     DataManager.ins.colorMatrixSurvival[x1][y1] = boxMatrixSurvival[x1][y1].GetComponent<BoxSurvival>().type;
 
                 }
-                if (x1 < 14 && boxMatrixSurvival[x2][y2] != null && x2 == x1 + 1 && y1 == y2 && boxMatrixSurvival[x1][y1].GetComponent<BoxSurvival>().type != boxMatrixSurvival[x2][y2].GetComponent<BoxSurvival>().type)
+                if (x1 < 14 && x2 == x1 + 1 && y1 == y2 && boxMatrixSurvival[x2][y2] != null && boxMatrixSurvival[x1][y1].GetComponent<BoxSurvival>().type != boxMatrixSurvival[x2][y2].GetComponent<BoxSurvival>().type)
                 {
                     boxMatrixSurvival[x1][y1].GetComponent<BoxSurvival>().x++;
                     boxMatrixSurvival[x1][y1].GetComponent<BoxSurvival>().MoveRight();
@@ -1362,7 +1362,7 @@ public class GameController : MonoBehaviour
                     boxMatrixSurvival[x1][y1].transform.position = boxMatrixSurvival[x1][y1].GetComponent<BoxSurvival>().CalculatationPosition(x1, y1);
                     DataManager.ins.colorMatrixSurvival[x1][y1] = boxMatrixSurvival[x1][y1].GetComponent<BoxSurvival>().type;
                 }
-                if (y1 > 0 && boxMatrixSurvival[x2][y2] != null && y2 == y1 - 1 && x1 == x2 && boxMatrixSurvival[x1][y1].GetComponent<BoxSurvival>().type != boxMatrixSurvival[x2][y2].GetComponent<BoxSurvival>().type)
+                if (y1 > 0 && y2 == y1 - 1 && x1 == x2 && boxMatrixSurvival[x2][y2] != null && boxMatrixSurvival[x1][y1].GetComponent<BoxSurvival>().type != boxMatrixSurvival[x2][y2].GetComponent<BoxSurvival>().type)
                 {
                     boxMatrixSurvival[x1][y1].GetComponent<BoxSurvival>().y--;
                     boxMatrixSurvival[x1][y1].GetComponent<BoxSurvival>().MoveDown1();
@@ -1380,7 +1380,7 @@ public class GameController : MonoBehaviour
                     boxMatrixSurvival[x2][y2].transform.position = boxMatrixSurvival[x2][y2].GetComponent<BoxSurvival>().CalculatationPosition(x2, y2);
                     DataManager.ins.colorMatrixSurvival[x2][y2] = boxMatrixSurvival[x2][y2].GetComponent<BoxSurvival>().type;
                 }
-                if (y1 < 14 && boxMatrixSurvival[x2][y2] != null && y2 == y1 + 1 && x1 == x2 && boxMatrixSurvival[x1][y1].GetComponent<BoxSurvival>().type != boxMatrixSurvival[x2][y2].GetComponent<BoxSurvival>().type)
+                if (y1 < 14 && y2 == y1 + 1 && x1 == x2 && boxMatrixSurvival[x2][y2] != null && boxMatrixSurvival[x1][y1].GetComponent<BoxSurvival>().type != boxMatrixSurvival[x2][y2].GetComponent<BoxSurvival>().type)
                 {
                     boxMatrixSurvival[x1][y1].GetComponent<BoxSurvival>().y++;
                     boxMatrixSurvival[x1][y1].GetComponent<BoxSurvival>().MoveUp();
