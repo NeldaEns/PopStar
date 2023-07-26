@@ -30,7 +30,6 @@ public class DataManager : MonoBehaviour
 
 
     public List<List<BoxType>> colorMatrixCasual;
-    public List<List<BoxType1>> colorMatrixClassic;
     public List<List<BoxType2>> colorMatrixSurvival;
 
     private const string score_casual_key = "score_casual_key";
@@ -68,7 +67,6 @@ public class DataManager : MonoBehaviour
         sfxSliderValue = 1;
         musicSliderValue = 1;
         FirstTimePlayCasual();
-        FirstTimePlayClassic();
         FirstTimePlaySurvival();
     }
 
@@ -85,18 +83,6 @@ public class DataManager : MonoBehaviour
         }
     }
 
-    public void FirstTimePlayClassic()
-    {
-        if (PlayerPrefs.HasKey(first_time_play_classic))
-        {
-            LoadDataClassic();
-        }
-        else
-        {
-            PlayerPrefs.SetInt(first_time_play_classic, 0);
-            StartDataClassic();
-        }
-    }
 
     public void FirstTimePlaySurvival()
     {
@@ -119,18 +105,6 @@ public class DataManager : MonoBehaviour
         LoadTarget();
         LoadCoin();
         LoadJsonCasual();
-        LoadMusicVolume();
-        LoadMusicSliderValue();
-        LoadSFXVolume();
-        LoadSFXSliderValue();
-    }
-
-    public void LoadDataClassic()
-    {
-        LoadScoreClassic();
-        LoadHighScoreClassic();
-        LoadCoin();
-        LoadJsonClassic();
         LoadMusicVolume();
         LoadMusicSliderValue();
         LoadSFXVolume();
@@ -180,33 +154,6 @@ public class DataManager : MonoBehaviour
         SaveSFXSliderValue();
     }
 
-    public void StartDataClassic()
-    {
-        scoreClassic = 0;
-        highScoreClassic = 0;
-        colorMatrixClassic = new List<List<BoxType1>>();
-
-        for (int i = 0; i < 10; i++)
-        {
-            List<BoxType1> row = new List<BoxType1>();
-
-            for (int j = 0; j < 10; j++)
-            {
-                row.Add(BoxType1.None);
-            }
-
-            colorMatrixClassic.Add(row);
-        }
-        SaveJsonClassic();
-        SaveCoin();
-        SaveScoreClassic();
-        SaveHighScoreClassic();
-        SaveMusicVolume();
-        SaveMusicSliderValue();
-        SaveSFXVolume();
-        SaveSFXSliderValue();
-    }
-
     public void StartDataSurvival()
     {
         scoreSurvival = 0;
@@ -247,18 +194,6 @@ public class DataManager : MonoBehaviour
         PlayerPrefs.SetString(color_casual_key, finalJson);
     }
 
-    public void SaveJsonClassic()
-    {
-        List<string> jsonsColorClassic = new List<string>();
-
-        for (int i = 0; i < 10; i++)
-        {
-            string jsonColor = JsonHelper1.ToJson<BoxType1>(colorMatrixClassic[i]);
-            jsonsColorClassic.Add(jsonColor);
-        }
-        string finalJson = JsonHelper1.ToJson<string>(jsonsColorClassic);
-        PlayerPrefs.SetString(color_classic_key, finalJson);
-    }
 
     public void SaveJsonSurvival()
     {
@@ -287,19 +222,6 @@ public class DataManager : MonoBehaviour
         }
     }
 
-    public void LoadJsonClassic()
-    {
-        string finalJson = PlayerPrefs.GetString(color_classic_key);
-
-        List<string> jsonsColor = JsonHelper1.FromJson<string>(finalJson);
-
-        colorMatrixClassic = new List<List<BoxType1>>();
-        for (int i = 0; i < 10; i++)
-        {
-            List<BoxType1> row = JsonHelper1.FromJson<BoxType1>(jsonsColor[i]);
-            colorMatrixClassic.Add(row);
-        }
-    }
 
     public void LoadJsonSurvival()
     {

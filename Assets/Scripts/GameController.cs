@@ -112,35 +112,6 @@ public class GameController : MonoBehaviour
                 }
             }
         }
-        if(DataManager.ins.classicGame == true && DataManager.ins.casualGame == false && DataManager.ins.survivalGame == false)
-        {
-            if (DataManager.ins.start_new_game_classic == true)
-            {
-                for (int i = 0; i < 10; i++)
-                {
-                    for (int j = 0; j < 10; j++)
-                    {
-                        SpawnBoxClassic(i, j);
-                        boxMatrixClassic[i][j].transform.SetParent(objectParent.transform);
-                    }
-                }
-            }
-            else
-            {
-                for (int i = 0; i < 10; i++)
-                {
-                    for (int j = 0; j < 10; j++)
-                    {
-                        SpawnBoxClassic1(i, j);
-                        if(boxMatrixClassic[i][j] != null)
-                        {
-                            boxMatrixClassic[i][j].transform.SetParent(objectParent.transform);
-                        }
-                    }
-                }
-            }
-            PopupInOutBack();
-        }
         if(DataManager.ins.survivalGame == true && DataManager.ins.casualGame == false && DataManager.ins.classicGame == false)
         {
             if(DataManager.ins.start_new_game_survival == true)
@@ -187,15 +158,6 @@ public class GameController : MonoBehaviour
         boxMatrixCasual[x][y] = box1;
     }   
 
-    public void SpawnBoxClassic(int x, int y)
-    {
-        int color = Random.Range(1, 6);
-        GameObject box1 = Instantiate(boxClassic[color - 1]);
-        Vector3 pos = box1.GetComponent<BoxClassic>().CalculatationPosition(x, y);
-        box1.transform.position = pos;
-        box1.GetComponent<BoxClassic>().OnSpawn(x, y, (BoxType1)color);
-        boxMatrixClassic[x][y] = box1;
-    }
 
     public void SpawnBoxSurvival(int x, int y)
     {
@@ -241,22 +203,6 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public void SpawnBoxClassic1(int x, int y)
-    {      
-        BoxType1 color1 = DataManager.ins.colorMatrixClassic[x][y];
-        if (color1 == BoxType1.None)
-        {
-            boxMatrixClassic[x][y] = null;
-        }
-        else
-        {
-            GameObject box2 = Instantiate(this.boxClassic[(int)color1 - 1]);
-            Vector3 pos = box2.GetComponent<BoxClassic>().CalculatationPosition(x, y);
-            box2.transform.position = pos;
-            box2.GetComponent<BoxClassic>().OnSpawn(x, y, color1);
-            boxMatrixClassic[x][y] = box2;
-        }
-    }
 
     public void FindBreakBoxCasual()
     {
@@ -294,41 +240,6 @@ public class GameController : MonoBehaviour
         CheckWinLoseCasual();
     }
 
-    public void FindBreakBoxClassic()
-    {
-        for (int i = 0; i < breakBox.Count; i++)
-        {
-            int x = breakBox[i].GetComponent<BoxClassic>().x;
-            int y = breakBox[i].GetComponent<BoxClassic>().y;
-            if (x > 0 && boxMatrixClassic[x - 1][y] != null && boxMatrixClassic[x - 1][y].GetComponent<BoxClassic>().type == breakBox[i].GetComponent<BoxClassic>().type && !KTBoxClassic(boxMatrixClassic[x - 1][y]))
-            {
-                breakBox.Add(boxMatrixClassic[x - 1][y]);
-            }
-            if (x < 9 && boxMatrixClassic[x + 1][y] != null && boxMatrixClassic[x + 1][y].GetComponent<BoxClassic>().type == breakBox[i].GetComponent<BoxClassic>().type && !KTBoxClassic(boxMatrixClassic[x + 1][y]))
-            {
-                breakBox.Add(boxMatrixClassic[x + 1][y]);
-            }
-            if (y > 0 && boxMatrixClassic[x][y - 1] != null && boxMatrixClassic[x][y - 1].GetComponent<BoxClassic>().type == breakBox[i].GetComponent<BoxClassic>().type && !KTBoxClassic(boxMatrixClassic[x][y - 1]))
-            {
-                breakBox.Add(boxMatrixClassic[x][y - 1]);
-            }
-            if (y < 9 && boxMatrixClassic[x][y + 1] != null && boxMatrixClassic[x][y + 1].GetComponent<BoxClassic>().type == breakBox[i].GetComponent<BoxClassic>().type && !KTBoxClassic(boxMatrixClassic[x][y + 1]))
-            {
-                breakBox.Add(boxMatrixClassic[x][y + 1]);
-            }
-        }
-        if (breakBox.Count > 1)
-        {
-            BreakBoxClassic();
-
-            MoveBoxClassic();
-
-            SaveBoxClassic();
-
-        }
-        breakBox.Clear();
-        CheckWinLoseClassic();
-    }
 
     public void FindBreakBoxSurvival()
     {
@@ -444,85 +355,6 @@ public class GameController : MonoBehaviour
                 Destroy(explosion, 3f);
             }
             AddScoreCasual(j);
-            Destroy(breakBox[i]);
-        }
-    }
-
-    public void BreakBoxClassic()
-    {
-        for (int i = 0; i < breakBox.Count; i++)
-        {
-            int j = 5;
-            j = j + i * 10;
-            if (breakBox.Count == 2)
-            {
-                GameObject explosion = Instantiate(explosion1);
-                explosion.GetComponent<ParticleSystem>().Play();
-                explosion.transform.position = breakBox[i].transform.position;
-                AudioManager.ins.PlaySFX("click");
-                Destroy(explosion, 3f);
-            }
-            if (breakBox.Count > 2 && breakBox.Count < 5)
-            {
-                GameObject goodexplosion1 = Instantiate(goodexplosion);
-                goodexplosion1.GetComponent<ParticleSystem>().Play();
-                goodexplosion1.transform.position = breakBox[i].transform.position;
-                GameObject explosion = Instantiate(explosion1);
-                explosion.GetComponent<ParticleSystem>().Play();
-                explosion.transform.position = breakBox[i].transform.position;
-                AudioManager.ins.PlaySFX("good");
-                Destroy(goodexplosion1, 3f);
-                Destroy(explosion, 3f);
-            }
-            if (breakBox.Count > 4 && breakBox.Count < 7)
-            {
-                GameObject greatexplosion1 = Instantiate(greatexplosion);
-                greatexplosion1.GetComponent<ParticleSystem>().Play();
-                greatexplosion1.transform.position = breakBox[i].transform.position;
-                GameObject explosion = Instantiate(explosion1);
-                explosion.GetComponent<ParticleSystem>().Play();
-                explosion.transform.position = breakBox[i].transform.position;
-                AudioManager.ins.PlaySFX("great");
-                Destroy(greatexplosion1, 3f);
-                Destroy(explosion, 3f);
-            }
-            if (breakBox.Count > 6 && breakBox.Count < 9)
-            {
-                GameObject excellentexplosion1 = Instantiate(excellentexplosion);
-                excellentexplosion1.GetComponent<ParticleSystem>().Play();
-                excellentexplosion1.transform.position = breakBox[i].transform.position;
-                GameObject explosion = Instantiate(explosion1);
-                explosion.GetComponent<ParticleSystem>().Play();
-                explosion.transform.position = breakBox[i].transform.position;
-                AudioManager.ins.PlaySFX("excellent");
-                Destroy(excellentexplosion1, 3f);
-                Destroy(explosion, 3f);
-            }
-            if (breakBox.Count > 8 && breakBox.Count < 11)
-            {
-                GameObject amazingexplosion1 = Instantiate(amazingexplosion);
-                amazingexplosion1.GetComponent<ParticleSystem>().Play();
-                amazingexplosion1.transform.position = breakBox[i].transform.position;
-                GameObject explosion = Instantiate(explosion1);
-                explosion.GetComponent<ParticleSystem>().Play();
-                explosion.transform.position = breakBox[i].transform.position;
-                AudioManager.ins.PlaySFX("amazing");
-                Destroy(amazingexplosion1, 3f);
-                Destroy(explosion, 3f);
-            }
-            if (breakBox.Count > 10)
-            {
-                GameObject unbelievableexplosion1 = Instantiate(unbelievableexplosion);
-                unbelievableexplosion1.GetComponent<ParticleSystem>().Play();
-                unbelievableexplosion1.transform.position = breakBox[i].transform.position;
-                GameObject explosion = Instantiate(explosion1);
-                explosion.GetComponent<ParticleSystem>().Play();
-                explosion.transform.position = breakBox[i].transform.position;
-                AudioManager.ins.PlaySFX("unbelievable");
-                Destroy(unbelievableexplosion1, 3f);
-                Destroy(explosion, 3f);
-            }
-            AddScoreClassic(j);
             Destroy(breakBox[i]);
         }
     }
@@ -650,42 +482,6 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public void MoveBoxClassic()
-    {
-        for (int i = 0; i < breakBox.Count; i++)
-        {
-
-            int x = breakBox[i].GetComponent<BoxClassic>().x;
-            int y = breakBox[i].GetComponent<BoxClassic>().y;
-            for (int j = y; j < 9; j++)
-            {
-                boxMatrixClassic[x][j] = boxMatrixClassic[x][j + 1];
-                if (boxMatrixClassic[x][j] != null)
-                {
-                    boxMatrixClassic[x][j].GetComponent<BoxClassic>().y--;
-                    boxMatrixClassic[x][j].GetComponent<BoxClassic>().MoveDown();
-                }
-            }
-            boxMatrixClassic[x][9] = null;
-        }
-
-        for (int i = 9; i >= 0; i--)
-        {
-            if (boxMatrixClassic[i][0] == null)
-            {
-                for (int j = i; j < 10; j++)
-                {
-                    for (int k = 0; k < 10; k++)
-                    {                       
-                        if (boxMatrixClassic[j][k] == null)
-                        {
-                            SpawnBoxClassic(j, k);                           
-                        }
-                    }
-                }
-            }
-        }
-    }
 
     public void MoveBoxSurvival()
     {
@@ -740,24 +536,6 @@ public class GameController : MonoBehaviour
         DataManager.ins.SaveJsonCasual();
     }
 
-    public void SaveBoxClassic()
-    {
-        for (int i = 0; i < boxMatrixClassic.Count; i++)
-        {
-            for (int j = 0; j < boxMatrixClassic[i].Count; j++)
-            {
-                if (boxMatrixClassic[i][j] == null)
-                {
-                    DataManager.ins.colorMatrixClassic[i][j] = BoxType1.None;
-                }
-                else
-                {
-                    DataManager.ins.colorMatrixClassic[i][j] = boxMatrixClassic[i][j].GetComponent<BoxClassic>().type;
-                }
-            }
-        }
-        DataManager.ins.SaveJsonClassic();
-    }
 
     public void SaveBoxSurvival()
     {
@@ -831,31 +609,6 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public void CheckWinLoseClassic()
-    {
-        if (KTGameLoseClassic())
-        {
-            for (int i = 0; i < 10; i++)
-            {
-                for (int j = 0; j < 10; j++)
-                {
-                    Destroy(boxMatrixClassic[j][i], 0.05f);
-                    boxMatrixClassic[j][i] = null;
-                }
-            }
-            
-            linebroad.SetActive(false);
-            UIController.ins.ShowGameOverClassic();            
-            ((GameOverScreenClassic)UIController.ins.currentScreen).ScoreClassic();
-            ((GameOverScreenClassic)UIController.ins.currentScreen).HighScoreClassic();
-            gameOver = true;
-            if (gameOver == true)
-            {
-                DataManager.ins.start_new_game_classic = true;
-                DataManager.ins.ResetDataClassic();
-            }
-        }
-    }
 
     public void CheckWinLoseSurvival()
     {
@@ -893,20 +646,6 @@ public class GameController : MonoBehaviour
         ((UICasual)UIController.ins.currentScreen).UpdateCoinText();
     }
 
-    public void AddScoreClassic(int addScore)
-    {
-        DataManager.ins.scoreClassic += addScore;
-        DataManager.ins.SaveScoreClassic();
-        ((UIClassic)UIController.ins.currentScreen).UpdateScoreText();
-        if (DataManager.ins.scoreClassic > DataManager.ins.highScoreClassic)
-        {
-            DataManager.ins.highScoreClassic = DataManager.ins.scoreClassic;
-            DataManager.ins.SaveHighScoreClassic();
-        }
-        ((UIClassic)UIController.ins.currentScreen).UpdateHighScoreText();
-        ((UIClassic)UIController.ins.currentScreen).UpdateCoinText();
-    }
-
     public void AddScoreSurvival(int addScore)
     {
         DataManager.ins.scoreSurvival += addScore;
@@ -940,35 +679,6 @@ public class GameController : MonoBehaviour
                 if (i < 9 && boxMatrixCasual[j][i + 1] != null && boxMatrixCasual[j][i] != null)
                 {
                     bool kt1 = boxMatrixCasual[j][i].GetComponent<Box>().type == boxMatrixCasual[j][i + 1].GetComponent<Box>().type;
-                    if (kt1)
-                    {
-                        return false;
-                    }
-                }
-            }
-        }
-        return true;
-    }
-
-    public bool KTGameLoseClassic()
-    {
-        for (int i = 0; i < 10; i++)
-        {
-            for (int j = 0; j < 10; j++)
-            {
-
-                if (j < 9 && boxMatrixClassic[j + 1][i] != null && boxMatrixClassic[j][i] != null)
-                {
-                    bool kt1 = boxMatrixClassic[j][i].GetComponent<BoxClassic>().type == boxMatrixClassic[j + 1][i].GetComponent<BoxClassic>().type;
-                    if (kt1)
-                    {
-                        return false;
-                    }
-                }
-
-                if (i < 9 && boxMatrixClassic[j][i + 1] != null && boxMatrixClassic[j][i] != null)
-                {
-                    bool kt1 = boxMatrixClassic[j][i].GetComponent<BoxClassic>().type == boxMatrixClassic[j][i + 1].GetComponent<BoxClassic>().type;
                     if (kt1)
                     {
                         return false;
@@ -1026,23 +736,6 @@ public class GameController : MonoBehaviour
         return false;
     }
 
-    public bool KTBoxClassic(GameObject box)
-    {
-        for (int i = 0; i < breakBox.Count; i++)
-        {
-            int boxX = box.GetComponent<BoxClassic>().x;
-            int boxY = box.GetComponent<BoxClassic>().y;
-
-            int breakBoxX = breakBox[i].GetComponent<BoxClassic>().x;
-            int breakBoxY = breakBox[i].GetComponent<BoxClassic>().y;
-
-            if (boxX == breakBoxX && boxY == breakBoxY)
-            {
-                return true;
-            }
-        }
-        return false;
-    }
 
     public bool KTBoxSurvival(GameObject box)
     {
@@ -1236,141 +929,6 @@ public class GameController : MonoBehaviour
         DataManager.ins.colorMatrixCasual[x][y] = boxMatrixCasual[x][y].GetComponent<Box>().type;
         CheckWinLoseCasual();
         SaveBoxCasual();     
-        useIt3 = false;
-    }
-
-    public void Item1Classic()
-    {
-        if (clickBox1 == true && clickBox2 == true)
-        {
-            if (moveBox.Count == 2)
-            {
-                int x1 = moveBox[0].GetComponent<BoxClassic>().x;
-                int y1 = moveBox[0].GetComponent<BoxClassic>().y;
-                int x2 = moveBox[1].GetComponent<BoxClassic>().x;
-                int y2 = moveBox[1].GetComponent<BoxClassic>().y;
-
-                BoxType1 color1 = boxMatrixClassic[x1][y1].GetComponent<BoxClassic>().type;
-                BoxType1 color2 = boxMatrixClassic[x2][y2].GetComponent<BoxClassic>().type;
-                BoxType1 temp;
-                if (x1 > 0 && x2 == x1 - 1 && y1 == y2 && boxMatrixClassic[x2][y2] != null && boxMatrixClassic[x1][y1].GetComponent<BoxClassic>().type != boxMatrixClassic[x2][y2].GetComponent<BoxClassic>().type)
-                {
-
-                    boxMatrixClassic[x1][y1].GetComponent<BoxClassic>().x--;
-                    boxMatrixClassic[x1][y1].GetComponent<BoxClassic>().MoveLeft1();
-                    boxMatrixClassic[x2][y2].GetComponent<BoxClassic>().x++;
-                    boxMatrixClassic[x2][y2].GetComponent<BoxClassic>().MoveRight();
-                    boxMatrixClassic[x1][y1] = boxMatrixClassic[x2][y2];
-                    x1 = x2;
-                    x2 = x1 + 1;
-                    temp = color1;
-                    color1 = color2;
-                    color2 = temp;
-                    boxMatrixClassic[x1][y1].transform.position = boxMatrixClassic[x1][y1].GetComponent<BoxClassic>().CalculatationPosition(x1, y1);
-                    DataManager.ins.colorMatrixClassic[x1][y1] = boxMatrixClassic[x1][y1].GetComponent<BoxClassic>().type;
-
-                    boxMatrixClassic[x2][y2].transform.position = boxMatrixClassic[x2][y2].GetComponent<BoxClassic>().CalculatationPosition(x2, y2);
-                    DataManager.ins.colorMatrixClassic[x1][y1] = boxMatrixClassic[x1][y1].GetComponent<BoxClassic>().type;
-
-                }
-                if (x1 < 9  && x2 == x1 + 1 && y1 == y2 && boxMatrixClassic[x2][y2] != null && boxMatrixClassic[x1][y1].GetComponent<BoxClassic>().type != boxMatrixClassic[x2][y2].GetComponent<BoxClassic>().type)
-                {
-                    boxMatrixClassic[x1][y1].GetComponent<BoxClassic>().x++;
-                    boxMatrixClassic[x1][y1].GetComponent<BoxClassic>().MoveRight();
-                    boxMatrixClassic[x2][y2].GetComponent<BoxClassic>().x--;
-                    boxMatrixClassic[x2][y2].GetComponent<BoxClassic>().MoveLeft1();
-                    boxMatrixClassic[x2][y2] = boxMatrixClassic[x1][y1];
-                    x1 = x2;
-                    x2 = x1 - 1;
-                    temp = color1;
-                    color1 = color2;
-                    color2 = temp;
-                    boxMatrixClassic[x2][y2].transform.position = boxMatrixClassic[x2][y2].GetComponent<BoxClassic>().CalculatationPosition(x2, y2);
-                    DataManager.ins.colorMatrixClassic[x2][y2] = boxMatrixClassic[x2][y2].GetComponent<BoxClassic>().type;
-
-                    boxMatrixClassic[x1][y1].transform.position = boxMatrixClassic[x1][y1].GetComponent<BoxClassic>().CalculatationPosition(x1, y1);
-                    DataManager.ins.colorMatrixClassic[x1][y1] = boxMatrixClassic[x1][y1].GetComponent<BoxClassic>().type;
-                }
-                if (y1 > 0 &&  y2 == y1 - 1 && x1 == x2 && boxMatrixClassic[x2][y2] != null && boxMatrixClassic[x1][y1].GetComponent<BoxClassic>().type != boxMatrixClassic[x2][y2].GetComponent<BoxClassic>().type)
-                {
-                    boxMatrixClassic[x1][y1].GetComponent<BoxClassic>().y--;
-                    boxMatrixClassic[x1][y1].GetComponent<BoxClassic>().MoveDown1();
-                    boxMatrixClassic[x2][y2].GetComponent<BoxClassic>().y++;
-                    boxMatrixClassic[x2][y2].GetComponent<BoxClassic>().MoveUp();
-                    boxMatrixClassic[x1][y1] = boxMatrixClassic[x2][y2];
-                    y1 = y2;
-                    y2 = y1 + 1;
-                    temp = color1;
-                    color1 = color2;
-                    color2 = temp;
-                    boxMatrixClassic[x1][y1].transform.position = boxMatrixClassic[x1][y1].GetComponent<BoxClassic>().CalculatationPosition(x1, y1);
-                    DataManager.ins.colorMatrixClassic[x1][y1] = boxMatrixClassic[x1][y1].GetComponent<BoxClassic>().type;
-
-                    boxMatrixClassic[x2][y2].transform.position = boxMatrixClassic[x2][y2].GetComponent<BoxClassic>().CalculatationPosition(x2, y2);
-                    DataManager.ins.colorMatrixClassic[x2][y2] = boxMatrixClassic[x2][y2].GetComponent<BoxClassic>().type;
-                }
-                if (y1 < 9 &&  y2 == y1 + 1 && x1 == x2 && boxMatrixClassic[x2][y2] != null && boxMatrixClassic[x1][y1].GetComponent<BoxClassic>().type != boxMatrixClassic[x2][y2].GetComponent<BoxClassic>().type)
-                {
-                    boxMatrixClassic[x1][y1].GetComponent<BoxClassic>().y++;
-                    boxMatrixClassic[x1][y1].GetComponent<BoxClassic>().MoveUp();
-                    boxMatrixClassic[x2][y2].GetComponent<BoxClassic>().y--;
-                    boxMatrixClassic[x2][y2].GetComponent<BoxClassic>().MoveDown1();
-                    boxMatrixClassic[x2][y2] = boxMatrixClassic[x1][y1];
-                    y1 = y2;
-                    y2 = y1 - 1;
-                    temp = color1;
-                    color1 = color2;
-                    color2 = temp;
-                    boxMatrixClassic[x2][y2].transform.position = boxMatrixClassic[x2][y2].GetComponent<BoxClassic>().CalculatationPosition(x2, y2);
-                    DataManager.ins.colorMatrixClassic[x1][y1] = boxMatrixClassic[x1][y1].GetComponent<BoxClassic>().type;
-
-                    boxMatrixClassic[x1][y1].transform.position = boxMatrixClassic[x1][y1].GetComponent<BoxClassic>().CalculatationPosition(x1, y1);
-                    DataManager.ins.colorMatrixClassic[x1][y1] = boxMatrixClassic[x1][y1].GetComponent<BoxClassic>().type;
-                }
-                CheckWinLoseClassic();
-                SaveBoxClassic();
-            }
-            moveBox.Clear();
-            clickBox1 = false;
-            clickBox2 = false;
-            useIt1 = false;
-        }
-    }
-
-    public void Item2Classic(int x, int y)
-    {
-        AudioManager.ins.PlaySFX("it2");
-        AddScoreClassic(5);
-        GameObject explosion = Instantiate(explosion1);
-        explosion.GetComponent<ParticleSystem>().Play();
-        explosion.transform.position = boxMatrixClassic[x][y].transform.position;
-        Destroy(boxMatrixClassic[x][y]);
-        Destroy(explosion, 0.5f);
-        boxMatrixClassic[x][y] = null;
-        MoveBoxClassic();
-        CheckWinLoseClassic();
-        SaveBoxClassic();
-        breakBox.Clear();
-        useIt2 = false;
-    }
-
-    public void Item3Classic(int x, int y)
-    {
-        AudioManager.ins.PlaySFX("it3");
-        GameObject explosion = Instantiate(explosion1);
-        explosion.GetComponent<ParticleSystem>().Play();
-        explosion.transform.position = boxMatrixClassic[x][y].transform.position;
-        Destroy(boxMatrixClassic[x][y]);
-        Destroy(explosion, 0.5f);
-        boxMatrixClassic[x][y] = null;
-        int color = Random.Range(1, 7);
-        GameObject box1 = Instantiate(this.boxClassic[color - 1]);
-        box1.GetComponent<BoxClassic>().OnSpawn(x, y, (BoxType1)color);
-        boxMatrixClassic[x][y] = box1;
-        box1.transform.position = box1.GetComponent<BoxClassic>().CalculatationPosition(x, y);
-        DataManager.ins.colorMatrixClassic[x][y] = boxMatrixClassic[x][y].GetComponent<BoxClassic>().type;
-        CheckWinLoseClassic();
-        SaveBoxClassic();
         useIt3 = false;
     }
 

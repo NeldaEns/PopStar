@@ -10,11 +10,9 @@ public class UIController : MonoBehaviour
     public UIScreenBase currentScreen;
     public GameObject mainMenu;
     public GameObject casualPanel;
-    public GameObject classicPanel;
     public GameObject survivalPanel;
     public GameObject mainCameraPrefabs;
     public GameOverScreenCasual casualGameOverScreen;
-    public GameOverScreenClassic classicGameOverScreen;
     public SurvivalGameOverScreen survivalGameOverScreen;
 
     private void Awake()
@@ -48,12 +46,6 @@ public class UIController : MonoBehaviour
         currentScreen = Instantiate(casualPanel, transform).GetComponent<UICasual>();
     }
 
-    public void ShowClassic()
-    {
-        Destroy(currentScreen.gameObject);
-        AudioManager.ins.PlaySFX("gamestart");
-        currentScreen = Instantiate(classicPanel, transform).GetComponent<UIClassic>();
-    }
 
     public void ShowSurvival()
     {
@@ -75,12 +67,6 @@ public class UIController : MonoBehaviour
         currentScreen = Instantiate(casualGameOverScreen, transform).GetComponent<GameOverScreenCasual>();
     }
 
-    public void ShowGameOverClassic()
-    {
-        Destroy(currentScreen.gameObject);
-        AudioManager.ins.PlaySFX("gameover");
-        currentScreen = Instantiate(classicGameOverScreen, transform).GetComponent<GameOverScreenClassic>();    
-    }
 
     public void ShowGameOverSurvival()
     {
