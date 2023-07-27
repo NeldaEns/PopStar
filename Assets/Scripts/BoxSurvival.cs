@@ -136,7 +136,7 @@ public class BoxSurvival : MonoBehaviour
 public enum BoxType2
 {
     None = 0,
-    Blue,
+    Purple,
     Pink,
     Orange,
     Red,

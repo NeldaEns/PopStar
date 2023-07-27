@@ -10,7 +10,7 @@ public class Box : MonoBehaviour
     public BoxType type;
 
     Vector3 firstPos = new Vector3(-4.3f, -4.3f);
-    float boxSize = 0.955f;
+    float boxSize = 0.9555f;
 
     public Vector3 CalculatationPosition(int x, int y)
     {
@@ -121,29 +121,29 @@ public class Box : MonoBehaviour
         if (!GameController.instance.useIt1 && !GameController.instance.useIt2 && !GameController.instance.useIt3 )
         {
             GameController.instance.breakBox.Add(gameObject);
-            GameController.instance.FindBreakBoxCasual();
+            GameController.instance.FindBreakBoxClassic();
         }
         else if(GameController.instance.useIt1)
         {          
             if(GameController.instance.clickBox1)
             {
-                GameController.instance.ClickMoveBoxCasual2(x, y);
+                GameController.instance.ClickMoveBoxClassic2(x, y);
             }
             else
             {
-                GameController.instance.ClickMoveBoxCasual1(x, y);
+                GameController.instance.ClickMoveBoxClassic1(x, y);
             }
             
-            GameController.instance.Item1Casual();    
-        } 
-        else if(GameController.instance.useIt2)
+            GameController.instance.Item1Classic();    
+        }
+        else if (GameController.instance.useIt2)
         {
             GameController.instance.breakBox.Add(gameObject);
-            GameController.instance.Item2Casual(x, y);
+            GameController.instance.Item2Classic(x, y);
         }
         else
         {
-            GameController.instance.Item3Casual(x, y);
+            GameController.instance.Item3Classic(x, y);
         }
     }
 }

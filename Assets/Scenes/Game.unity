@@ -305,31 +305,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acadfc699c321984cb779f852f6d18ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boxCasual:
+  boxClassic:
   - {fileID: 7740012786303393321, guid: 24191a6c10275f847b59b352a9058b84, type: 3}
   - {fileID: 7607158356857295072, guid: 80d2e1784dd7d9c4d875819d3ca80ac1, type: 3}
   - {fileID: 4309607857140016051, guid: 0c8bd63bd3d7665469d1e8ca37247dbc, type: 3}
   - {fileID: 2055527538098360328, guid: 99c98f030e8ac18458a68256b909e5eb, type: 3}
   - {fileID: 2159904201265755569, guid: b4fce6c8ae0b85943a4ef2b5aa49e19e, type: 3}
   - {fileID: 0}
-  boxClassic:
-  - {fileID: 6238241667796657097, guid: 341f02e2293448747928f75da4da8d7d, type: 3}
-  - {fileID: 6260591237884620227, guid: beb26c0c9e911f741b3ac5f25c21c1f2, type: 3}
-  - {fileID: 8767522516303372319, guid: 05990726c652d7b47b12b8531d11240d, type: 3}
-  - {fileID: 4604176088102395324, guid: 90e5e5e3cf591634792bbd664bfebbcb, type: 3}
-  - {fileID: 5266119337395358011, guid: a479270fb789d7f4e88af8a69d504b2e, type: 3}
-  - {fileID: 0}
   boxSurvival:
-  - {fileID: 7673834451986718239, guid: b671e900f9babbf488a6ee470d1f2cfc, type: 3}
-  - {fileID: 8495594004849882974, guid: 4ec6a76d37aafa3409443fd008f955f0, type: 3}
-  - {fileID: 2333417275533333947, guid: 1697dd9bb3a5cf9438655b8853fbec14, type: 3}
-  - {fileID: 2201201445316271367, guid: 6a27759caba86d14eabf12c0a938e6ee, type: 3}
-  - {fileID: 4179905267234753732, guid: a0315346a33f20948bb22e214230db70, type: 3}
-  - {fileID: 2894133741832295134, guid: 5a32b8f79112dcf41bdda798ed8801f3, type: 3}
+  - {fileID: 7740012786303393321, guid: cc88504269163924c82d433f1c1e44af, type: 3}
+  - {fileID: 7607158356857295072, guid: 6bc4ece4247e845458fedb4c178f0179, type: 3}
+  - {fileID: 4309607857140016051, guid: 2f606026c1bb7bd4f9f580f2dcf2b000, type: 3}
+  - {fileID: 2055527538098360328, guid: 009d065f5ca5c0e4181534c9f1f29ed1, type: 3}
+  - {fileID: 2159904201265755569, guid: 8ee5d8d804ac2d644a1a1de0c21e55c0, type: 3}
+  - {fileID: 2159904201265755569, guid: 89e79ebfe3bac3640b3bba98a866fdcb, type: 3}
   - {fileID: 0}
   breakBox: []
   moveBox: []
-  explosion1: {fileID: 2203112218923668955, guid: c90b513b3349e7f4a8cf5785bdca0b67,
+  greenExplosion: {fileID: 2203112218923668955, guid: c90b513b3349e7f4a8cf5785bdca0b67,
+    type: 3}
+  orangeExplosion: {fileID: 2203112218923668955, guid: d4c56f306de219a48abe5e1cc21c05bf,
+    type: 3}
+  purpleExplosion: {fileID: 2203112218923668955, guid: 3522769db151fc841a746f061c49abaa,
+    type: 3}
+  redExplosion: {fileID: 2203112218923668955, guid: 3a8999af8458c224fb2c84dc97f002a0,
+    type: 3}
+  pinkExplosion: {fileID: 2203112218923668955, guid: f95e0576b8232d74795cd3bc347baeda,
+    type: 3}
+  yellowExplosion: {fileID: 2203112218923668955, guid: 6e23536cbf3905049b2b1a06f58134aa,
     type: 3}
   goodexplosion: {fileID: 2203112218923668955, guid: ec638e4a656dc1946a6d35d24cc141ed,
     type: 3}

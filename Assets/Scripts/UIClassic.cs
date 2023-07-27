@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class UICasual : UIScreenBase
+public class UIClassic : UIScreenBase
 {
     public Text txtScore;
     public Text txtLevel;
@@ -14,6 +14,9 @@ public class UICasual : UIScreenBase
     public Text txtLevel1;
     public Text txtTarget1;
     public GameObject panel;
+    public GameObject selectIT1;
+    public GameObject selectIT2;
+    public GameObject selectIT3;
 
     private void Start()
     {
@@ -48,12 +51,12 @@ public class UICasual : UIScreenBase
 
     public void UpdateScoreText()
     {
-        txtScore.text = DataManager.ins.scoreCasual.ToString();
+        txtScore.text = DataManager.ins.scoreClassic.ToString();
     }
 
     public void UpdateHighScoreText()
     {
-        txtHighScore.text = DataManager.ins.highScoreCasual.ToString();
+        txtHighScore.text = DataManager.ins.highScoreClassic.ToString();
     }
 
     public void UpdateLevelText()
@@ -88,6 +91,7 @@ public class UICasual : UIScreenBase
     {
         if (DataManager.ins.coin > 1)
         {
+            selectIT1.SetActive(true);
             AudioManager.ins.PlaySFX("click");
             DataManager.ins.coin = DataManager.ins.coin - 2;
             DataManager.ins.SaveCoin();
@@ -100,6 +104,7 @@ public class UICasual : UIScreenBase
     {
         if (DataManager.ins.coin > 2)
         {
+            selectIT2.SetActive(true);
             AudioManager.ins.PlaySFX("click");
             DataManager.ins.coin = DataManager.ins.coin - 3;
             DataManager.ins.SaveCoin();
@@ -112,6 +117,7 @@ public class UICasual : UIScreenBase
     {
         if (DataManager.ins.coin > 3)
         {
+            selectIT3.SetActive(true);
             AudioManager.ins.PlaySFX("click");
             DataManager.ins.coin = DataManager.ins.coin - 4;
             DataManager.ins.SaveCoin();
