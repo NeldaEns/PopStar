@@ -22,7 +22,7 @@ public class UIMainMenu : UIScreenBase
     }
     private void Update()
     {
-        UpdateButton();
+        UpdateButton(); 
     }
     public void StartClassic()
     {
@@ -57,6 +57,7 @@ public class UIMainMenu : UIScreenBase
             {
                 DataManager.ins.start_new_game_survival = true;
                 DataManager.ins.StartDataSurvival();
+                DataManager.ins.timeActive = true;
                 SceneManager.LoadScene(1);
                 UIController.ins.ShowSurvival();
             }
@@ -85,6 +86,7 @@ public class UIMainMenu : UIScreenBase
         AudioManager.ins.PlaySFX("click1");
         DataManager.ins.start_new_game_survival = true;
         DataManager.ins.ResetDataSurvival();
+        DataManager.ins.timeActive = true;
         SceneManager.LoadScene(1);
         UIController.ins.ShowSurvival();
     }
@@ -105,6 +107,8 @@ public class UIMainMenu : UIScreenBase
         DataManager.ins.survivalGame = true;
         AudioManager.ins.PlaySFX("click1");
         DataManager.ins.start_new_game_survival = false;
+        DataManager.ins.currentTime = DataManager.ins.maxTime;
+        DataManager.ins.timeActive = true;
         SceneManager.LoadScene(1);
         UIController.ins.ShowSurvival();
     }

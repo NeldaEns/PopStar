@@ -19,11 +19,14 @@ public class DataManager : MonoBehaviour
     public float musicSliderValue;
     public float sfxSliderValue;
     public float musicVolume;
+    public float currentTime;
+    public float maxTime = 45f;
     public bool start_new_game_classic;
     public bool start_new_game_survival;   
     public bool ClassicGame;
     public bool classicGame;
     public bool survivalGame;
+    public bool timeActive;
 
 
     public List<List<BoxType>> colorMatrixClassic;
@@ -45,6 +48,7 @@ public class DataManager : MonoBehaviour
     private const string music_slider_value = "music_slider_value";
     private const string sfx_slider_value = "sfx_slider_value";
     private const string current_time_survival = "current_time_survival";
+    private const string time_key = "time_key";
   
     private void Awake()
     {
@@ -111,6 +115,7 @@ public class DataManager : MonoBehaviour
         LoadMusicSliderValue();
         LoadSFXVolume();
         LoadSFXSliderValue();
+        LoadTime();
     }
 
     public void StartDataClassic()
@@ -145,15 +150,17 @@ public class DataManager : MonoBehaviour
     }
     public void StartDataSurvival()
     {
+        maxTime = 45f;
+        currentTime = maxTime;
         scoreSurvival = 0;
         highScoreSurvival = 0;
         colorMatrixSurvival = new List<List<BoxType2>>();
 
-        for (int i = 0; i < 15; i++)
+        for (int i = 0; i < 12; i++)
         {
             List<BoxType2> row = new List<BoxType2>();
 
-            for (int j = 0; j < 15; j++)
+            for (int j = 0; j < 12; j++)
             {
                 row.Add(BoxType2.None);
             }
@@ -168,6 +175,7 @@ public class DataManager : MonoBehaviour
         SaveMusicSliderValue();
         SaveSFXVolume();
         SaveSFXSliderValue();
+        SaveTime();
     }
 
     public void ResetDataClassic()
@@ -178,6 +186,8 @@ public class DataManager : MonoBehaviour
     }
     public void ResetDataSurvival()
     {
+        maxTime = 45f;
+        currentTime = maxTime;
         scoreSurvival = 0;
     }
 
@@ -214,7 +224,7 @@ public class DataManager : MonoBehaviour
         List<string> jsonsColor = JsonHelper.FromJson<string>(finalJson);
 
         colorMatrixSurvival = new List<List<BoxType2>>();
-        for (int i = 0; i < 15; i++)
+        for (int i = 0; i < 12; i++)
         {
             List<BoxType2> row = JsonHelper.FromJson<BoxType2>(jsonsColor[i]);
             colorMatrixSurvival.Add(row);
@@ -224,7 +234,7 @@ public class DataManager : MonoBehaviour
     {
         List<string> jsonsColorSurvival = new List<string>();
 
-        for (int i = 0; i < 15; i++)
+        for (int i = 0; i < 12; i++)
         {
             string jsonColor = JsonHelper.ToJson<BoxType2>(colorMatrixSurvival[i]);
             jsonsColorSurvival.Add(jsonColor);
@@ -332,8 +342,14 @@ public class DataManager : MonoBehaviour
         PlayerPrefs.SetFloat(sfx_volume, sfxVolume);
     }
 
-
-
+    public void LoadTime()
+    {
+        maxTime = PlayerPrefs.GetFloat(time_key);
+    }
+    public void SaveTime()
+    {
+        PlayerPrefs.SetFloat(time_key, maxTime);
+    }
 
 }
 

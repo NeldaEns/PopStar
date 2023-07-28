@@ -9,8 +9,8 @@ public class BoxSurvival : MonoBehaviour
     public int y;
     public BoxType2 type;
 
-    Vector3 firstPos = new Vector3(-4.65f, -4.65f);
-    float boxSize = 0.665f;
+    Vector3 firstPos = new Vector3(-4.37f, -4.37f);
+    float boxSize = 0.795f;
 
     public Vector3 CalculatationPosition(int x, int y)
     {

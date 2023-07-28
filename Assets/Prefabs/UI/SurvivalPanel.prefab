@@ -1155,6 +1155,10 @@ MonoBehaviour:
   txtScore: {fileID: 8127710143319020124}
   txtHighScore: {fileID: 3699062178737165972}
   txtCoin: {fileID: 5263128439783772139}
+  txtCurrentTime: {fileID: 4604128047287861579}
+  selectIT1: {fileID: 8204643442339663446}
+  selectIT2: {fileID: 5210027212479644167}
+  selectIT3: {fileID: 7480234706361454242}
 --- !u!1 &4926622809180489881
 GameObject:
   m_ObjectHideFlags: 0
