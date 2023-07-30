@@ -968,10 +968,19 @@ public class GameController : MonoBehaviour
             BoxType color1 = box1.type;
             BoxType color2 = box2.type;
 
-            box1.transform.position = pos2;
-            box2.transform.position = pos1;
-            box1.type = color2;
-            box2.type = color1;
+            Vector3 tempPos1 = pos1;
+            pos1 = pos2;
+            pos2 = tempPos1;
+
+            BoxType tempColor = color1;
+            color1 = color2;
+            color2 = tempColor;
+
+            box1.transform.position = pos1;
+            box2.transform.position = pos2;
+            box1.type = color1;
+            box2.type = color2;
+
             CheckWinLoseClassic();
             SaveBoxClassic();
 
