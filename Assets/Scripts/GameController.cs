@@ -326,12 +326,12 @@ public class GameController : MonoBehaviour
             }
             if (breakBox[i].GetComponent<Box>().type == BoxType.Orange)
             {
-                GameObject popOrange = Instantiate(orangeExplosion);
-                popOrange.SetActive(true);
-                popOrange.transform.position = breakBox[i].transform.position;
-                Destroy(popOrange, 3f);
+                GameObject popGreen = Instantiate(greenExplosion);
+                popGreen.SetActive(true);
+                popGreen.transform.position = breakBox[i].transform.position;
+                Destroy(popGreen, 3f);
             }
-            if (breakBox[i].GetComponent<Box>().type == BoxType.Pink)
+            if (breakBox[i].GetComponent<Box>().type == BoxType.Green)
             {
                 GameObject popPink = Instantiate(pinkExplosion);
                 popPink.SetActive(true);
@@ -363,12 +363,12 @@ public class GameController : MonoBehaviour
             popOrange.transform.position = boxMatrixClassic[x][y].transform.position;
             Destroy(popOrange, 3f);
         }
-        if (boxMatrixClassic[x][y].GetComponent<Box>().type == BoxType.Pink)
+        if (boxMatrixClassic[x][y].GetComponent<Box>().type == BoxType.Green)
         {
-            GameObject popPink = Instantiate(pinkExplosion);
-            popPink.SetActive(true);
-            popPink.transform.position = boxMatrixClassic[x][y].transform.position;
-            Destroy(popPink, 3f);
+            GameObject popGreen = Instantiate(greenExplosion);
+            popGreen.SetActive(true);
+            popGreen.transform.position = boxMatrixClassic[x][y].transform.position;
+            Destroy(popGreen, 3f);
         }
         if (boxMatrixClassic[x][y].GetComponent<Box>().type == BoxType.Purple)
         {
@@ -933,6 +933,7 @@ public class GameController : MonoBehaviour
     {
         AudioManager.ins.PlaySFX("it1");
         moveBox.Add(boxMatrixClassic[x][y]);
+        Debug.Log("box1: " + "x: " + x + "y: " + y + "màu: " + boxMatrixClassic[x][y].GetComponent<Box>().type);
         clickBox1 = true;
     }
 
@@ -940,6 +941,7 @@ public class GameController : MonoBehaviour
     {
         AudioManager.ins.PlaySFX("it1");
         moveBox.Add(boxMatrixClassic[x][y]);
+        Debug.Log("box2: " + "x: " + x + "y: " + y + "màu: " + boxMatrixClassic[x][y].GetComponent<Box>().type);
         clickBox2 = true;       
     }
 
@@ -968,29 +970,46 @@ public class GameController : MonoBehaviour
             BoxType color1 = box1.type;
             BoxType color2 = box2.type;
 
-            Vector3 tempPos1 = pos1;
-            pos1 = pos2;
-            pos2 = tempPos1;
+            if (box1.x > 0 && box2.x == box1.x - 1 && box1.y == box2.y  && box2 != null && color1 != color2 )
+            {
+                //Box tempBox = box1;
+                //box1 = box2;
+                //box2 = tempBox;
 
-            BoxType tempColor = color1;
-            color1 = color2;
-            color2 = tempColor;
+                //Vector3 tempPos1 = pos1;
+                //pos1 = pos2;
+                //pos2 = tempPos1;
 
-            box1.transform.position = pos1;
-            box2.transform.position = pos2;
-            box1.type = color1;
-            box2.type = color2;
+                BoxType tempColor = color1;
+                color1 = color2;
+                color2 = tempColor;
 
+                int tempX = box1.x;
+                box1.x = box2.x;
+                box2.x = tempX;
+
+                //box1.transform.position = pos1;
+                //box2.transform.position = pos2;
+                //box1.type = color1;
+                //box2.type = color2;
+
+
+                box1.transform.position = box1.CalculatationPosition(box1.x, box1.y);
+                box2.transform.position = box2.CalculatationPosition(box2.x, box2.y);
+                DataManager.ins.colorMatrixClassic[box1.x][box1.y] = box1.type;
+                DataManager.ins.colorMatrixClassic[box2.x][box2.y] = box2.type;
+
+                Debug.Log("box1: " + " x: " + box1.x + " y: " + box1.y + " màu: " + box1.type);
+                Debug.Log("box2: " + " x: " + box2.x + " y: " + box2.y + " màu: " + box2.type);
+            }
             CheckWinLoseClassic();
             SaveBoxClassic();
-
             moveBox.Clear();
             clickBox1 = false;
             clickBox2 = false;
             useIt1 = false;
             ((UIClassic)UIController.ins.currentScreen).selectIT1.SetActive(false);
-        }
-        
+        }       
     }
 
     public void Item2Classic(int x, int y)

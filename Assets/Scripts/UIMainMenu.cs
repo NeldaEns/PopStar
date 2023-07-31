@@ -27,7 +27,6 @@ public class UIMainMenu : UIScreenBase
     public void StartClassic()
     {
         DataManager.ins.survivalGame = false;
-        DataManager.ins.classicGame = false;
         DataManager.ins.classicGame = true;
         AudioManager.ins.PlaySFX("click");
         if (DataManager.ins.scoreClassic == 0)
@@ -47,7 +46,6 @@ public class UIMainMenu : UIScreenBase
     }
     public void StartSurvival()
     {
-        DataManager.ins.classicGame = false;
         DataManager.ins.classicGame = false;
         DataManager.ins.survivalGame = true;
         AudioManager.ins.PlaySFX("click");
@@ -80,7 +78,6 @@ public class UIMainMenu : UIScreenBase
 
     public void RestartSurvival()
     {
-        DataManager.ins.classicGame = false;
         DataManager.ins.classicGame = false;
         DataManager.ins.survivalGame = true;
         AudioManager.ins.PlaySFX("click1");

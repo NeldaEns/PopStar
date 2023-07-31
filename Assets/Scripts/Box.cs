@@ -52,68 +52,7 @@ public class Box : MonoBehaviour
             yield return new WaitForSeconds (0.01f);
         }
     }
-    public void MoveLeft1()
-    {
-        StartCoroutine(MoveCoroutine2());
-    }
 
-    public IEnumerator MoveCoroutine2()
-    {
-        
-            transform.position -= new Vector3(boxSize, 0, 0);
-            yield return new WaitForSeconds(1f);
-        
-    }
-    public void MoveRight()
-    {
-        StartCoroutine(MoveCoroutine3());
-    }
-
-    public IEnumerator MoveCoroutine3()
-    {
-
-        transform.position += new Vector3(boxSize, 0, 0);
-        yield return new WaitForSeconds(1f);
-
-    }
-    public void MoveDown1()
-    {
-        StartCoroutine(MoveCoroutine4());
-    }
-
-    public IEnumerator MoveCoroutine4()
-    {
-
-        transform.position -= new Vector3(0, boxSize, 0);
-        yield return new WaitForSeconds(1f);
-
-    }
-    public void MoveUp()
-    {
-        StartCoroutine(MoveCoroutine5());
-    }
-
-    public IEnumerator MoveCoroutine5()
-    {
-
-        transform.position += new Vector3(0, boxSize, 0);
-        yield return new WaitForSeconds(1f);
-
-    }
-
-    public IEnumerator MoveCoroutine6()
-    {
-        for (int i = 0; i < 10; i++)
-        {
-            transform.position -= new Vector3(0, boxSize/10, 0);
-            yield return new WaitForSeconds(0.05f);
-        }
-    }
-
-    public void MoveStart()
-    {
-        StartCoroutine(MoveCoroutine6());
-    }
 
     private void OnMouseDown()
     {      
@@ -151,7 +90,7 @@ public enum BoxType
 {
     None = 0,
     Purple,
-    Pink,
+    Green,
     Orange,
     Red,
     Yellow,

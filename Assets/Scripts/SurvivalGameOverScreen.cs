@@ -29,6 +29,7 @@ public class SurvivalGameOverScreen : UIScreenBase
     {
         DataManager.ins.start_new_game_survival = true;
         DataManager.ins.ResetDataSurvival();
+        DataManager.ins.timeActive = true;
         SceneManager.LoadScene(1);
         UIController.ins.ShowSurvival();
     }
