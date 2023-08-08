@@ -1401,6 +1401,9 @@ MonoBehaviour:
   selectIT1: {fileID: 5073052641673184938}
   selectIT2: {fileID: 7958749356150426672}
   selectIT3: {fileID: 2306969549941534190}
+  it1: {fileID: 144938836981322434}
+  it2: {fileID: 1422907510300079694}
+  it3: {fileID: 6029899679480554678}
 --- !u!1 &4605423266139657883
 GameObject:
   m_ObjectHideFlags: 0

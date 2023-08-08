@@ -14,6 +14,9 @@ public class UISurvival : UIScreenBase
     public GameObject selectIT1;
     public GameObject selectIT2;
     public GameObject selectIT3;
+    public Button it1;
+    public Button it2;
+    public Button it3;
 
     private void Start()
     {
@@ -73,6 +76,8 @@ public class UISurvival : UIScreenBase
             DataManager.ins.SaveCoin();
             UpdateCoinText();
             GameController.instance.useIt1 = true;
+            it2.enabled = false;
+            it3.enabled = false;
         }
     }
 
@@ -85,6 +90,8 @@ public class UISurvival : UIScreenBase
             DataManager.ins.SaveCoin();
             UpdateCoinText();
             GameController.instance.useIt2 = true;
+            it1.enabled = false;
+            it3.enabled = false;
         }
     }
 
@@ -97,6 +104,8 @@ public class UISurvival : UIScreenBase
             DataManager.ins.SaveCoin();
             UpdateCoinText();
             GameController.instance.useIt3 = true;
+            it1.enabled = false;
+            it2.enabled = false;
         }
     }
 }

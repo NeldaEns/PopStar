@@ -40,7 +40,7 @@ public class Box : MonoBehaviour
         for (int i = 0; i < 10; i++)
         {
             transform.position -= new Vector3(boxSize / 10, 0, 0);
-            yield return new WaitForSeconds(0.01f);
+            yield return null;
         }
     }
 
@@ -49,7 +49,7 @@ public class Box : MonoBehaviour
         for (int i = 0; i < 10; i++)
         {
             transform.position -= new Vector3(0, boxSize / 10, 0);
-            yield return new WaitForSeconds (0.01f);
+            yield return null;
         }
     }
 

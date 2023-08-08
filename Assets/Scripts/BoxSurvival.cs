@@ -52,54 +52,7 @@ public class BoxSurvival : MonoBehaviour
             yield return new WaitForSeconds(0.01f);
         }
     }
-    public void MoveLeft1()
-    {
-        StartCoroutine(MoveCoroutine2());
-    }
-
-    public IEnumerator MoveCoroutine2()
-    {
-
-        transform.position -= new Vector3(boxSize, 0, 0);
-        yield return new WaitForSeconds(1f);
-
-    }
-    public void MoveRight()
-    {
-        StartCoroutine(MoveCoroutine3());
-    }
-
-    public IEnumerator MoveCoroutine3()
-    {
-
-        transform.position += new Vector3(boxSize, 0, 0);
-        yield return new WaitForSeconds(1f);
-
-    }
-    public void MoveDown1()
-    {
-        StartCoroutine(MoveCoroutine4());
-    }
-
-    public IEnumerator MoveCoroutine4()
-    {
-
-        transform.position -= new Vector3(0, boxSize, 0);
-        yield return new WaitForSeconds(1f);
-
-    }
-    public void MoveUp()
-    {
-        StartCoroutine(MoveCoroutine5());
-    }
-
-    public IEnumerator MoveCoroutine5()
-    {
-
-        transform.position += new Vector3(0, boxSize, 0);
-        yield return new WaitForSeconds(1f);
-
-    }
+   
 
     private void OnMouseDown()
     {
