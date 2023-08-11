@@ -561,67 +561,67 @@ MonoBehaviour:
   sfxSounds:
   - name: click
     clip: {fileID: 8300000, guid: b0611fcbe4144d546aca7463d885248f, type: 3}
-    volume: 1
+    volume: 0.5
     loop: 0
     source: {fileID: 0}
   - name: click1
     clip: {fileID: 8300000, guid: 1c456cc1175c16149ad6b17986915eee, type: 3}
-    volume: 1
+    volume: 0.5
     loop: 0
     source: {fileID: 0}
   - name: click2
     clip: {fileID: 8300000, guid: 5813bbdd36ff4ae43be733ee30a7d635, type: 3}
-    volume: 1
+    volume: 0.5
     loop: 0
     source: {fileID: 0}
   - name: good
     clip: {fileID: 8300000, guid: 8c8f15e8775ea454ba6d76f8dc865352, type: 3}
-    volume: 1
+    volume: 0.25
     loop: 0
     source: {fileID: 0}
   - name: great
     clip: {fileID: 8300000, guid: fda919c11b960504d839a7c4dfecb247, type: 3}
-    volume: 1
+    volume: 0.25
     loop: 0
     source: {fileID: 0}
   - name: excellent
     clip: {fileID: 8300000, guid: 9e64587262d9efa4c99e7e680df670c5, type: 3}
-    volume: 0
+    volume: 0.25
     loop: 0
     source: {fileID: 0}
   - name: amazing
     clip: {fileID: 8300000, guid: 62274ff808f610a4fac36cacdf9d9ef4, type: 3}
-    volume: 1
+    volume: 0.5
     loop: 0
     source: {fileID: 0}
   - name: unbelievable
     clip: {fileID: 8300000, guid: 8ee38693ed2ee50428232acd7ea18a50, type: 3}
-    volume: 1
+    volume: 0.5
     loop: 0
     source: {fileID: 0}
   - name: gameover
     clip: {fileID: 8300000, guid: 6c55e22c3d9bdaa4e9f43988883ce0d1, type: 3}
-    volume: 1
+    volume: 0.5
     loop: 0
     source: {fileID: 0}
   - name: gamestart
     clip: {fileID: 8300000, guid: 4301100fb00cb744cb4e673c2293601a, type: 3}
-    volume: 1
+    volume: 0.1
     loop: 0
     source: {fileID: 0}
   - name: it1
     clip: {fileID: 8300000, guid: 3dee82214bb267548ba6b786eac14a41, type: 3}
-    volume: 1
+    volume: 0.5
     loop: 0
     source: {fileID: 0}
   - name: it2
     clip: {fileID: 8300000, guid: 51ce1f5ab4bbf6c4ba9bafbea4a232f3, type: 3}
-    volume: 1
+    volume: 0.5
     loop: 0
     source: {fileID: 0}
   - name: it3
     clip: {fileID: 8300000, guid: cd2986a558d45114089788dc5041d151, type: 3}
-    volume: 1
+    volume: 0.5
     loop: 0
     source: {fileID: 0}
   musicSource: {fileID: 790987108}
@@ -683,11 +683,14 @@ MonoBehaviour:
   musicSliderValue: 0
   sfxSliderValue: 0
   musicVolume: 1
+  currentTime: 0
+  maxTime: 45
   start_new_game_classic: 0
   start_new_game_survival: 0
   ClassicGame: 0
   classicGame: 0
   survivalGame: 0
+  timeActive: 0
 --- !u!4 &1320249118
 Transform:
   m_ObjectHideFlags: 0

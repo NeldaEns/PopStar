@@ -13,11 +13,9 @@ public class UIMainMenu : UIScreenBase
     private void Start()
     {
         UpdateButton();
-        sfxSlider.value = DataManager.ins.sfxSliderValue;
-        DataManager.ins.sfxVolume = sfxSlider.value;
+        sfxSlider.value = DataManager.ins.sfxVolume;
         AudioManager.ins.SFXVolume(sfxSlider.value);
-        musicSlider.value = DataManager.ins.musicSliderValue;
-        DataManager.ins.musicVolume = musicSlider.value;
+        musicSlider.value = DataManager.ins.musicVolume;
         AudioManager.ins.MusicVolume(musicSlider.value);
     }
     private void Update()
@@ -126,8 +124,6 @@ public class UIMainMenu : UIScreenBase
     {
         DataManager.ins.musicVolume = musicSlider.value;
         DataManager.ins.SaveMusicVolume();
-        DataManager.ins.musicSliderValue = musicSlider.value;
-        DataManager.ins.SaveMusicSliderValue();
         AudioManager.ins.MusicVolume(musicSlider.value);
     }   
 
@@ -135,14 +131,12 @@ public class UIMainMenu : UIScreenBase
     {
         DataManager.ins.sfxVolume = sfxSlider.value;
         DataManager.ins.SaveSFXVolume();
-        DataManager.ins.sfxSliderValue = sfxSlider.value;
-        DataManager.ins.SaveSFXSliderValue();
         AudioManager.ins.SFXVolume(sfxSlider.value);
     }
 
     public void UpdateButton()
     {
-        if (DataManager.ins.musicSliderValue == 0)
+        if (DataManager.ins.musicVolume <= 0.2f)
         {
             musicButton.SetActive(true);
         }
@@ -150,7 +144,7 @@ public class UIMainMenu : UIScreenBase
         {
             musicButton.SetActive(false);
         }
-        if (DataManager.ins.sfxSliderValue == 0)
+        if (DataManager.ins.sfxVolume <= 0.2f)
         {
             sfxButton.SetActive(true);
         }

@@ -96,9 +96,6 @@ public class UIClassic : UIScreenBase
         {
             selectIT1.SetActive(true);
             AudioManager.ins.PlaySFX("click");
-            DataManager.ins.coin = DataManager.ins.coin - 2;
-            DataManager.ins.SaveCoin();
-            UpdateCoinText();
             GameController.instance.useIt1 = true;
             it2.enabled = false;
             it3.enabled = false;
@@ -111,13 +108,11 @@ public class UIClassic : UIScreenBase
         {
             selectIT2.SetActive(true);
             AudioManager.ins.PlaySFX("click");
-            DataManager.ins.coin = DataManager.ins.coin - 3;
-            DataManager.ins.SaveCoin();
-            UpdateCoinText();
             GameController.instance.useIt2 = true;
             it1.enabled = false;
             it3.enabled = false;
-        }       
+        }
+        
     }
 
     public void It3()
@@ -126,9 +121,6 @@ public class UIClassic : UIScreenBase
         {
             selectIT3.SetActive(true);
             AudioManager.ins.PlaySFX("click");
-            DataManager.ins.coin = DataManager.ins.coin - 4;
-            DataManager.ins.SaveCoin();
-            UpdateCoinText();
             GameController.instance.useIt3 = true;
             it1.enabled = false;
             it2.enabled = false;

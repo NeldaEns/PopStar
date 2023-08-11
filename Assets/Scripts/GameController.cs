@@ -749,7 +749,7 @@ public class GameController : MonoBehaviour
                 DataManager.ins.coin++;
                 DataManager.ins.SaveLevel();
                 DataManager.ins.SaveCoin();
-                DataManager.ins.target = DataManager.ins.target + 1750;
+                DataManager.ins.target = DataManager.ins.target + 1500 + DataManager.ins.level * 100 ;
                 DataManager.ins.SaveTarget();
                 ((UIClassic)UIController.ins.currentScreen).panel.SetActive(true);
                 for (int i = 0; i < 10; i++)
@@ -787,6 +787,7 @@ public class GameController : MonoBehaviour
     {
         if (KTGameLoseSurvival())
         {
+            DataManager.ins.timeActive = false;
             for (int i = 0; i < 12; i++)
             {
                 for (int j = 0; j < 12; j++)
@@ -930,6 +931,9 @@ public class GameController : MonoBehaviour
 
     public void ClickMoveBoxClassic1(int x, int y)
     {
+        DataManager.ins.coin -= 2;
+        DataManager.ins.SaveCoin();
+        ((UIClassic)UIController.ins.currentScreen).UpdateCoinText();
         AudioManager.ins.PlaySFX("it1");
         moveBox.Add(boxMatrixClassic[x][y]);
         clickBox1 = true;
@@ -944,6 +948,9 @@ public class GameController : MonoBehaviour
 
     public void ClickMoveBoxSurvival1(int x, int y)
     {
+        DataManager.ins.coin -= 2;
+        DataManager.ins.SaveCoin();
+        ((UISurvival)UIController.ins.currentScreen).UpdateCoinText();
         AudioManager.ins.PlaySFX("it1");
         moveBox.Add(boxMatrixSurvival[x][y]);
         clickBox1 = true;
@@ -961,11 +968,7 @@ public class GameController : MonoBehaviour
         if (clickBox1 && clickBox2 && moveBox.Count == 2)
         {
             Box box1 = moveBox[0].GetComponent<Box>();
-            //Debug.Log(box1.x);
-            //Debug.Log(box1.y);
             Box box2 = moveBox[1].GetComponent<Box>();
-            //Debug.Log(box2.x);
-            //Debug.Log(box2.y);
             BoxType color1 = box1.type;
             BoxType color2 = box2.type;
             if (box1 != null && box2 != null)
@@ -990,7 +993,8 @@ public class GameController : MonoBehaviour
                         box2.transform.position = box2.CalculatationPosition(box2.x, box2.y);
 
                     }
-                }else if(box1.y == box2.y)
+                }
+                else if(box1.y == box2.y)
                 {
                     if(Math.Abs(box1.x - box2.x) == 1)
                     {
@@ -1010,50 +1014,7 @@ public class GameController : MonoBehaviour
                         box2.transform.position = box2.CalculatationPosition(box2.x, box2.y);
                     }
                 }
-                //if (box1.x > 0 || box2.x > 0 && box1.x - box2.x == 1 || box2.x - box1.x == 1 && box1.y == box2.y && color1 != color2)
-                //{
-                //    var tempColor = DataManager.ins.colorMatrixClassic[box1.x][box1.y];
-                //    DataManager.ins.colorMatrixClassic[box1.x][box1.y] = DataManager.ins.colorMatrixClassic[box2.x][box2.y];
-                //    DataManager.ins.colorMatrixClassic[box2.x][box2.y] = tempColor;
-
-                //    int tempX = box1.x;
-                //    box1.x = box2.x;
-                //    box2.x = tempX;
-
-
-                //    int tempY = box1.y;
-                //    box1.y = box2.y;
-                //    box2.y = tempY;
-
-                //    box1.transform.position = box1.CalculatationPosition(box1.x, box1.y);
-
-
-                //    box2.transform.position = box2.CalculatationPosition(box2.x, box2.y);
-
-
-                //    //DataManager.ins.colorMatrixClassic[box2.x][box2.y] = boxMatrixClassic[box2.x][box2.y].GetComponent<Box>().type;
-                //}
-                //else if (box1.y > 0 || box2.y > 0 && box1.y - box2.y == 1 || box2.y - box1.y == 1 && box1.x == box2.x && color1 != color2)
-                //{
-                //    var tempColor = DataManager.ins.colorMatrixClassic[box1.x][box1.y];
-                //    DataManager.ins.colorMatrixClassic[box1.x][box1.y] = DataManager.ins.colorMatrixClassic[box2.x][box2.y];
-                //    DataManager.ins.colorMatrixClassic[box2.x][box2.y] = tempColor;
-
-                //    int tempX = box1.x;
-                //    box1.x = box2.x;
-                //    box2.x = tempX;
-
-                //    int tempY = box1.y;
-                //    box1.y = box2.y;
-                //    box2.y = tempY;
-
-                //    box1.transform.position = box1.CalculatationPosition(box1.x, box1.y);
-                //    //DataManager.ins.colorMatrixClassic[box1.x][box1.y] = boxMatrixClassic[box1.x][box1.y].GetComponent<Box>().type;
-                //    box2.transform.position = box2.CalculatationPosition(box2.x, box2.y);
-                //    //DataManager.ins.colorMatrixClassic[box2.x][box2.y] = boxMatrixClassic[box2.x][box2.y].GetComponent<Box>().type;
-                //}
             }
-
             CheckWinLoseClassic();
             SaveBoxClassic();
             moveBox.Clear();
@@ -1068,6 +1029,9 @@ public class GameController : MonoBehaviour
 
     public void Item2Classic(int x, int y)
     {
+        DataManager.ins.coin -= 3;
+        DataManager.ins.SaveCoin();
+        ((UIClassic)UIController.ins.currentScreen).UpdateCoinText();
         AudioManager.ins.PlaySFX("it2");
         AddScoreClassic(5);
         ColorExplosionClassic1(x, y);
@@ -1085,6 +1049,9 @@ public class GameController : MonoBehaviour
 
     public void Item3Classic(int x, int y)
     {
+        DataManager.ins.coin -= 4;
+        DataManager.ins.SaveCoin();
+        ((UIClassic)UIController.ins.currentScreen).UpdateCoinText();
         AudioManager.ins.PlaySFX("it3");
         ColorExplosionClassic1(x, y);
         Destroy(boxMatrixClassic[x][y]);
@@ -1107,22 +1074,72 @@ public class GameController : MonoBehaviour
     {
         if (clickBox1 == true && clickBox2 == true && moveBox.Count == 2)
         {
+            BoxSurvival box1 = moveBox[0].GetComponent<BoxSurvival>();
+            BoxSurvival box2 = moveBox[1].GetComponent<BoxSurvival>();
+            BoxType2 color1 = box1.type;
+            BoxType2 color2 = box2.type;
+            if (box1 != null && box2 != null)
+            {
+                if (box1.x == box2.x)
+                {
+                    if (Math.Abs(box1.y - box2.y) == 1)
+                    {
+                        var tempColor = DataManager.ins.colorMatrixSurvival[box1.x][box1.y];
+                        DataManager.ins.colorMatrixSurvival[box1.x][box1.y] = DataManager.ins.colorMatrixSurvival[box2.x][box2.y];
+                        DataManager.ins.colorMatrixSurvival[box2.x][box2.y] = tempColor;
+                        var temp = boxMatrixSurvival[box1.x][box1.y];
+                        boxMatrixSurvival[box1.x][box1.y] = boxMatrixSurvival[box2.x][box2.y];
+                        boxMatrixSurvival[box2.x][box2.y] = temp;
+                        var tempX = box1.x;
+                        box1.x = box2.x;
+                        box2.x = tempX;
+                        var tempY = box1.y;
+                        box1.y = box2.y;
+                        box2.y = tempY;
+                        box1.transform.position = box1.CalculatationPosition(box1.x, box1.y);
+                        box2.transform.position = box2.CalculatationPosition(box2.x, box2.y);
 
+                    }
+                }
+                else if (box1.y == box2.y)
+                {
+                    if (Math.Abs(box1.x - box2.x) == 1)
+                    {
+                        var tempColor = DataManager.ins.colorMatrixSurvival[box1.x][box1.y];
+                        DataManager.ins.colorMatrixSurvival[box1.x][box1.y] = DataManager.ins.colorMatrixSurvival[box2.x][box2.y];
+                        DataManager.ins.colorMatrixSurvival[box2.x][box2.y] = tempColor;
+                        var temp = boxMatrixSurvival[box1.x][box1.y];
+                        boxMatrixSurvival[box1.x][box1.y] = boxMatrixSurvival[box2.x][box2.y];
+                        boxMatrixSurvival[box2.x][box2.y] = temp;
+                        var tempX = box1.x;
+                        box1.x = box2.x;
+                        box2.x = tempX;
+                        var tempY = box1.y;
+                        box1.y = box2.y;
+                        box2.y = tempY;
+                        box1.transform.position = box1.CalculatationPosition(box1.x, box1.y);
+                        box2.transform.position = box2.CalculatationPosition(box2.x, box2.y);
+                    }
+                }
+            }
             CheckWinLoseSurvival();
             SaveBoxSurvival();
+            moveBox.Clear();
+            clickBox1 = false;
+            clickBox2 = false;
+            useIt1 = false;
+            ((UISurvival)UIController.ins.currentScreen).it2.enabled = true;
+            ((UISurvival)UIController.ins.currentScreen).it3.enabled = true;
+            ((UISurvival)UIController.ins.currentScreen).selectIT1.SetActive(false);
         }
-        moveBox.Clear();
-        clickBox1 = false;
-        clickBox2 = false;
-        useIt1 = false;
-        ((UISurvival)UIController.ins.currentScreen).it2.enabled = true;
-        ((UISurvival)UIController.ins.currentScreen).it3.enabled = true;
-        ((UISurvival)UIController.ins.currentScreen).selectIT1.SetActive(false);
     }
 
 
     public void Item2Survival(int x, int y)
     {
+        DataManager.ins.coin -= 3;
+        DataManager.ins.SaveCoin();
+        ((UISurvival)UIController.ins.currentScreen).UpdateCoinText();
         AudioManager.ins.PlaySFX("it2");
         AddScoreSurvival(5);
         ColorExplosionSurvival1(x, y);
@@ -1140,6 +1157,9 @@ public class GameController : MonoBehaviour
 
     public void Item3Survival(int x, int y)
     {
+        DataManager.ins.coin -= 4;
+        DataManager.ins.SaveCoin();
+        ((UISurvival)UIController.ins.currentScreen).UpdateCoinText();
         AudioManager.ins.PlaySFX("it3");
         ColorExplosionSurvival1(x, y);
         Destroy(boxMatrixSurvival[x][y]);

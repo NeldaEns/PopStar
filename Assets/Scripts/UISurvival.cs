@@ -72,9 +72,6 @@ public class UISurvival : UIScreenBase
         if (DataManager.ins.coin > 1)
         {
             selectIT1.SetActive(true);
-            DataManager.ins.coin = DataManager.ins.coin - 2;
-            DataManager.ins.SaveCoin();
-            UpdateCoinText();
             GameController.instance.useIt1 = true;
             it2.enabled = false;
             it3.enabled = false;
@@ -86,9 +83,6 @@ public class UISurvival : UIScreenBase
         if (DataManager.ins.coin > 2)
         {
             selectIT2.SetActive(true);
-            DataManager.ins.coin = DataManager.ins.coin - 3;
-            DataManager.ins.SaveCoin();
-            UpdateCoinText();
             GameController.instance.useIt2 = true;
             it1.enabled = false;
             it3.enabled = false;
@@ -100,9 +94,6 @@ public class UISurvival : UIScreenBase
         if (DataManager.ins.coin > 3)
         {
             selectIT3.SetActive(true);
-            DataManager.ins.coin = DataManager.ins.coin - 4;
-            DataManager.ins.SaveCoin();
-            UpdateCoinText();
             GameController.instance.useIt3 = true;
             it1.enabled = false;
             it2.enabled = false;

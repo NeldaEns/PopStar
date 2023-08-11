@@ -13,11 +13,9 @@ public class DataManager : MonoBehaviour
     public int highScoreClassic;
     public int highScoreSurvival;
     public int level;
-    public int target;
+    public float target;
     public int coin;
     public float sfxVolume;
-    public float musicSliderValue;
-    public float sfxSliderValue;
     public float musicVolume;
     public float currentTime;
     public float maxTime = 45f;
@@ -42,6 +40,7 @@ public class DataManager : MonoBehaviour
     private const string color_classic_key = "color_classic_key";
     private const string color_survival_key = "color_survival_key";
     private const string first_time_play_classic = "first_time_play_classic";
+    private const string first_time_play_game = "first_time_play_game";
     private const string first_time_play_survival = "first_time_play_survival";
     private const string music_volume = "music_volume";
     private const string sfx_volume = "sfx_volume";
@@ -61,8 +60,7 @@ public class DataManager : MonoBehaviour
             ins = this;
             DontDestroyOnLoad(gameObject);
         }
-        sfxSliderValue = 1;
-        musicSliderValue = 1;
+        FirstTimePlayGame();
         FirstTimePlayClassic();
         FirstTimePlaySurvival();
     }
@@ -91,7 +89,31 @@ public class DataManager : MonoBehaviour
             StartDataSurvival();
         }
     }
+    public void FirstTimePlayGame()
+    {
+        if (PlayerPrefs.HasKey(first_time_play_game))
+        {
+            LoadDataClassic();
+        }
+        else
+        {
+            PlayerPrefs.SetInt(first_time_play_game, 1);
+            StartDataClassic();
+        }
+    }
 
+    public void LoadDataAudio()
+    {
+        LoadMusicVolume();
+        LoadSFXVolume();
+    }
+    public void StartDataAudio()
+    {
+        musicVolume = 1;
+        sfxVolume = 1;
+        SaveMusicVolume();
+        SaveSFXVolume();
+    }
     public void LoadDataClassic()
     {
         LoadScoreClassic();
@@ -100,10 +122,6 @@ public class DataManager : MonoBehaviour
         LoadTarget();
         LoadCoin();
         LoadJsonClassic();
-        LoadMusicVolume();
-        LoadMusicSliderValue();
-        LoadSFXVolume();
-        LoadSFXSliderValue();
     }
     public void LoadDataSurvival()
     {
@@ -111,10 +129,6 @@ public class DataManager : MonoBehaviour
         LoadHighScoreSurvival();
         LoadCoin();
         LoadJsonSurvival();
-        LoadMusicVolume();
-        LoadMusicSliderValue();
-        LoadSFXVolume();
-        LoadSFXSliderValue();
         LoadTime();
     }
 
@@ -143,10 +157,6 @@ public class DataManager : MonoBehaviour
         SaveLevel();
         SaveTarget();
         SaveHighScoreClassic();
-        SaveMusicVolume();
-        SaveMusicSliderValue();
-        SaveSFXVolume();
-        SaveSFXSliderValue();
     }
     public void StartDataSurvival()
     {
@@ -171,10 +181,6 @@ public class DataManager : MonoBehaviour
         SaveCoin();
         SaveScoreSurvival();
         SaveHighScoreSurvival();
-        SaveMusicVolume();
-        SaveMusicSliderValue();
-        SaveSFXVolume();
-        SaveSFXSliderValue();
         SaveTime();
     }
 
@@ -272,11 +278,11 @@ public class DataManager : MonoBehaviour
 
     public void LoadTarget()
     {
-        target = PlayerPrefs.GetInt(target_key, 1000);
+        target = PlayerPrefs.GetFloat(target_key, 1000);
     }
     public void SaveTarget()
     {
-        PlayerPrefs.SetInt(target_key, target);
+        PlayerPrefs.SetFloat(target_key, target);
     }
 
     public void LoadCoin()
@@ -315,27 +321,9 @@ public class DataManager : MonoBehaviour
         PlayerPrefs.SetFloat(music_volume, musicVolume);
     }
 
-    public void LoadMusicSliderValue()
-    {
-        musicSliderValue = PlayerPrefs.GetFloat(music_slider_value);
-    }
-    public void SaveMusicSliderValue()
-    {
-        PlayerPrefs.SetFloat(music_slider_value, musicSliderValue);
-    }
-
-    public void LoadSFXSliderValue()
-    {
-        sfxSliderValue = PlayerPrefs.GetFloat(sfx_slider_value);
-    }
-    public void SaveSFXSliderValue()
-    {
-        PlayerPrefs.SetFloat(sfx_slider_value, sfxSliderValue);
-    }
-
     public void LoadSFXVolume()
     {
-        sfxVolume = PlayerPrefs.GetFloat(sfx_volume, 1);
+        sfxVolume = PlayerPrefs.GetFloat(sfx_volume);
     }
     public void SaveSFXVolume()
     {
