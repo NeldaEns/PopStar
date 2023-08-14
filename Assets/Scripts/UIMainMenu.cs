@@ -6,21 +6,23 @@ using UnityEngine.UI;
 
 public class UIMainMenu : UIScreenBase
 {
-    [SerializeField] public Slider musicSlider, sfxSlider;
-    public GameObject musicButton;
-    public GameObject sfxButton;
-
+    public Image musicButtonOn;
+    public Image musicButtonOff;
+    public Image sfxButtonOn;
+    public Image sfxButtonOff;
     private void Start()
     {
-        UpdateButton();
-        sfxSlider.value = DataManager.ins.sfxVolume;
-        AudioManager.ins.SFXVolume(sfxSlider.value);
-        musicSlider.value = DataManager.ins.musicVolume;
-        AudioManager.ins.MusicVolume(musicSlider.value);
-    }
-    private void Update()
-    {
-        UpdateButton(); 
+        DataManager.ins.AudioUpdate();
+         ToggleSFX();
+        if (musicButtonOn.enabled)
+        {
+            AudioManager.ins.musicSource.Play();
+        }
+        else
+        {
+            AudioManager.ins.musicSource.Pause();
+        }
+        MusicButton();
     }
     public void StartClassic()
     {
@@ -122,45 +124,52 @@ public class UIMainMenu : UIScreenBase
 
     public void MusicVolume()
     {
-        DataManager.ins.musicVolume = musicSlider.value;
-        DataManager.ins.SaveMusicVolume();
-        AudioManager.ins.MusicVolume(musicSlider.value);
-    }   
-
-    public void SFXVolume()
-    {
-        DataManager.ins.sfxVolume = sfxSlider.value;
-        DataManager.ins.SaveSFXVolume();
-        AudioManager.ins.SFXVolume(sfxSlider.value);
-    }
-
-    public void UpdateButton()
-    {
-        if (DataManager.ins.musicVolume <= 0.2f)
+        if(!DataManager.ins.musicMuted)
         {
-            musicButton.SetActive(true);
+            DataManager.ins.musicMuted = true;
+            AudioManager.ins.musicSource.Pause();
         }
         else
         {
-            musicButton.SetActive(false);
+            DataManager.ins.musicMuted = false;
+            AudioManager.ins.musicSource.Play();
         }
-        if (DataManager.ins.sfxVolume <= 0.2f)
-        {
-            sfxButton.SetActive(true);
-        }
-        else
-        {
-            sfxButton.SetActive(false);
-        }
+        DataManager.ins.SaveMusic();
+        MusicButton();
     }
 
+    
     public void MusicButton()
     {
         AudioManager.ins.PlaySFX("click");
+        if(!DataManager.ins.musicMuted)
+        {
+            musicButtonOn.enabled = true;
+            musicButtonOff.enabled = false;
+        }
+        else
+        {
+            musicButtonOn.enabled = false;
+            musicButtonOff.enabled = true;
+        }
     }
 
-    public void SFXButton()
+
+
+    public void ToggleSFX()
     {
         AudioManager.ins.PlaySFX("click");
+        AudioManager.ins.ToggleSFX();
+        if(AudioManager.ins.sfxSources.mute)
+        {
+            sfxButtonOn.enabled = false;
+            sfxButtonOff.enabled = true;
+        }
+        else
+        {
+            sfxButtonOn.enabled = true;
+            sfxButtonOff.enabled = false;
+        }
     }
+
 }

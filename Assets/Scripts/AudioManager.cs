@@ -25,7 +25,6 @@ public class AudioManager : MonoBehaviour
     void Start()
     {
         PlayMusic("bg");
-        musicSource.volume = DataManager.ins.musicVolume;   
     }
 
     public void PlayMusic(string name)
@@ -39,6 +38,7 @@ public class AudioManager : MonoBehaviour
         {           
             musicSource.loop = s.loop;
             musicSource.clip = s.clip;
+            musicSource.volume = s.volume;
             musicSource.Play();
         }
     }
@@ -52,23 +52,24 @@ public class AudioManager : MonoBehaviour
         }
         else
         {
-            sfxSources.PlayOneShot(s.clip);
             sfxSources.volume = s.volume;
+            sfxSources.PlayOneShot(s.clip);
         }
     }
 
     public void MusicVolume(float volume)
     {
-        DataManager.ins.musicVolume = musicSource.volume;
         musicSource.volume = volume;
-        DataManager.ins.SaveMusicVolume();
     }
 
     public void SFXVolume(float volume)
     {
-        DataManager.ins.sfxVolume = sfxSources.volume;
         sfxSources.volume = volume;
-        DataManager.ins.SaveSFXVolume();
+    }
+
+    public void ToggleSFX()
+    {
+        sfxSources.mute = !sfxSources.mute;
     }
 }
 

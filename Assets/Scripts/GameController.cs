@@ -39,6 +39,9 @@ public class GameController : MonoBehaviour
     public bool clickBox2;
     public bool gameOver;
     public bool gamePlay;
+    public bool isUsingIT1 = false;
+    public bool isUsingIT2 = false;
+    public bool isUsingIT3 = false;
 
     public Transform popup;
     public Ease ease;

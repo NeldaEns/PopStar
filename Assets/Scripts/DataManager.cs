@@ -15,8 +15,6 @@ public class DataManager : MonoBehaviour
     public int level;
     public float target;
     public int coin;
-    public float sfxVolume;
-    public float musicVolume;
     public float currentTime;
     public float maxTime = 45f;
     public bool start_new_game_classic;
@@ -25,7 +23,8 @@ public class DataManager : MonoBehaviour
     public bool classicGame;
     public bool survivalGame;
     public bool timeActive;
-
+    public bool musicMuted = false;
+    public bool sfxMuted = false;
 
     public List<List<BoxType>> colorMatrixClassic;
     public List<List<BoxType2>> colorMatrixSurvival;
@@ -40,14 +39,11 @@ public class DataManager : MonoBehaviour
     private const string color_classic_key = "color_classic_key";
     private const string color_survival_key = "color_survival_key";
     private const string first_time_play_classic = "first_time_play_classic";
-    private const string first_time_play_game = "first_time_play_game";
     private const string first_time_play_survival = "first_time_play_survival";
-    private const string music_volume = "music_volume";
-    private const string sfx_volume = "sfx_volume";
-    private const string music_slider_value = "music_slider_value";
-    private const string sfx_slider_value = "sfx_slider_value";
     private const string current_time_survival = "current_time_survival";
     private const string time_key = "time_key";
+    private const string music_muted_key = "music_muted_key";
+    private const string sfx_muted_key = "sfx_muted_key";
   
     private void Awake()
     {
@@ -60,7 +56,7 @@ public class DataManager : MonoBehaviour
             ins = this;
             DontDestroyOnLoad(gameObject);
         }
-        FirstTimePlayGame();
+        AudioUpdate();
         FirstTimePlayClassic();
         FirstTimePlaySurvival();
     }
@@ -89,30 +85,17 @@ public class DataManager : MonoBehaviour
             StartDataSurvival();
         }
     }
-    public void FirstTimePlayGame()
+    public void AudioUpdate()
     {
-        if (PlayerPrefs.HasKey(first_time_play_game))
+        if (!PlayerPrefs.HasKey(music_muted_key))
         {
-            LoadDataClassic();
+            PlayerPrefs.SetInt(music_muted_key, 0);
+            LoadMusic();
         }
         else
         {
-            PlayerPrefs.SetInt(first_time_play_game, 1);
-            StartDataClassic();
+            LoadMusic();
         }
-    }
-
-    public void LoadDataAudio()
-    {
-        LoadMusicVolume();
-        LoadSFXVolume();
-    }
-    public void StartDataAudio()
-    {
-        musicVolume = 1;
-        sfxVolume = 1;
-        SaveMusicVolume();
-        SaveSFXVolume();
     }
     public void LoadDataClassic()
     {
@@ -249,6 +232,7 @@ public class DataManager : MonoBehaviour
         PlayerPrefs.SetString(color_survival_key, finalJson);
     }
 
+
     public void LoadLevel()
     {
         level = PlayerPrefs.GetInt(level_key, 1);
@@ -312,24 +296,6 @@ public class DataManager : MonoBehaviour
         PlayerPrefs.SetInt(high_score_survival_key, highScoreSurvival);
     }
 
-    public void LoadMusicVolume()
-    {      
-        musicVolume = PlayerPrefs.GetFloat(music_volume);
-    }
-    public void SaveMusicVolume()
-    {
-        PlayerPrefs.SetFloat(music_volume, musicVolume);
-    }
-
-    public void LoadSFXVolume()
-    {
-        sfxVolume = PlayerPrefs.GetFloat(sfx_volume);
-    }
-    public void SaveSFXVolume()
-    {
-        PlayerPrefs.SetFloat(sfx_volume, sfxVolume);
-    }
-
     public void LoadTime()
     {
         maxTime = PlayerPrefs.GetFloat(time_key);
@@ -337,6 +303,16 @@ public class DataManager : MonoBehaviour
     public void SaveTime()
     {
         PlayerPrefs.SetFloat(time_key, maxTime);
+    }
+
+    public void LoadMusic()
+    {
+        musicMuted = PlayerPrefs.GetInt(music_muted_key) == 1;
+    }
+
+    public void SaveMusic()
+    {
+        PlayerPrefs.SetInt(music_muted_key, musicMuted ? 1 : 0);
     }
 
 }

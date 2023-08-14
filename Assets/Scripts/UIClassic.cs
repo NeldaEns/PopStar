@@ -92,38 +92,73 @@ public class UIClassic : UIScreenBase
 
     public void It1()
     {
-        if (DataManager.ins.coin > 1)
+        if (!GameController.instance.isUsingIT1)
         {
-            selectIT1.SetActive(true);
-            AudioManager.ins.PlaySFX("click");
-            GameController.instance.useIt1 = true;
-            it2.enabled = false;
-            it3.enabled = false;
+            if (DataManager.ins.coin > 1)
+            {
+                selectIT1.SetActive(true);
+                AudioManager.ins.PlaySFX("click");
+                GameController.instance.useIt1 = true;
+                it2.enabled = false;
+                it3.enabled = false;
+            }
         }
+        else
+        {
+            selectIT1.SetActive(false);
+            AudioManager.ins.PlaySFX("click");
+            GameController.instance.useIt1 = false;
+            it2.enabled = true;
+            it3.enabled = true;
+        }
+        GameController.instance.isUsingIT1 = !GameController.instance.isUsingIT1;
     }
 
     public void It2()
     {
-        if (DataManager.ins.coin > 2)
+        if (!GameController.instance.isUsingIT2)
         {
-            selectIT2.SetActive(true);
-            AudioManager.ins.PlaySFX("click");
-            GameController.instance.useIt2 = true;
-            it1.enabled = false;
-            it3.enabled = false;
+            if (DataManager.ins.coin > 2)
+            {
+                selectIT2.SetActive(true);
+                AudioManager.ins.PlaySFX("click");
+                GameController.instance.useIt2= true;
+                it1.enabled = false;
+                it3.enabled = false;
+            }
         }
-        
+        else
+        {
+            selectIT2.SetActive(false);
+            AudioManager.ins.PlaySFX("click");
+            GameController.instance.useIt2 = false;
+            it1.enabled = true;
+            it3.enabled = true;
+        }
+        GameController.instance.isUsingIT2 = !GameController.instance.isUsingIT2;
     }
 
     public void It3()
     {
-        if (DataManager.ins.coin > 3)
+        if (!GameController.instance.isUsingIT3)
         {
-            selectIT3.SetActive(true);
-            AudioManager.ins.PlaySFX("click");
-            GameController.instance.useIt3 = true;
-            it1.enabled = false;
-            it2.enabled = false;
+            if (DataManager.ins.coin > 3)
+            {
+                selectIT3.SetActive(true);
+                AudioManager.ins.PlaySFX("click");
+                GameController.instance.useIt3 = true;
+                it1.enabled = false;
+                it2.enabled = false;
+            }
         }
+        else
+        {
+            selectIT3.SetActive(false);
+            AudioManager.ins.PlaySFX("click");
+            GameController.instance.useIt3 = false;
+            it1.enabled = true;
+            it2.enabled = true;
+        }
+        GameController.instance.isUsingIT3 = !GameController.instance.isUsingIT3;
     }
 }
