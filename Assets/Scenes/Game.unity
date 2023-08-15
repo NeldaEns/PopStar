@@ -344,6 +344,7 @@ MonoBehaviour:
     type: 3}
   unbelievableexplosion: {fileID: 2203112218923668955, guid: 8ddfa78634522034fafc79e87df1570c,
     type: 3}
+  swapBox: {fileID: 2203112218923668955, guid: c5d37a5031c9b7a43b33a1a5c28a7758, type: 3}
   objectParent: {fileID: 1728260223}
   linebroad: {fileID: 1489979377}
   useIt1: 0
@@ -352,6 +353,10 @@ MonoBehaviour:
   clickBox1: 0
   clickBox2: 0
   gameOver: 0
+  gamePlay: 0
+  isUsingIT1: 0
+  isUsingIT2: 0
+  isUsingIT3: 0
   popup: {fileID: 1728260224}
   ease: 31
 --- !u!4 &1578716626

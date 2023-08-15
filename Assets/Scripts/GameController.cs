@@ -28,6 +28,7 @@ public class GameController : MonoBehaviour
     public GameObject excellentexplosion;
     public GameObject amazingexplosion;
     public GameObject unbelievableexplosion;
+    public GameObject swapBox;
     public GameObject objectParent;
     public GameObject linebroad;
 
@@ -326,35 +327,35 @@ public class GameController : MonoBehaviour
                 GameObject popPurple = Instantiate(purpleExplosion);
                 popPurple.SetActive(true);
                 popPurple.transform.position = breakBox[i].transform.position;
-                Destroy(popPurple, 3f);
+                Destroy(popPurple, 1f);
             }
             if (breakBox[i].GetComponent<Box>().type == BoxType.Orange)
             {
                 GameObject popGreen = Instantiate(greenExplosion);
                 popGreen.SetActive(true);
                 popGreen.transform.position = breakBox[i].transform.position;
-                Destroy(popGreen, 3f);
+                Destroy(popGreen, 1f);
             }
             if (breakBox[i].GetComponent<Box>().type == BoxType.Green)
             {
                 GameObject popPink = Instantiate(pinkExplosion);
                 popPink.SetActive(true);
                 popPink.transform.position = breakBox[i].transform.position;
-                Destroy(popPink, 3f);
+                Destroy(popPink, 1f);
             }
             if (breakBox[i].GetComponent<Box>().type == BoxType.Red)
             {
                 GameObject popRed = Instantiate(redExplosion);
                 popRed.SetActive(true);
                 popRed.transform.position = breakBox[i].transform.position;
-                Destroy(popRed, 3f);
+                Destroy(popRed, 1f);
             }
             if (breakBox[i].GetComponent<Box>().type == BoxType.Yellow)
             {
                 GameObject popYellow = Instantiate(yellowExplosion);
                 popYellow.SetActive(true);
                 popYellow.transform.position = breakBox[i].transform.position;
-                Destroy(popYellow, 3f);
+                Destroy(popYellow, 1f);
             }
         }
     }
@@ -372,28 +373,28 @@ public class GameController : MonoBehaviour
             GameObject popGreen = Instantiate(greenExplosion);
             popGreen.SetActive(true);
             popGreen.transform.position = boxMatrixClassic[x][y].transform.position;
-            Destroy(popGreen, 3f);
+            Destroy(popGreen, 1f);
         }
         if (boxMatrixClassic[x][y].GetComponent<Box>().type == BoxType.Purple)
         {
             GameObject popPurple = Instantiate(purpleExplosion);
             popPurple.SetActive(true);
             popPurple.transform.position = boxMatrixClassic[x][y].transform.position;
-            Destroy(popPurple, 3f);
+            Destroy(popPurple, 1f);
         }
         if (boxMatrixClassic[x][y].GetComponent<Box>().type == BoxType.Red)
         {
             GameObject popRed = Instantiate(redExplosion);
             popRed.SetActive(true);
             popRed.transform.position = boxMatrixClassic[x][y].transform.position;
-            Destroy(popRed, 3f);
+            Destroy(popRed, 1f);
         }
         if (boxMatrixClassic[x][y].GetComponent<Box>().type == BoxType.Yellow)
         {
             GameObject popYellow = Instantiate(yellowExplosion);
             popYellow.SetActive(true);
             popYellow.transform.position = boxMatrixClassic[x][y].transform.position;
-            Destroy(popYellow, 3f);
+            Destroy(popYellow, 1f);
         }
     }
 
@@ -406,42 +407,42 @@ public class GameController : MonoBehaviour
                 GameObject popPurple = Instantiate(purpleExplosion);
                 popPurple.SetActive(true);
                 popPurple.transform.position = breakBox[i].transform.position;
-                Destroy(popPurple, 3f);
+                Destroy(popPurple, 1f);
             }
             if (breakBox[i].GetComponent<BoxSurvival>().type == BoxType2.Orange)
             {
                 GameObject popOrange = Instantiate(orangeExplosion);
                 popOrange.SetActive(true);
                 popOrange.transform.position = breakBox[i].transform.position;
-                Destroy(popOrange, 3f);
+                Destroy(popOrange, 1f);
             }
             if (breakBox[i].GetComponent<BoxSurvival>().type == BoxType2.Pink)
             {
                 GameObject popPink = Instantiate(pinkExplosion);
                 popPink.SetActive(true);
                 popPink.transform.position = breakBox[i].transform.position;
-                Destroy(popPink, 3f);
+                Destroy(popPink, 1f);
             }
             if (breakBox[i].GetComponent<BoxSurvival>().type == BoxType2.Red)
             {
                 GameObject popRed = Instantiate(redExplosion);
                 popRed.SetActive(true);
                 popRed.transform.position = breakBox[i].transform.position;
-                Destroy(popRed, 3f);
+                Destroy(popRed, 1f);
             }
             if (breakBox[i].GetComponent<BoxSurvival>().type == BoxType2.Yellow)
             {
                 GameObject popYellow = Instantiate(yellowExplosion);
                 popYellow.SetActive(true);
                 popYellow.transform.position = breakBox[i].transform.position;
-                Destroy(popYellow, 3f);
+                Destroy(popYellow, 1f);
             }
             if (breakBox[i].GetComponent<BoxSurvival>().type == BoxType2.Green)
             {
                 GameObject popGreen = Instantiate(greenExplosion);
                 popGreen.SetActive(true);
                 popGreen.transform.position = breakBox[i].transform.position;
-                Destroy(popGreen, 3f);
+                Destroy(popGreen, 1f);
             }
         }
     }
@@ -452,45 +453,60 @@ public class GameController : MonoBehaviour
             GameObject popOrange = Instantiate(orangeExplosion);
             popOrange.SetActive(true);
             popOrange.transform.position = boxMatrixSurvival[x][y].transform.position;
-            Destroy(popOrange, 3f);
+            Destroy(popOrange, 1f);
         }
         if (boxMatrixSurvival[x][y].GetComponent<BoxSurvival>().type == BoxType2.Pink)
         {
             GameObject popPink = Instantiate(pinkExplosion);
             popPink.SetActive(true);
             popPink.transform.position = boxMatrixSurvival[x][y].transform.position;
-            Destroy(popPink, 3f);
+            Destroy(popPink, 1f);
         }
         if (boxMatrixSurvival[x][y].GetComponent<BoxSurvival>().type == BoxType2.Purple)
         {
             GameObject popPurple = Instantiate(purpleExplosion);
             popPurple.SetActive(true);
             popPurple.transform.position = boxMatrixSurvival[x][y].transform.position;
-            Destroy(popPurple, 3f);
+            Destroy(popPurple, 1f);
         }
         if (boxMatrixSurvival[x][y].GetComponent<BoxSurvival>().type == BoxType2.Red)
         {
             GameObject popRed = Instantiate(redExplosion);
             popRed.SetActive(true);
             popRed.transform.position = boxMatrixSurvival[x][y].transform.position;
-            Destroy(popRed, 3f);
+            Destroy(popRed, 1f);
         }
         if (boxMatrixSurvival[x][y].GetComponent<BoxSurvival>().type == BoxType2.Yellow)
         {
             GameObject popYellow = Instantiate(yellowExplosion);
             popYellow.SetActive(true);
             popYellow.transform.position = boxMatrixSurvival[x][y].transform.position;
-            Destroy(popYellow, 3f);
+            Destroy(popYellow, 1f);
         }
         if (boxMatrixSurvival[x][y].GetComponent<BoxSurvival>().type == BoxType2.Green)
         {
             GameObject popGreen = Instantiate(greenExplosion);
             popGreen.SetActive(true);
             popGreen.transform.position = boxMatrixSurvival[x][y].transform.position;
-            Destroy(popGreen, 3f);
+            Destroy(popGreen, 1f);
         }
     }
 
+    public void SwapBoxClassic(int x, int y)
+    {
+        GameObject swapBox1 = Instantiate(swapBox);
+        swapBox1.SetActive(true);
+        swapBox1.transform.position = boxMatrixClassic[x][y].transform.position;
+        Destroy(swapBox1, 3f);
+    }
+
+    public void SwapBoxSurvival(int x, int y)
+    {
+        GameObject swapBox1 = Instantiate(swapBox);
+        swapBox1.SetActive(true);
+        swapBox1.transform.position = boxMatrixSurvival[x][y].transform.position;
+        Destroy(swapBox1, 3f);
+    }
     public void BreakBoxClassic()
     {
         for (int i = 0; i < breakBox.Count; i++)
@@ -1017,6 +1033,8 @@ public class GameController : MonoBehaviour
                         box2.transform.position = box2.CalculatationPosition(box2.x, box2.y);
                     }
                 }
+                SwapBoxClassic(box1.x, box1.y);
+                SwapBoxClassic(box2.x, box2.y);
             }
             CheckWinLoseClassic();
             SaveBoxClassic();
@@ -1024,9 +1042,11 @@ public class GameController : MonoBehaviour
             clickBox1 = false;
             clickBox2 = false;
             useIt1 = false;
+            ((UIClassic)UIController.ins.currentScreen).it1.enabled = true;
             ((UIClassic)UIController.ins.currentScreen).it2.enabled = true;
             ((UIClassic)UIController.ins.currentScreen).it3.enabled = true;
             ((UIClassic)UIController.ins.currentScreen).selectIT1.SetActive(false);
+            isUsingIT1 = false;
         }
     }
 
@@ -1046,8 +1066,10 @@ public class GameController : MonoBehaviour
         breakBox.Clear();
         useIt2 = false;
         ((UIClassic)UIController.ins.currentScreen).it1.enabled = true;
+        ((UIClassic)UIController.ins.currentScreen).it2.enabled = true;
         ((UIClassic)UIController.ins.currentScreen).it3.enabled = true;
         ((UIClassic)UIController.ins.currentScreen).selectIT2.SetActive(false);
+        isUsingIT2 = false;
     }
 
     public void Item3Classic(int x, int y)
@@ -1070,7 +1092,9 @@ public class GameController : MonoBehaviour
         useIt3 = false;
         ((UIClassic)UIController.ins.currentScreen).it1.enabled = true;
         ((UIClassic)UIController.ins.currentScreen).it2.enabled = true;
+        ((UIClassic)UIController.ins.currentScreen).it3.enabled = true;
         ((UIClassic)UIController.ins.currentScreen).selectIT3.SetActive(false);
+        isUsingIT3 = false;
     }
 
     public void Item1Survival()
@@ -1124,6 +1148,8 @@ public class GameController : MonoBehaviour
                         box2.transform.position = box2.CalculatationPosition(box2.x, box2.y);
                     }
                 }
+                SwapBoxSurvival(box1.x, box1.y);
+                SwapBoxSurvival(box2.x, box2.y);
             }
             CheckWinLoseSurvival();
             SaveBoxSurvival();
@@ -1131,9 +1157,11 @@ public class GameController : MonoBehaviour
             clickBox1 = false;
             clickBox2 = false;
             useIt1 = false;
+            ((UISurvival)UIController.ins.currentScreen).it1.enabled = true;
             ((UISurvival)UIController.ins.currentScreen).it2.enabled = true;
             ((UISurvival)UIController.ins.currentScreen).it3.enabled = true;
             ((UISurvival)UIController.ins.currentScreen).selectIT1.SetActive(false);
+            isUsingIT1 = false;
         }
     }
 
@@ -1154,8 +1182,10 @@ public class GameController : MonoBehaviour
         breakBox.Clear();
         useIt2 = false;
         ((UISurvival)UIController.ins.currentScreen).it1.enabled = true;
+        ((UISurvival)UIController.ins.currentScreen).it2.enabled = true;
         ((UISurvival)UIController.ins.currentScreen).it3.enabled = true;
         ((UISurvival)UIController.ins.currentScreen).selectIT2.SetActive(false);
+        isUsingIT2 = false;
     }
 
     public void Item3Survival(int x, int y)
@@ -1178,6 +1208,8 @@ public class GameController : MonoBehaviour
         useIt3 = false;
         ((UISurvival)UIController.ins.currentScreen).it1.enabled = true;
         ((UISurvival)UIController.ins.currentScreen).it2.enabled = true;
+        ((UISurvival)UIController.ins.currentScreen).it3.enabled = true;
         ((UISurvival)UIController.ins.currentScreen).selectIT3.SetActive(false);
+        isUsingIT3 = false;
     }
 }
