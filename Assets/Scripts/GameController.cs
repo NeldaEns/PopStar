@@ -310,7 +310,6 @@ public class GameController : MonoBehaviour
                 }
             }
             gameOver = true;
-            ManagerAds.Ins.ShowInterstitial();
             linebroad.SetActive(false);
             UIController.ins.ShowGameOverSurvival();
             ((SurvivalGameOverScreen)UIController.ins.currentScreen).ScoreSurvival();
@@ -786,7 +785,6 @@ public class GameController : MonoBehaviour
             }
             else
             {
-                ManagerAds.Ins.ShowInterstitial();
                 linebroad.SetActive(false);
                 UIController.ins.ShowGameOverClassic();
                 ((GameOverScreenClassic)UIController.ins.currentScreen).ScoreClassic();
@@ -816,7 +814,6 @@ public class GameController : MonoBehaviour
                 }
             }
             gameOver = true;
-            ManagerAds.Ins.ShowInterstitial();
             linebroad.SetActive(false);
             UIController.ins.ShowGameOverSurvival();
             ((SurvivalGameOverScreen)UIController.ins.currentScreen).ScoreSurvival();
